@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Dream Draw — Win Premium Prizes from £1.99</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Variables ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream:        #FDFBF7;
+    --cream-warm:   #F8F3E9;
+    --white:        #FFFFFF;
+    --gold:         #B8943A;
+    --gold-light:   #D4B96A;
+    --gold-pale:    #F0E6CC;
+    --gold-dark:    #8B6914;
+    --ink:          #1C1C1C;
+    --ink-soft:     #4A4A4A;
+    --ink-muted:    #7A7A7A;
+    --border:       #E5DED2;
+    --border-light: #F0EAE0;
+    --success:      #2D7D46;
+    --card-shadow:  0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.05);
+    --card-shadow-hover: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
+    --radius:       12px;
+    --radius-sm:    8px;
+    --max-width:    1280px;
+  }
+
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── Typography ── */
+  .serif { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; }
+  .serif-italic { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-style: italic; }
+
+  h1, h2, h3, .section-label { font-weight: 500; }
+
+  /* ── Layout ── */
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 48px; }
+
+  section { padding: 96px 0; }
+
+  /* ── Header ── */
+  .header {
+    position: static;
+    background: transparent;
+  }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    max-width: var(--max-width); margin: 0 auto; padding: 0 48px; height: 72px;
+  }
+  .logo-link { text-decoration: none; display: flex; align-items: center; gap: 0; }
+  .logo-mark {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .logo-diamond {
+    width: 16px; height: 16px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .logo-wordmark {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 1.5px;
+    line-height: 1;
+  }
+  .logo-wordmark strong {
+    font-weight: 700;
+    color: var(--gold-dark);
+  }
+  .header-nav { display: flex; align-items: center; gap: 32px; list-style: none; }
+  .header-nav a {
+    text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 500;
+    transition: color 0.2s; letter-spacing: -0.1px;
+  }
+  .header-nav a:hover { color: var(--gold-dark); }
+  .header-actions { display: flex; align-items: center; gap: 16px; }
+  .lang-switcher {
+    display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+    border: 1px solid var(--border); border-radius: 20px;
+    font-size: 13px; color: var(--ink-muted); cursor: pointer;
+    background: var(--white); transition: border-color 0.2s;
+  }
+  .lang-switcher:hover { border-color: var(--gold); }
+  .lang-switcher .chevron { font-size: 10px; margin-left: 2px; }
+  .btn-signin {
+    padding: 8px 20px; border: 1px solid var(--ink);
+    border-radius: 24px; font-size: 14px; font-weight: 500;
+    background: transparent; color: var(--ink); cursor: pointer;
+    transition: all 0.2s; font-family: inherit;
+  }
+  .btn-signin:hover { background: var(--ink); color: var(--white); }
+
+  /* ── Buttons ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; background: var(--gold);
+    color: white; border: none; border-radius: 28px;
+    font-size: 15px; font-weight: 600; cursor: pointer;
+    font-family: inherit; letter-spacing: -0.1px;
+    transition: all 0.25s; text-decoration: none;
+    box-shadow: 0 2px 8px rgba(184, 148, 58, 0.25);
+  }
+  .btn-primary:hover { background: var(--gold-dark); box-shadow: 0 4px 16px rgba(184, 148, 58, 0.4); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; background: transparent;
+    color: var(--ink); border: 1.5px solid var(--border);
+    border-radius: 28px; font-size: 15px; font-weight: 500; cursor: pointer;
+    font-family: inherit; letter-spacing: -0.1px;
+    transition: all 0.25s; text-decoration: none;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-dark); }
+  .btn-sm {
+    padding: 8px 18px; font-size: 13px; border-radius: 20px; font-weight: 600;
+  }
+
+  /* ── Hero ── */
+  .hero { padding: 80px 0 120px; background: var(--cream); }
+  .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 16px; background: var(--gold-pale);
+    border-radius: 20px; font-size: 13px; font-weight: 600;
+    color: var(--gold-dark); letter-spacing: 0.5px; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); }
+  .hero-title { font-size: 56px; line-height: 1.1; font-weight: 600; margin-bottom: 20px; letter-spacing: -0.5px; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-size: 17px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 36px; max-width: 440px; }
+  .hero-ctas { display: flex; gap: 12px; margin-bottom: 48px; }
+  .hero-trust { display: flex; gap: 32px; padding-top: 32px; border-top: 1px solid var(--border); }
+  .hero-trust-item { display: flex; flex-direction: column; gap: 4px; }
+  .hero-trust-number { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--gold-dark); line-height: 1; }
+  .hero-trust-label { font-size: 13px; color: var(--ink-muted); }
+
+  /* Featured Prize Card (hero) */
+  .featured-card {
+    background: var(--white); border-radius: 20px;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    overflow: hidden; position: relative;
+  }
+  .featured-card-img {
+    height: 280px; position: relative; overflow: hidden;
+    background: linear-gradient(135deg, #F5F0E8 0%, #EDE4D2 30%, #F0E8D8 60%, #F8F4EC 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .featured-placeholder {
+    text-align: center; color: var(--ink-muted);
+  }
+  .featured-placeholder .icon-circle {
+    width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 12px;
+    background: linear-gradient(135deg, var(--gold-pale), rgba(212,185,106,0.3));
+    display: flex; align-items: center; justify-content: center; font-size: 32px;
+  }
+  .featured-placeholder .label { font-size: 13px; font-weight: 500; }
+  .featured-card-badge {
+    position: absolute; top: 20px; left: 20px;
+    padding: 6px 14px; background: var(--gold);
+    color: white; font-size: 12px; font-weight: 600; border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+  .featured-card-body { padding: 28px; }
+  .featured-card-category { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-muted); margin-bottom: 8px; font-weight: 600; }
+  .featured-card-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 600; margin-bottom: 20px; line-height: 1.3; }
+  .featured-card-progress { margin-bottom: 16px; }
+  .featured-card-progress-header { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; }
+  .featured-card-progress-header .sold { color: var(--gold-dark); font-weight: 600; }
+  .featured-card-progress-header .remaining { color: var(--ink-muted); }
+  .progress-bar { height: 6px; background: var(--border-light); border-radius: 3px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--gold); border-radius: 3px; transition: width 0.8s ease; }
+  .featured-card-footer { display: flex; justify-content: space-between; align-items: center; }
+  .featured-card-price { font-size: 22px; font-weight: 700; color: var(--ink); }
+  .featured-card-price span { font-size: 13px; font-weight: 400; color: var(--ink-muted); }
+  .featured-card-draw { font-size: 13px; color: var(--ink-muted); display: flex; align-items: center; gap: 6px; }
+
+  /* ── Stats Bar ── */
+  .stats-bar { padding: 0; }
+  .stats-inner {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    background: var(--white); border-radius: 16px;
+    box-shadow: var(--card-shadow); overflow: hidden;
+  }
+  .stat-item { padding: 32px 40px; text-align: center; position: relative; }
+  .stat-item:not(:last-child)::after {
+    content: ''; position: absolute; right: 0; top: 20%; height: 60%;
+    width: 1px; background: var(--border-light);
+  }
+  .stat-number { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 600; color: var(--gold-dark); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 14px; color: var(--ink-muted); }
+  .stat-stars { color: var(--gold); font-size: 18px; margin-bottom: 4px; }
+
+  /* ── Section Headers ── */
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-label { font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold-dark); margin-bottom: 12px; font-weight: 600; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 600; line-height: 1.15; margin-bottom: 16px; }
+  .section-subtitle { font-size: 16px; color: var(--ink-muted); max-width: 480px; margin: 0 auto; }
+  .section-header-row { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+  .section-header-row .section-title { margin-bottom: 0; font-size: 36px; }
+  .section-header-row .view-all {
+    font-size: 14px; font-weight: 600; color: var(--gold-dark); text-decoration: none;
+    display: flex; align-items: center; gap: 6px; transition: gap 0.2s;
+  }
+  .section-header-row .view-all:hover { gap: 12px; }
+
+  /* ── Prize Grid ── */
+  .prize-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+  .prize-card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--card-shadow); overflow: hidden;
+    transition: all 0.3s ease; cursor: pointer;
+    position: relative;
+  }
+  .prize-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
+  .prize-card-img {
+    height: 200px; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .prize-card-badge {
+    position: absolute; top: 12px; right: 12px;
+    padding: 4px 10px; border-radius: 12px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    color: white;
+  }
+  .badge-electronics { background: #5B7A8C; }
+  .badge-jewellery { background: #9B7B5B; }
+  .badge-fashion { background: #8C6B7A; }
+  .badge-cash { background: #5B8C5A; }
+
+  .prize-card-body { padding: 20px; }
+  .prize-card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+  .prize-card-subtitle { font-size: 13px; color: var(--ink-muted); margin-bottom: 14px; }
+  .prize-card-progress { margin-bottom: 12px; }
+  .prize-card-progress-header { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
+  .prize-card-meta { display: flex; justify-content: space-between; align-items: center; }
+  .prize-card-draw { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 4px; }
+  .prize-card-draw svg { width: 14px; height: 14px; }
+  .prize-card-price { font-weight: 700; font-size: 16px; color: var(--ink); }
+
+  /* Prize card image placeholders */
+  .img-ph-jewellery {
+    background: linear-gradient(135deg, #F5EFE6 0%, #EDE0D0 40%, #F0E5D8 70%, #F8F2EA 100%);
+  }
+  .img-ph-electronics {
+    background: linear-gradient(135deg, #EDF2F5 0%, #DEE8ED 40%, #E5ECF0 70%, #F0F4F6 100%);
+  }
+  .img-ph-fashion {
+    background: linear-gradient(135deg, #F5EFF2 0%, #EDE0E5 40%, #F0E5EA 70%, #F8F2F5 100%);
+  }
+  .img-ph-cash {
+    background: linear-gradient(135deg, #EFF5EF 0%, #E0EDE0 40%, #E5F0E5 70%, #F2F8F2 100%);
+  }
+  .ph-icon { font-size: 48px; opacity: 0.5; }
+
+  /* Compact progress bar */
+  .progress-compact { height: 4px; border-radius: 2px; background: var(--border-light); overflow: hidden; }
+  .progress-compact-fill { height: 100%; background: var(--gold); border-radius: 2px; }
+
+  /* ── How It Works ── */
+  .how-bg { background: var(--cream-warm); }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; position: relative; }
+  .steps-grid::before {
+    content: ''; position: absolute; top: 52px; left: 15%; right: 15%; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-light), transparent);
+    z-index: 0;
+  }
+  .step-card { text-align: center; position: relative; z-index: 1; }
+  .step-number {
+    width: 104px; height: 104px; border-radius: 50%; margin: 0 auto 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--white);
+    border: 2px solid var(--gold-light);
+    font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 600;
+    color: var(--gold-dark);
+    box-shadow: 0 0 0 8px var(--cream-warm);
+  }
+  .step-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+  .step-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.6; }
+  .step-platforms { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+  .platform-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 16px; font-size: 12px; font-weight: 600;
+    background: var(--border-light); color: var(--ink-soft);
+  }
+
+  /* ── Winners ── */
+  .winners-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+
+  .winner-card {
+    background: var(--white); border-radius: var(--radius);
+    box-shadow: var(--card-shadow); padding: 28px 20px; text-align: center;
+    transition: all 0.3s ease;
+  }
+  .winner-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-2px); }
+  .winner-avatar {
+    width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 16px;
+    background: var(--border-light);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 600; color: var(--ink-muted);
+    position: relative;
+  }
+  .winner-avatar::after {
+    content: ''; position: absolute; bottom: 2px; right: 2px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--success); border: 2px solid white;
+  }
+  .winner-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .winner-prize { font-size: 13px; color: var(--gold-dark); font-weight: 500; margin-bottom: 4px; }
+  .winner-date { font-size: 12px; color: var(--ink-muted); }
+
+  /* ── FAQ ── */
+  .faq-bg { background: var(--white); }
+  .faq-list { max-width: 720px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--border-light); }
+  .faq-item:first-child { border-top: 1px solid var(--border-light); }
+  .faq-question {
+    width: 100%; padding: 24px 0; text-align: left;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 500;
+    color: var(--ink); display: flex; justify-content: space-between; align-items: center;
+    gap: 16px; transition: color 0.2s;
+  }
+  .faq-question:hover { color: var(--gold-dark); }
+  .faq-icon {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; color: var(--ink-muted); flex-shrink: 0;
+    transition: all 0.3s;
+  }
+  .faq-item.open .faq-icon { background: var(--gold); border-color: var(--gold); color: white; transform: rotate(45deg); }
+  .faq-answer {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
+    font-size: 15px; color: var(--ink-soft); line-height: 1.7;
+  }
+  .faq-item.open .faq-answer { max-height: 400px; padding-bottom: 24px; }
+  .faq-answer a { color: var(--gold-dark); text-decoration: underline; }
+
+  /* ── CTA Banner ── */
+  .cta-banner {
+    background: linear-gradient(135deg, #F5EDDA 0%, #FDF7EC 40%, #F8EFDD 100%);
+    border-radius: 20px; padding: 64px; text-align: center;
+    border: 1px solid rgba(184, 148, 58, 0.15);
+  }
+  .cta-banner-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 600; margin-bottom: 12px; }
+  .cta-banner-subtitle { font-size: 16px; color: var(--ink-soft); margin-bottom: 32px; }
+  .cta-banner-form { display: flex; gap: 10px; justify-content: center; max-width: 420px; margin: 0 auto; }
+  .cta-input {
+    flex: 1; padding: 14px 20px; border: 1.5px solid var(--border);
+    border-radius: 28px; font-size: 15px; font-family: inherit;
+    background: var(--white); color: var(--ink); outline: none;
+    transition: border-color 0.2s;
+  }
+  .cta-input:focus { border-color: var(--gold); }
+  .cta-note { font-size: 12px; color: var(--ink-muted); margin-top: 12px; }
+
+  /* ── Footer ── */
+  .footer { background: #1C1C1C; color: rgba(255,255,255,0.7); padding: 80px 0 40px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
+  .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .footer-logo-diamond {
+    width: 14px; height: 14px;
+    background: var(--gold-light);
+    transform: rotate(45deg);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; color: white; letter-spacing: 1px; }
+  .footer-desc { font-size: 14px; line-height: 1.7; margin-bottom: 24px; color: rgba(255,255,255,0.5); }
+  .footer-payments { display: flex; gap: 10px; flex-wrap: wrap; }
+  .payment-badge {
+    padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5);
+  }
+  .footer-heading { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 600; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-bottom-text { font-size: 13px; color: rgba(255,255,255,0.35); }
+  .footer-badges { display: flex; gap: 16px; align-items: center; }
+  .footer-badge {
+    padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.45);
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-in { animation: fadeInUp 0.6s ease forwards; opacity: 0; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#" class="logo-link">
+      <div class="logo-mark">
+        <div class="logo-diamond"></div>
+        <span class="logo-wordmark">GOLDEN&nbsp;<strong>DREAM&nbsp;DRAW</strong></span>
+      </div>
+    </a>
+    <nav>
+      <ul class="header-nav">
+        <li><a href="#trending">Trending Prizes</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#winners">Winners</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <div class="lang-switcher" title="Language — non-functional in mockup">
+        <span>🇬🇧</span> EN <span class="chevron">▾</span>
+      </div>
+      <button class="btn-signin">Sign In</button>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════ HERO ════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+
+      <div class="animate-in">
+        <div class="hero-badge">
+          <span class="dot"></span> Trusted by 48,000+ players across the UK
+        </div>
+        <h1 class="hero-title serif">
+          Your dream prize is<br>
+          <em>one ticket away</em>
+        </h1>
+        <p class="hero-subtitle">
+          Answer a skill-based question, buy your ticket from just £1.99,
+          and watch the live draw. Premium prizes. Real winners. Every week.
+        </p>
+        <div class="hero-ctas">
+          <a href="#trending" class="btn-primary">Browse Prizes →</a>
+          <a href="#how-it-works" class="btn-outline">How It Works</a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <span class="hero-trust-number">£2.4M+</span>
+            <span class="hero-trust-label">in prizes awarded</span>
+          </div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-number">48,000+</span>
+            <span class="hero-trust-label">happy winners</span>
+          </div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-number">4.9 ★</span>
+            <span class="hero-trust-label">on Trustpilot</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Prize Card -->
+      <div class="featured-card animate-in delay-2">
+        <div class="featured-card-img" style="padding:0; background:transparent;">
+          <span class="featured-card-badge">🔥 Trending</span>
+          <img src="images/tiffany.jpg" alt="Tiffany & Co. Diamond Pendant Necklace" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="featured-card-body">
+          <div class="featured-card-category">Jewellery</div>
+          <h3 class="featured-card-title">Tiffany &amp; Co. Diamond<br>Pendant Necklace</h3>
+          <div class="featured-card-progress">
+            <div class="featured-card-progress-header">
+              <span class="sold">450 / 500 tickets sold</span>
+              <span class="remaining">Only 50 left</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-bar-fill" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="featured-card-footer">
+            <div class="featured-card-price">£1.99 <span>/ ticket</span></div>
+            <div class="featured-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              Draw: 31 May 2026
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ STATS BAR ════════════════ -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <div class="stat-number">48,270</div>
+        <div class="stat-label">Winners since 2023</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">£2.4M</div>
+        <div class="stat-label">Total prizes awarded</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">99.8%</div>
+        <div class="stat-label">Payout completion rate</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-stars">★★★★★</div>
+        <div class="stat-label">Trustpilot · 2,340 reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ TRENDING PRIZES ════════════════ -->
+<section id="trending">
+  <div class="container">
+    <div class="section-header-row">
+      <div>
+        <div class="section-label">Trending Now</div>
+        <h2 class="section-title serif">Pick your prize</h2>
+      </div>
+      <a href="#" class="view-all">View all competitions →</a>
+    </div>
+
+    <div class="prize-grid">
+
+      <!-- Card 1 — Jewellery, high urgency -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-jewellery">Jewellery</span>
+          <img src="images/cartier.avif" alt="Cartier Love Bracelet" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">Cartier Love Bracelet</h3>
+          <p class="prize-card-subtitle">18K Rose Gold · Size 17</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--gold-dark); font-weight: 600;">387 / 400 sold</span>
+              <span style="color: #C0392B; font-weight: 600;">13 left</span>
+            </div>
+            <div class="progress-compact"><div class="progress-compact-fill" style="width: 96.7%"></div></div>
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              28 May 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 — Electronics, moderate urgency -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-electronics">Electronics</span>
+          <img src="images/iphone.jpg" alt="iPhone 16 Pro Max" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">iPhone 16 Pro Max</h3>
+          <p class="prize-card-subtitle">256GB · Desert Titanium</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--gold-dark); font-weight: 600;">234 / 500 sold</span>
+              <span style="color: var(--ink-muted);">266 left</span>
+            </div>
+            <div class="progress-compact"><div class="progress-compact-fill" style="width: 46.8%"></div></div>
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              3 Jun 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 — Cash, high urgency -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-cash">Cash</span>
+          <img src="images/money.jpg" alt="£5,000 Cash Prize" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">£5,000 Cash Prize</h3>
+          <p class="prize-card-subtitle">Direct bank transfer</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--gold-dark); font-weight: 600;">712 / 1,000 sold</span>
+              <span style="color: var(--ink-muted);">288 left</span>
+            </div>
+            <div class="progress-compact"><div class="progress-compact-fill" style="width: 71.2%"></div></div>
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              1 Jun 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 — Fashion, low urgency — no progress bar shown -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-fashion">Fashion</span>
+          <img src="images/gucci.jpg" alt="Gucci GG Marmont Bag" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">Gucci GG Marmont Bag</h3>
+          <p class="prize-card-subtitle">Matelassé Leather · Black</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--ink-muted);">89 / 300 sold</span>
+              <span style="color: var(--ink-muted);">211 left</span>
+            </div>
+            <!-- No progress bar — under 60%, no urgency signal -->
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              10 Jun 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 — Electronics, moderate -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-electronics">Electronics</span>
+          <img src="images/sony.webp" alt="Sony WH-1000XM6" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">Sony WH-1000XM6</h3>
+          <p class="prize-card-subtitle">Wireless Noise Cancelling</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--gold-dark); font-weight: 600;">156 / 250 sold</span>
+              <span style="color: var(--ink-muted);">94 left</span>
+            </div>
+            <div class="progress-compact"><div class="progress-compact-fill" style="width: 62.4%"></div></div>
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              5 Jun 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 — Jewellery, high urgency -->
+      <div class="prize-card">
+        <div class="prize-card-img" style="padding:0;">
+          <span class="prize-card-badge badge-jewellery">Jewellery</span>
+          <img src="images/rolex.png" alt="Rolex Datejust 36" style="width:100%; height:100%; object-fit:contain;">
+        </div>
+        <div class="prize-card-body">
+          <h3 class="prize-card-title">Rolex Datejust 36</h3>
+          <p class="prize-card-subtitle">Steel &amp; White Gold · 2025</p>
+          <div class="prize-card-progress">
+            <div class="prize-card-progress-header">
+              <span style="color: var(--gold-dark); font-weight: 600;">428 / 500 sold</span>
+              <span style="color: #C0392B; font-weight: 600;">72 left</span>
+            </div>
+            <div class="progress-compact"><div class="progress-compact-fill" style="width: 85.6%"></div></div>
+          </div>
+          <div class="prize-card-meta">
+            <span class="prize-card-draw">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="3" y2="10"/></svg>
+              30 May 2026
+            </span>
+            <span class="prize-card-price">£1.99</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ HOW IT WORKS ════════════════ -->
+<section id="how-it-works" class="how-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Simple &amp; Transparent</div>
+      <h2 class="section-title serif">How It Works</h2>
+      <p class="section-subtitle">Three simple steps to win. No hidden fees. No gambling — every competition is skill-based and fully compliant with UK law.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">01</div>
+        <h3 class="step-title serif">Pick Your Prize</h3>
+        <p class="step-desc">Browse our curated selection of premium prizes — electronics, jewellery, fashion, and cash awards. Find the one you want and click to enter.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">02</div>
+        <h3 class="step-title serif">Answer &amp; Buy Tickets</h3>
+        <p class="step-desc">Answer a simple skill-based question to qualify, then purchase your tickets securely. Each ticket costs just £1.99. Enter free by post, too.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">03</div>
+        <h3 class="step-title serif">Watch the Live Draw</h3>
+        <p class="step-desc">Tune in on draw day — we stream every result live so you can watch the winner announcement in real time.</p>
+        <div class="step-platforms">
+          <span class="platform-badge">▶ YouTube Live</span>
+          <span class="platform-badge">📘 Facebook Live</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ WINNERS ════════════════ -->
+<section id="winners">
+  <div class="container">
+    <div class="section-header-row">
+      <div>
+        <div class="section-label">Real People, Real Prizes</div>
+        <h2 class="section-title serif">Our Recent Winners</h2>
+      </div>
+      <a href="#" class="view-all">View all winners →</a>
+    </div>
+    <div class="winners-grid">
+
+      <!-- Winner 1 -->
+      <div class="winner-card">
+        <div class="winner-avatar" style="background-image:url(https://randomuser.me/api/portraits/women/44.jpg); background-size:cover; background-position:center;"></div>
+        <div class="winner-name">Sarah M.</div>
+        <div class="winner-prize">iPhone 16 Pro Max</div>
+        <div class="winner-date">12 May 2026 · London</div>
+      </div>
+
+      <!-- Winner 2 -->
+      <div class="winner-card">
+        <div class="winner-avatar" style="background-image:url(https://randomuser.me/api/portraits/men/32.jpg); background-size:cover; background-position:center;"></div>
+        <div class="winner-name">James K.</div>
+        <div class="winner-prize">£5,000 Cash</div>
+        <div class="winner-date">8 May 2026 · Manchester</div>
+      </div>
+
+      <!-- Winner 3 -->
+      <div class="winner-card">
+        <div class="winner-avatar" style="background-image:url(https://randomuser.me/api/portraits/women/68.jpg); background-size:cover; background-position:center;"></div>
+        <div class="winner-name">Amina R.</div>
+        <div class="winner-prize">Cartier Love Bracelet</div>
+        <div class="winner-date">5 May 2026 · Birmingham</div>
+      </div>
+
+      <!-- Winner 4 -->
+      <div class="winner-card">
+        <div class="winner-avatar" style="background-image:url(https://randomuser.me/api/portraits/men/75.jpg); background-size:cover; background-position:center;"></div>
+        <div class="winner-name">Thomas P.</div>
+        <div class="winner-prize">Rolex Datejust 36</div>
+        <div class="winner-date">1 May 2026 · Glasgow</div>
+      </div>
+
+      <!-- Winner 5 -->
+      <div class="winner-card">
+        <div class="winner-avatar" style="background-image:url(https://randomuser.me/api/portraits/women/22.jpg); background-size:cover; background-position:center;"></div>
+        <div class="winner-name">Emma L.</div>
+        <div class="winner-prize">Gucci GG Marmont Bag</div>
+        <div class="winner-date">28 Apr 2026 · Bristol</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FAQ ════════════════ -->
+<section id="faq" class="faq-bg">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Common Questions</div>
+      <h2 class="section-title serif">Frequently Asked</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item open">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What is a Skill-Based Competition?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>In the UK, prize draws that rely purely on chance are classified as gambling and require a Gambling Commission licence. A <strong>skill-based competition</strong> is different — entrants must answer a question or complete a task requiring knowledge, judgment, or skill. This means the outcome depends on the entrant's ability, not just luck. Every Golden Dream Draw competition includes a skill question, making it fully compliant with UK law. This legal structure also allows us to offer a <a href="#">free postal entry route</a> for every competition.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Can I enter for free?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. UK law requires every paid skill-based competition to offer a <strong>free entry route</strong>. To enter by post, send your full name, address, date of birth, email address, the competition name, and your answer to the skill question to: Golden Dream Draw, Free Postal Entry, PO Box 421, Manchester M1 2AB. One entry per postcard, per competition. Entries must arrive before the competition closing date. Postal entries are treated exactly the same as paid entries in the draw.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          How are winners chosen and announced?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>All eligible entries (paid and postal) are entered into a random draw performed live on our <strong>YouTube and Facebook channels</strong>. We use a certified random number generator and the entire process is streamed in real time so you can watch the winner being selected. Winners are also notified by email within 24 hours and listed on our Winners page.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          Is my payment secure?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Absolutely. All payments are processed through <strong>Stripe</strong>, a PCI DSS Level 1 certified payment provider — the highest level of security certification in the payments industry. We never store your full card details. We accept Visa, Mastercard, American Express, Apple Pay, and Google Pay.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+          What happens if a competition doesn't sell all tickets?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>If a competition doesn't sell out by the draw date, the draw still proceeds with all entries received. The odds of winning are based on the total number of entries, not the number of tickets available. This means entering a competition with fewer entries actually <strong>increases your chance of winning</strong>.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ CTA BANNER ════════════════ -->
+<section>
+  <div class="container">
+    <div class="cta-banner">
+      <h2 class="cta-banner-title serif">Never miss a draw</h2>
+      <p class="cta-banner-subtitle">Get notified when new prizes drop. We'll send you a quick email — no spam, just the good stuff.</p>
+      <div class="cta-banner-form">
+        <input type="email" class="cta-input" placeholder="Your email address" disabled>
+        <button class="btn-primary" disabled>Notify Me</button>
+      </div>
+      <p class="cta-note">← form disabled in mockup</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">
+          <div class="footer-logo-diamond"></div>
+          <span class="footer-logo-text">GOLDEN DREAM DRAW</span>
+        </div>
+        <p class="footer-desc">
+          Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time.
+        </p>
+        <div class="footer-payments">
+          <span class="payment-badge">Visa</span>
+          <span class="payment-badge">Mastercard</span>
+          <span class="payment-badge">Amex</span>
+          <span class="payment-badge">Apple Pay</span>
+          <span class="payment-badge">Google Pay</span>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Competitions</div>
+        <ul class="footer-links">
+          <li><a href="#">All Prizes</a></li>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Jewellery</a></li>
+          <li><a href="#">Fashion</a></li>
+          <li><a href="#">Cash Awards</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Winners</a></li>
+          <li><a href="#">Live Draws</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Support</div>
+        <ul class="footer-links">
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Free Postal Entry</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Responsible Play</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-bottom-text">© 2026 Golden Dream Draw Ltd. All rights reserved. Golden Dream Draw is a skill-based competition platform. Not gambling. Licensed and regulated in the United Kingdom.</p>
+      <div class="footer-badges">
+        <span class="footer-badge">18+ Only</span>
+        <span class="footer-badge">🔒 SSL Encrypted</span>
+        <span class="footer-badge">Skill Competition</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
