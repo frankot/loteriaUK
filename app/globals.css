@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════
+   Tailwind v4 Theme — design tokens
+   ═══════════════════════════════════════════ */
+
+@theme {
+  --color-cream: #FDFBF7;
+  --color-cream-warm: #F8F3E9;
+  --color-gold: #B8943A;
+  --color-gold-light: #D4B96A;
+  --color-gold-pale: #F0E6CC;
+  --color-gold-dark: #8B6914;
+  --color-ink: #1C1C1C;
+  --color-ink-soft: #4A4A4A;
+  --color-ink-muted: #7A7A7A;
+  --color-border: #E5DED2;
+  --color-border-light: #F0EAE0;
+  --color-success: #2D7D56;
+  --color-urgent: #C0392B;
+  --color-badge-electronics: #5B7A8C;
+  --color-badge-jewellery: #9B7B5B;
+  --color-badge-fashion: #8C6B7A;
+  --color-badge-cash: #5B8C5A;
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
+  --animate-fade-in-up: fade-in-up 0.6s ease both;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 32px rgba(0, 0, 0, 0.08);
+  --shadow-featured: 0 4px 40px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ═══════════════════════════════════════════
+   Keyframes
+   ═══════════════════════════════════════════ */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   Base
+   ═══════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: #FDFBF7;
+  color: #1C1C1C;
+}
+
+/* ═══════════════════════════════════════════
+   Pseudo-elements Tailwind can't express
+   ═══════════════════════════════════════════ */
+
+/* Steps connecting line */
+.steps-line::before {
+  content: '';
+  position: absolute;
+  top: 52px;
+  left: 15%;
+  right: 15%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #D4B96A, transparent);
+  z-index: 0;
+}
+
+/* Stat item vertical divider (partial height) */
+.stat-divider {
+  position: relative;
+}
+.stat-divider:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: #F0EAE0;
+}
+
+/* FAQ accordion open/close */
+.faq-answer-closed {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-answer-open {
+  max-height: 400px;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+/* ═══════════════════════════════════════════
+   Scrollbar
+   ═══════════════════════════════════════════ */
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #FDFBF7; }
+::-webkit-scrollbar-thumb { background: #E5DED2; border-radius: 3px; }
+
+/* ═══════════════════════════════════════════
+   Selection & focus
+   ═══════════════════════════════════════════ */
+
+::selection { background: #F0E6CC; color: #1C1C1C; }
+*:focus-visible { outline: 2px solid #B8943A; outline-offset: 2px; }

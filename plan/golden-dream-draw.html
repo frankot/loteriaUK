@@ -61,30 +61,10 @@
   .header-inner {
     display: flex; align-items: center; justify-content: space-between;
     max-width: var(--max-width); margin: 0 auto; padding: 0 48px; height: 72px;
+    overflow: visible;
   }
-  .logo-link { text-decoration: none; display: flex; align-items: center; gap: 0; }
-  .logo-mark {
-    display: flex; align-items: center; gap: 14px;
-  }
-  .logo-diamond {
-    width: 16px; height: 16px;
-    background: var(--gold);
-    transform: rotate(45deg);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .logo-wordmark {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 400;
-    color: var(--ink);
-    letter-spacing: 1.5px;
-    line-height: 1;
-  }
-  .logo-wordmark strong {
-    font-weight: 700;
-    color: var(--gold-dark);
-  }
+  .header { overflow: visible; }
+  .logo-link { text-decoration: none; display: flex; align-items: center; }
   .header-nav { display: flex; align-items: center; gap: 32px; list-style: none; }
   .header-nav a {
     text-decoration: none; color: var(--ink-soft); font-size: 14px; font-weight: 500;
@@ -373,36 +353,28 @@
   .cta-note { font-size: 12px; color: var(--ink-muted); margin-top: 12px; }
 
   /* ── Footer ── */
-  .footer { background: #1C1C1C; color: rgba(255,255,255,0.7); padding: 80px 0 40px; }
+  .footer { background: var(--cream-warm); color: var(--ink-soft); padding: 80px 0 40px; }
   .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 64px; margin-bottom: 64px; }
   .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-  .footer-logo-diamond {
-    width: 14px; height: 14px;
-    background: var(--gold-light);
-    transform: rotate(45deg);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  .footer-logo-text { font-family: 'Playfair Display', serif; font-size: 18px; color: white; letter-spacing: 1px; }
-  .footer-desc { font-size: 14px; line-height: 1.7; margin-bottom: 24px; color: rgba(255,255,255,0.5); }
+  .footer-desc { font-size: 14px; line-height: 1.7; margin-bottom: 24px; color: var(--ink-muted); }
   .footer-payments { display: flex; gap: 10px; flex-wrap: wrap; }
   .payment-badge {
     padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 600;
-    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5);
+    background: var(--white); color: var(--ink-muted); border: 1px solid var(--border-light);
   }
-  .footer-heading { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,0.4); margin-bottom: 20px; font-weight: 600; }
+  .footer-heading { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink-muted); margin-bottom: 20px; font-weight: 600; }
   .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-  .footer-links a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--gold-light); }
+  .footer-links a { color: var(--ink-soft); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold-dark); }
   .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,0.1); padding-top: 32px;
+    border-top: 1px solid var(--border); padding-top: 32px;
     display: flex; justify-content: space-between; align-items: center;
   }
-  .footer-bottom-text { font-size: 13px; color: rgba(255,255,255,0.35); }
+  .footer-bottom-text { font-size: 13px; color: var(--ink-muted); }
   .footer-badges { display: flex; gap: 16px; align-items: center; }
   .footer-badge {
     padding: 6px 14px; border-radius: 4px; font-size: 11px; font-weight: 600;
-    border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.45);
+    border: 1px solid var(--border); color: var(--ink-muted);
   }
 
   /* ── Animations ── */
@@ -425,110 +397,7 @@
 </head>
 <body>
 
-<!-- ════════════════════════════════════════ -->
-<!--  VARIANT B · Dark Fullscreen Hero           -->
-<!-- ════════════════════════════════════════ -->
 
-<style>
-  /* Variant B — scoped under .variant-b */
-  .variant-b { position: relative; }
-
-  .vb-navbar {
-    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-    display: flex; align-items: center; justify-content: space-between;
-    max-width: 1280px; margin: 0 auto; padding: 0 48px; height: 80px;
-  }
-  .vb-nav-links { display: flex; gap: 36px; list-style: none; }
-  .vb-nav-links a {
-    text-decoration: none; color: rgba(255,255,255,0.75); font-size: 14px; font-weight: 500;
-    transition: color 0.2s; letter-spacing: -0.1px;
-  }
-  .vb-nav-links a:hover { color: white; }
-  .vb-nav-actions { display: flex; align-items: center; gap: 14px; }
-  .vb-lang {
-    display: flex; align-items: center; gap: 6px; padding: 6px 12px;
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 20px;
-    font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer;
-    background: transparent;
-  }
-  .vb-signin {
-    padding: 8px 20px; border: 1px solid rgba(255,255,255,0.4); border-radius: 24px;
-    font-size: 14px; font-weight: 500; background: transparent; color: white;
-    cursor: pointer; font-family: inherit; transition: all 0.2s;
-  }
-  .vb-signin:hover { background: white; color: #1C1C1C; }
-
-  .vb-logo-mark { display: flex; align-items: center; gap: 14px; text-decoration: none; }
-  .vb-logo-diamond {
-    width: 16px; height: 16px; background: var(--gold);
-    transform: rotate(45deg); border-radius: 2px; flex-shrink: 0;
-  }
-  .vb-logo-wordmark {
-    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400;
-    color: white; letter-spacing: 1.5px; line-height: 1;
-  }
-  .vb-logo-wordmark strong { font-weight: 700; color: var(--gold-light); }
-
-  .vb-hero {
-    position: relative; min-height: 100vh;
-    background: url('images/royoce.jpg') center/cover no-repeat;
-    display: flex; align-items: center;
-  }
-  .vb-hero::before {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0.15) 100%);
-    z-index: 0;
-  }
-  .vb-hero-content {
-    position: relative; z-index: 1; max-width: 1280px; margin: 0 auto;
-    padding: 0 48px; width: 100%;
-  }
-  .vb-hero-text { max-width: 520px; }
-  .vb-hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 6px 16px; border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 20px; font-size: 13px; font-weight: 600;
-    color: rgba(255,255,255,0.85); letter-spacing: 0.5px; text-transform: uppercase;
-    margin-bottom: 28px; backdrop-filter: blur(4px);
-  }
-  .vb-hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold-light); }
-  .vb-hero-title {
-    font-family: 'Playfair Display', serif; font-size: 60px; font-weight: 600;
-    line-height: 1.08; color: white; margin-bottom: 20px; letter-spacing: -0.5px;
-  }
-  .vb-hero-title em { font-style: italic; color: var(--gold-light); }
-  .vb-hero-subtitle {
-    font-size: 17px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 40px;
-  }
-  .vb-hero-ctas { display: flex; gap: 12px; }
-  .vb-btn-primary {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 15px 36px; background: var(--gold);
-    color: white; border: none; border-radius: 28px;
-    font-size: 15px; font-weight: 600; cursor: pointer;
-    font-family: inherit; letter-spacing: -0.1px;
-    transition: all 0.25s; text-decoration: none;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .vb-btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-  .vb-btn-ghost {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 15px 36px; background: transparent;
-    color: white; border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: 28px; font-size: 15px; font-weight: 500; cursor: pointer;
-    font-family: inherit; letter-spacing: -0.1px;
-    transition: all 0.25s; text-decoration: none;
-  }
-  .vb-btn-ghost:hover { border-color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); }
-
-  .vb-hero-stats {
-    display: flex; gap: 40px; margin-top: 56px; padding-top: 28px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-  }
-  .vb-stat-number { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: white; line-height: 1; }
-  .vb-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 6px; }
-
-</style>
 
 
 <!-- ════════════════════════════════════════ -->
@@ -539,10 +408,7 @@
 <header class="header">
   <div class="header-inner">
     <a href="#" class="logo-link">
-      <div class="logo-mark">
-        <div class="logo-diamond"></div>
-        <span class="logo-wordmark">GOLDEN&nbsp;<strong>DREAM&nbsp;DRAW</strong></span>
-      </div>
+      <img src="logo2.png" alt="Golden Dream Draw" height="280" style="width:auto; display:block; margin:-45px;">
     </a>
     <nav>
       <ul class="header-nav">
@@ -999,8 +865,7 @@
     <div class="footer-grid">
       <div>
         <div class="footer-brand">
-          <div class="footer-logo-diamond"></div>
-          <span class="footer-logo-text">GOLDEN DREAM DRAW</span>
+          <img src="logolottery.png" alt="Golden Dream Draw" height="32" style="width:auto; display:block;">
         </div>
         <p class="footer-desc">
           Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time.
@@ -1055,61 +920,6 @@
   </div>
 </footer>
 
-<div class="variant-b">
 
-  <!-- Navbar Variant B -->
-  <nav class="vb-navbar">
-    <a href="#" class="vb-logo-mark">
-      <div class="vb-logo-diamond"></div>
-      <span class="vb-logo-wordmark">GOLDEN&nbsp;<strong>DREAM&nbsp;DRAW</strong></span>
-    </a>
-    <ul class="vb-nav-links">
-      <li><a href="#trending">Trending Prizes</a></li>
-      <li><a href="#how-it-works">How It Works</a></li>
-      <li><a href="#winners">Winners</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-    <div class="vb-nav-actions">
-      <div class="vb-lang">🇬🇧 EN ▾</div>
-      <button class="vb-signin">Sign In</button>
-    </div>
-  </nav>
-
-  <!-- Hero Variant B -->
-  <section class="vb-hero">
-    <div class="vb-hero-content">
-      <div class="vb-hero-text">
-        <div class="vb-hero-badge">
-          <span class="dot"></span> Trusted by 48,000+ players across the UK
-        </div>
-        <h1 class="vb-hero-title">
-          Luxury prizes.<br>
-          <em>One ticket away.</em>
-        </h1>
-        <p class="vb-hero-subtitle">
-          Answer a skill-based question, buy your ticket from just £1.99, and watch the live draw. Premium prizes. Real winners. Every week.
-        </p>
-        <div class="vb-hero-ctas">
-          <a href="#trending" class="vb-btn-primary">Browse Prizes →</a>
-          <a href="#how-it-works" class="vb-btn-ghost">How It Works</a>
-        </div>
-      </div>
-      <div class="vb-hero-stats">
-        <div>
-          <div class="vb-stat-number">£2.4M+</div>
-          <div class="vb-stat-label">in prizes awarded</div>
-        </div>
-        <div>
-          <div class="vb-stat-number">48,000+</div>
-          <div class="vb-stat-label">happy winners</div>
-        </div>
-        <div>
-          <div class="vb-stat-number">4.9 ★</div>
-          <div class="vb-stat-label">on Trustpilot</div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
 </body>
 </html>
