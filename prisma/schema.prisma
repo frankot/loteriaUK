@@ -1,0 +1,184 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum CompetitionStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+  DRAWN
+  CANCELLED
+}
+
+enum EntryType {
+  PAID
+  POSTAL
+}
+
+enum TicketStatus {
+  AVAILABLE
+  SOLD
+}
+
+model User {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String?
+  address      String?
+  phone        String?
+  dateOfBirth  DateTime?
+  ageConfirmed Boolean        @default(false)
+  role         String         @default("user") // "user" | "admin"
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  tickets      Ticket[]
+  entries      Entry[]
+  winners      Winner[]
+
+  @@map("users")
+}
+
+model LoginCode {
+  id        String   @id @default(cuid())
+  email     String
+  code      String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([email, code])
+  @@map("login_codes")
+}
+
+model Competition {
+  id            String             @id @default(cuid())
+  slug          String             @unique
+  status        CompetitionStatus  @default(DRAFT)
+
+  // Multi-lang fields
+  titleEn       String
+  titlePl       String?
+  titleRo       String?
+  titleBg       String?
+  descEn        String?
+  descPl        String?
+  descRo        String?
+  descBg        String?
+
+  pricePounds   Decimal            @db.Decimal(10, 2)
+  maxTickets    Int
+  drawDate      DateTime
+  prizeImageUrl String?
+  prizeCategory String?            // electronics, jewellery, fashion, cash
+  prizeValue    Decimal?           @db.Decimal(10, 2)
+
+  // Stats (denormalized)
+  ticketsSold   Int                @default(0)
+
+  // Relation to skill question
+  questionId    String?
+  question      SkillQuestion?     @relation(fields: [questionId], references: [id])
+
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+
+  tickets       Ticket[]
+  entries       Entry[]
+  winners       Winner[]
+
+  @@index([status, drawDate])
+  @@map("competitions")
+}
+
+model Ticket {
+  id            String        @id @default(cuid())
+  competitionId String
+  competition   Competition   @relation(fields: [competitionId], references: [id])
+  userId        String?
+  user          User?         @relation(fields: [userId], references: [id])
+  number        Int
+  status        TicketStatus  @default(AVAILABLE)
+  createdAt     DateTime      @default(now())
+
+  entry         Entry?
+
+  @@unique([competitionId, number])
+  @@index([competitionId, status])
+  @@map("tickets")
+}
+
+model Entry {
+  id             String     @id @default(cuid())
+  competitionId  String
+  competition    Competition @relation(fields: [competitionId], references: [id])
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  ticketId       String?    @unique
+  ticket         Ticket?    @relation(fields: [ticketId], references: [id])
+  type           EntryType  @default(PAID)
+  answerCorrect  Boolean?
+  createdAt      DateTime   @default(now())
+
+  winner         Winner?
+
+  @@index([competitionId])
+  @@index([userId])
+  @@map("entries")
+}
+
+model Winner {
+  id             String     @id @default(cuid())
+  competitionId  String
+  competition    Competition @relation(fields: [competitionId], references: [id])
+  userId         String
+  user           User       @relation(fields: [userId], references: [id])
+  entryId        String     @unique
+  entry          Entry      @relation(fields: [entryId], references: [id])
+
+  notified       Boolean    @default(false)
+  claimed        Boolean    @default(false)
+  notifiedAt     DateTime?
+  claimedAt      DateTime?
+  createdAt      DateTime   @default(now())
+
+  @@index([competitionId])
+  @@map("winners")
+}
+
+model SkillQuestion {
+  id        String   @id @default(cuid())
+
+  questionEn String
+  questionPl String?
+  questionRo String?
+  questionBg String?
+
+  optionAEn  String
+  optionAPl  String?
+  optionARo  String?
+  optionABg  String?
+  optionBEn  String
+  optionBPl  String?
+  optionBRo  String?
+  optionBBg  String?
+  optionCEn  String?
+  optionCPl  String?
+  optionCRo  String?
+  optionCBg  String?
+  optionDEn  String?
+  optionDPl  String?
+  optionDRo  String?
+  optionDBg  String?
+
+  correctOption String // "A" | "B" | "C" | "D"
+  createdAt     DateTime @default(now())
+
+  competitions Competition[]
+
+  @@map("skill_questions")
+}
