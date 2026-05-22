@@ -1,0 +1,136 @@
+{
+  "nav": {
+    "trending": "Najlepsze Nagrody",
+    "howItWorks": "Jak to Działa",
+    "winners": "Zwycięzcy",
+    "faq": "FAQ",
+    "competitions": "Konkursy",
+    "signIn": "Zaloguj się",
+    "profile": "Profil",
+    "signOut": "Wyloguj się",
+    "language": "Język"
+  },
+  "footer": {
+    "competitions": "Konkursy",
+    "allPrizes": "Wszystkie Nagrody",
+    "electronics": "Elektronika",
+    "jewellery": "Biżuteria",
+    "fashion": "Moda",
+    "cashAwards": "Nagrody Pieniężne",
+    "company": "Firma",
+    "aboutUs": "O Nas",
+    "ourWinners": "Nasi Zwycięzcy",
+    "liveDraws": "Losowania na Żywo",
+    "contact": "Kontakt",
+    "careers": "Kariera",
+    "support": "Pomoc",
+    "freePostalEntry": "Darmowy Wpis Pocztowy",
+    "terms": "Regulamin",
+    "privacy": "Polityka Prywatności",
+    "responsiblePlay": "Odpowiedzialna Gra",
+    "copyright": "© 2026 Golden Dream Draw Ltd. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard.",
+    "sslEncrypted": "SSL Szyfrowane",
+    "skillCompetition": "Konkurs Umiejętności",
+    "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy."
+  },
+  "hero": {
+    "title": "Ekskluzywne Nagrody. Prawdziwi Zwycięzcy. Każdego Tygodnia.",
+    "subtitle": "Odpowiedz na proste pytanie i wygraj luksusowe nagrody już od 1,99 £. Losowania na żywo na YouTube.",
+    "cta": "Zobacz Konkursy"
+  },
+  "stats": {
+    "activeCompetitions": "Aktywne Konkursy",
+    "totalWinners": "Łączna Liczba Zwycięzców",
+    "prizesGiven": "Przyznane Nagrody",
+    "totalEntries": "Łączna Liczba Wpisów",
+    "thisWeek": "w tym tygodniu"
+  },
+  "howItWorks": {
+    "title": "Jak to Działa",
+    "step1": { "title": "Wybierz Nagrodę", "desc": "Przeglądaj luksusowe nagrody — od Rolexów po najnowsze gadżety Apple." },
+    "step2": { "title": "Odpowiedz na Pytanie", "desc": "Każde zgłoszenie wymaga poprawnej odpowiedzi na pytanie umiejętnościowe." },
+    "step3": { "title": "Obserwuj Losowanie", "desc": "Losujemy zwycięski bilet na żywo na YouTube." }
+  },
+  "winners": {
+    "title": "Nasi Zwycięzcy",
+    "subtitle": "Prawdziwi ludzie wygrywają prawdziwe nagrody.",
+    "viewAll": "Zobacz Wszystkich Zwycięzców",
+    "noWinners": "Jeszcze nikt nie wygrał — bądź pierwszy!"
+  },
+  "faq": {
+    "title": "Często Zadawane Pytania",
+    "items": [
+      { "q": "Czym jest Golden Dream Draw?", "a": "Golden Dream Draw to platforma konkursów umiejętnościowych. W przeciwieństwie do loterii, musisz poprawnie odpowiedzieć na pytanie." },
+      { "q": "Czy to loteria?", "a": "Nie. To konkurs umiejętności. Prawo brytyjskie wymaga, aby zwycięzcy byli wyłaniani na podstawie umiejętności." },
+      { "q": "Jak wziąć udział?", "a": "Przeglądaj konkursy, wybierz nagrodę, odpowiedz poprawnie na pytanie i kup bilet." },
+      { "q": "Jak wybierani są zwycięzcy?", "a": "Zwycięskie zgłoszenia są losowane na żywo na YouTube." },
+      { "q": "Czy mogę wziąć udział za darmo?", "a": "Tak. Wysyłając zgłoszenie pocztą — szczegóły na stronie Darmowy Wpis Pocztowy." },
+      { "q": "Jaki jest limit wieku?", "a": "Musisz mieć ukończone 18 lat." },
+      { "q": "Kiedy otrzymam nagrodę?", "a": "Zwycięzcy są powiadamiani w ciągu 24 godzin. Nagrody wysyłamy w ciągu 5 dni roboczych." }
+    ]
+  },
+  "ctaBanner": {
+    "title": "Gotowy na Wygraną?",
+    "subtitle": "Przeglądaj nasze najnowsze konkursy.",
+    "cta": "Przeglądaj Konkursy"
+  },
+  "login": {
+    "title": "Zaloguj się",
+    "emailPlaceholder": "Wpisz swój adres email",
+    "sendCode": "Wyślij Kod",
+    "checkEmail": "Sprawdź swoją skrzynkę email",
+    "codePlaceholder": "Wpisz 6-cyfrowy kod",
+    "verify": "Zweryfikuj",
+    "invalidCode": "Nieprawidłowy lub wygasły kod",
+    "ageConfirm": "Potwierdzam, że mam ukończone 18 lat",
+    "ageConfirmRequired": "Musisz mieć ukończone 18 lat"
+  },
+  "register": {
+    "title": "Uzupełnij Profil",
+    "fullName": "Imię i Nazwisko",
+    "address": "Adres",
+    "phone": "Numer Telefonu",
+    "dateOfBirth": "Data Urodzenia",
+    "ageConfirm": "Potwierdzam, że mam ukończone 18 lat",
+    "submit": "Utwórz Konto"
+  },
+  "competition": {
+    "soldOut": "Wyprzedane",
+    "expiringSoon": "Kończy się Wkrótce",
+    "timeRemaining": "Pozostało Czasu",
+    "ticketsSold": "sprzedanych biletów",
+    "price": "Cena",
+    "buyTickets": "Kup Bilety",
+    "quantity": "Ilość",
+    "total": "Razem",
+    "answerQuestion": "Odpowiedz na pytanie, aby kontynuować",
+    "correct": "Poprawnie!",
+    "incorrect": "Niepoprawnie. Spróbuj inne pytanie.",
+    "noMoreQuestions": "Brak więcej pytań",
+    "days": "dni",
+    "hours": "godzin",
+    "minutes": "minut",
+    "seconds": "sekund",
+    "drawDate": "Data Losowania",
+    "prizeValue": "Wartość Nagrody"
+  },
+  "profile": {
+    "title": "Mój Profil",
+    "tickets": "Moje Bilety",
+    "entries": "Historia Zgłoszeń",
+    "noTickets": "Jeszcze nie wziąłeś udziału w żadnym konkursie",
+    "settings": "Ustawienia"
+  },
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Coś poszło nie tak",
+    "retry": "Spróbuj Ponownie",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "search": "Szukaj",
+    "noResults": "Brak wyników",
+    "back": "Wstecz",
+    "close": "Zamknij"
+  }
+}

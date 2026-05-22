@@ -1,0 +1,166 @@
+{
+  "nav": {
+    "trending": "Trending Prizes",
+    "howItWorks": "How It Works",
+    "winners": "Winners",
+    "faq": "FAQ",
+    "competitions": "Competitions",
+    "signIn": "Sign In",
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "language": "Language"
+  },
+  "footer": {
+    "competitions": "Competitions",
+    "allPrizes": "All Prizes",
+    "electronics": "Electronics",
+    "jewellery": "Jewellery",
+    "fashion": "Fashion",
+    "cashAwards": "Cash Awards",
+    "company": "Company",
+    "aboutUs": "About Us",
+    "ourWinners": "Our Winners",
+    "liveDraws": "Live Draws",
+    "contact": "Contact",
+    "careers": "Careers",
+    "support": "Support",
+    "freePostalEntry": "Free Postal Entry",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "responsiblePlay": "Responsible Play",
+    "copyright": "© 2026 Golden Dream Draw Ltd. All rights reserved. Golden Dream Draw is a skill-based competition platform. Not gambling. Licensed and regulated in the United Kingdom.",
+    "sslEncrypted": "SSL Encrypted",
+    "skillCompetition": "Skill Competition",
+    "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time."
+  },
+  "hero": {
+    "title": "Premium Prizes. Real Winners. Every Week.",
+    "subtitle": "Answer a simple skill question for your chance to win luxury prizes from just £1.99. Live draws on YouTube — transparent and fair.",
+    "cta": "View Competitions"
+  },
+  "stats": {
+    "activeCompetitions": "Active Competitions",
+    "totalWinners": "Total Winners",
+    "prizesGiven": "Prizes Given",
+    "totalEntries": "Total Entries",
+    "thisWeek": "this week"
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "step1": {
+      "title": "Choose Your Prize",
+      "desc": "Browse our luxury prizes — from Rolex watches to the latest Apple gadgets. Every competition features a real, verified prize."
+    },
+    "step2": {
+      "title": "Answer a Question",
+      "desc": "Each entry requires a correct answer to a skill-based question. It's a competition of knowledge, not chance."
+    },
+    "step3": {
+      "title": "Watch the Live Draw",
+      "desc": "We draw the winning ticket live on YouTube. If your number is called, the prize is yours."
+    }
+  },
+  "winners": {
+    "title": "Recent Winners",
+    "subtitle": "Real people winning real prizes. Could be you next.",
+    "viewAll": "View All Winners",
+    "noWinners": "No winners yet — be the first!"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "What is Golden Dream Draw?",
+        "a": "Golden Dream Draw is a skill-based competition platform. Unlike a lottery, you must answer a question correctly to enter, making it a competition of skill rather than chance."
+      },
+      {
+        "q": "Is this a lottery?",
+        "a": "No. Golden Dream Draw is a skill competition. UK law requires that winners are determined by skill, not purely by chance. Our skill question ensures compliance."
+      },
+      {
+        "q": "How do I enter?",
+        "a": "Browse competitions, select a prize, answer the skill question correctly, and purchase your ticket. You can also enter by free postal entry — see the Free Postal Entry page."
+      },
+      {
+        "q": "How are winners picked?",
+        "a": "All winning entries are drawn live on YouTube. A random ticket number is selected from all valid entries. The complete draw is recorded and published."
+      },
+      {
+        "q": "Can I enter for free?",
+        "a": "Yes. UK regulations require a free postal entry route. Send your entry via postcard — full details on our Free Postal Entry page."
+      },
+      {
+        "q": "What is the age limit?",
+        "a": "You must be 18 or older to enter any competition on Golden Dream Draw."
+      },
+      {
+        "q": "When do I receive my prize?",
+        "a": "Winners are notified within 24 hours of the draw. Prizes are dispatched within 5 working days after winner verification."
+      }
+    ]
+  },
+  "ctaBanner": {
+    "title": "Ready to Win?",
+    "subtitle": "Browse our latest competitions and take your shot at luxury prizes.",
+    "cta": "Browse Competitions"
+  },
+  "login": {
+    "title": "Sign In",
+    "emailPlaceholder": "Enter your email address",
+    "sendCode": "Send Code",
+    "checkEmail": "Check your email for a 6-digit code",
+    "codePlaceholder": "Enter 6-digit code",
+    "verify": "Verify",
+    "invalidCode": "Invalid or expired code",
+    "ageConfirm": "I confirm I am 18 or older",
+    "ageConfirmRequired": "You must be 18 or older to use this site"
+  },
+  "register": {
+    "title": "Complete Your Profile",
+    "fullName": "Full Name",
+    "address": "Address",
+    "phone": "Phone Number",
+    "dateOfBirth": "Date of Birth",
+    "ageConfirm": "I confirm I am 18 or older",
+    "submit": "Create Account"
+  },
+  "competition": {
+    "soldOut": "Sold Out",
+    "expiringSoon": "Expiring Soon",
+    "timeRemaining": "Time Remaining",
+    "ticketsSold": "tickets sold",
+    "price": "Price",
+    "buyTickets": "Buy Tickets",
+    "quantity": "Quantity",
+    "total": "Total",
+    "answerQuestion": "Answer the skill question to proceed",
+    "correct": "Correct!",
+    "incorrect": "Incorrect. Try another question.",
+    "noMoreQuestions": "No more questions available",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "seconds": "seconds",
+    "drawDate": "Draw Date",
+    "prizeValue": "Prize Value"
+  },
+  "profile": {
+    "title": "My Profile",
+    "tickets": "My Tickets",
+    "entries": "Entry History",
+    "noTickets": "You haven't entered any competitions yet",
+    "settings": "Settings"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "search": "Search",
+    "noResults": "No results found",
+    "back": "Back",
+    "close": "Close"
+  }
+}
