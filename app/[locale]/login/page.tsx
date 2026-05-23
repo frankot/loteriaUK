@@ -7,6 +7,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const t = useTranslations("login");
+  const tc = useTranslations("common");
   const router = useRouter();
   const params = useParams();
   const locale = (params.locale as string) || "en";
@@ -42,14 +43,14 @@ export default function LoginPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || t("common.error"));
+        setError(data.error || tc("error"));
         return;
       }
 
       // Navigate to verify page with email
       router.push(`/${locale}/login/verify?email=${encodeURIComponent(email.trim())}`);
     } catch {
-      setError(t("common.error"));
+      setError(tc("error"));
     } finally {
       setLoading(false);
     }
@@ -96,13 +97,13 @@ export default function LoginPage() {
               disabled={loading}
               className="w-full rounded-xl bg-ink px-6 py-3 font-medium text-sm text-white transition-colors hover:bg-ink/90 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {loading ? t("common.loading") : t("sendCode")}
+              {loading ? tc("loading") : t("sendCode")}
             </button>
           </form>
 
           <p className="mt-6 text-center text-xs text-ink-muted">
             <Link href={`/${locale}`} className="underline hover:text-ink">
-              {t("common.back")}
+              {tc("back")}
             </Link>
           </p>
         </div>

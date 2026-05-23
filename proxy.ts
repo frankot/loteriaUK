@@ -82,6 +82,13 @@ async function authGuard(
 
 // ── Composed middleware ──
 export default async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // API routes: skip intl middleware + auth guard entirely
+  if (pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
   // Step 1: Run i18n routing
   const intlResponse = intlMiddleware(request);
 
