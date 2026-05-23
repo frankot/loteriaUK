@@ -1,9 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { faqs } from "@/lib/data";
 
-export default function FAQ() {
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface FAQProps {
+  items: FaqItem[];
+  title: string;
+}
+
+export default function FAQ({ items, title }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -18,12 +27,12 @@ export default function FAQ() {
           <div className="mb-3 text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
             Common Questions
           </div>
-          <h2 className="font-serif mb-4 text-[42px] leading-[1.15] font-semibold">Frequently Asked</h2>
+          <h2 className="font-serif mb-4 text-[42px] leading-[1.15] font-semibold">{title}</h2>
         </div>
 
         {/* FAQ list */}
         <div className="mx-auto max-w-[720px]">
-          {faqs.map((faq, idx) => {
+          {items.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div

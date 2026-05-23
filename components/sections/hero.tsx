@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { getFeaturedCompetition } from "@/lib/queries";
 
 function CalendarIcon() {
   return (
@@ -12,7 +14,16 @@ function CalendarIcon() {
   );
 }
 
-export default function Hero() {
+function formatDrawDate(date: Date): string {
+  return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+}
+
+export default async function Hero() {
+  const t = await getTranslations("hero");
+  const featured = await getFeaturedCompetition();
+
+  const fallbackImage = "/images/cartier.webp";
+
   return (
     <section className="bg-cream px-12 pt-20 pb-[120px]">
       <div className="mx-auto max-w-6xl">
@@ -25,14 +36,11 @@ export default function Hero() {
             </div>
 
             <h1 className="font-serif text-[56px] leading-[1.1] font-semibold tracking-tight">
-              Your dream prize is
-              <br />
-              <em className="italic text-gold not-italic">one ticket away</em>
+              {t("title")}
             </h1>
 
             <p className="mt-5 mb-9 max-w-[440px] text-[17px] leading-relaxed text-ink-soft">
-              Answer a skill-based question, buy your ticket from just £1.99,
-              and watch the live draw. Premium prizes. Real winners. Every week.
+              {t("subtitle")}
             </p>
 
             <div className="mb-12 flex gap-3">
@@ -40,7 +48,7 @@ export default function Hero() {
                 href="#trending"
                 className="inline-flex items-center gap-2 rounded-3xl bg-gold px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)]"
               >
-                Browse Prizes →
+                {t("cta")} →
               </Link>
               <Link
                 href="#how-it-works"
@@ -64,15 +72,15 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right column — Featured Prize Card */}
+          {/* Right column — Featured Prize Card (from DB) */}
           <div className="animate-fade-in-up overflow-hidden rounded-[20px] bg-white shadow-featured [animation-delay:200ms]">
             <div className="relative flex h-[280px] items-center justify-center overflow-hidden">
               <span className="absolute top-5 left-5 rounded-full bg-gold px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
                 🔥 Trending
               </span>
               <Image
-                src="/images/tiffany.jpg"
-                alt="Tiffany & Co. Diamond Pendant Necklace"
+                src={featured?.prizeImageUrl || fallbackImage}
+                alt={featured?.titleEn || "Featured Prize"}
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-contain p-4"
@@ -80,35 +88,38 @@ export default function Hero() {
             </div>
             <div className="p-7">
               <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
-                Jewellery
+                {featured?.prizeCategory || "Prize"}
               </div>
               <h3 className="font-serif mb-5 text-2xl leading-tight font-semibold">
-                Tiffany &amp; Co. Diamond
-                <br />
-                Pendant Necklace
+                {featured?.titleEn || "Featured Prize"}
               </h3>
 
               {/* Progress */}
               <div className="mb-4">
                 <div className="mb-2 flex justify-between text-[13px]">
-                  <span className="font-semibold text-gold-dark">450 / 500 tickets sold</span>
-                  <span className="text-ink-muted">Only 50 left</span>
+                  <span className="font-semibold text-gold-dark">
+                    {featured ? `${featured.ticketsSold.toLocaleString()} / ${featured.maxTickets.toLocaleString()} tickets sold` : "—"}
+                  </span>
+                  <span className="text-ink-muted">
+                    {featured ? `Only ${featured.maxTickets - featured.ticketsSold} left` : ""}
+                  </span>
                 </div>
                 <div className="h-1.5 overflow-hidden rounded-[3px] bg-border-light">
                   <div
                     className="h-full rounded-[3px] bg-gold transition-[width] duration-800 ease-out"
-                    style={{ width: "90%" }}
+                    style={{ width: featured ? `${Math.round((featured.ticketsSold / featured.maxTickets) * 100)}%` : "0%" }}
                   />
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="text-[22px] font-bold text-ink">
-                  £1.99 <span className="text-[13px] font-normal text-ink-muted">/ ticket</span>
+                  £{featured ? Number(featured.pricePounds).toFixed(2) : "1.99"}{" "}
+                  <span className="text-[13px] font-normal text-ink-muted">/ ticket</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[13px] text-ink-muted">
                   <CalendarIcon />
-                  Draw: 31 May 2026
+                  Draw: {featured ? formatDrawDate(featured.drawDate) : "—"}
                 </div>
               </div>
             </div>
