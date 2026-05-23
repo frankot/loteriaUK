@@ -5,7 +5,7 @@ import { winners } from "@/lib/data";
 export default function Winners() {
   return (
     <section id="winners">
-      <div className="mx-auto max-w-7xl px-12 lg:my-20">
+      <div className="mx-auto max-w-7xl px-12 lg:py-20">
         {/* Header */}
         <div className="mb-12 flex items-end justify-between">
           <div>

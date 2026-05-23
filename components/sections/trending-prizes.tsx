@@ -55,9 +55,9 @@ export default function TrendingPrizes() {
                   <Image
                     src={comp.img}
                     alt={comp.title}
-                    width={400}
-                    height={200}
-                    className="h-full w-full object-contain"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain p-4"
                   />
                 </div>
 

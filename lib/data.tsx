@@ -24,7 +24,7 @@ export const competitions: Competition[] = [
     left: 13,
     drawDate: "28 May 2026",
     price: "£1.99",
-    img: "/plan/images/cartier.avif",
+    img: "/images/cartier.avif",
   },
   {
     title: "iPhone 16 Pro Max",
@@ -36,7 +36,7 @@ export const competitions: Competition[] = [
     left: 266,
     drawDate: "3 Jun 2026",
     price: "£1.99",
-    img: "/plan/images/iphone.jpg",
+    img: "/images/iphone.jpg",
   },
   {
     title: "£5,000 Cash Prize",
@@ -48,7 +48,7 @@ export const competitions: Competition[] = [
     left: 288,
     drawDate: "1 Jun 2026",
     price: "£1.99",
-    img: "/plan/images/money.jpg",
+    img: "/images/money.jpg",
   },
   {
     title: "Gucci GG Marmont Bag",
@@ -60,7 +60,7 @@ export const competitions: Competition[] = [
     left: 211,
     drawDate: "10 Jun 2026",
     price: "£1.99",
-    img: "/plan/images/gucci.jpg",
+    img: "/images/gucci.jpg",
   },
   {
     title: "Sony WH-1000XM6",
@@ -72,7 +72,7 @@ export const competitions: Competition[] = [
     left: 94,
     drawDate: "5 Jun 2026",
     price: "£1.99",
-    img: "/plan/images/sony.webp",
+    img: "/images/sony.webp",
   },
   {
     title: "Rolex Datejust 36",
@@ -84,7 +84,7 @@ export const competitions: Competition[] = [
     left: 72,
     drawDate: "30 May 2026",
     price: "£1.99",
-    img: "/plan/images/rolex.png",
+    img: "/images/rolex.png",
   },
 ];
 

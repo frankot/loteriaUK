@@ -71,11 +71,11 @@ export default function Hero() {
                 🔥 Trending
               </span>
               <Image
-                src="/plan/images/tiffany.jpg"
+                src="/images/tiffany.jpg"
                 alt="Tiffany & Co. Diamond Pendant Necklace"
-                width={600}
-                height={280}
-                className="h-full w-full object-contain"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-contain p-4"
               />
             </div>
             <div className="p-7">
