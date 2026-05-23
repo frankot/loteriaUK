@@ -35,9 +35,10 @@
     "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time."
   },
   "hero": {
-    "title": "Premium Prizes. Real Winners. Every Week.",
-    "subtitle": "Answer a simple skill question for your chance to win luxury prizes from just £1.99. Live draws on YouTube — transparent and fair.",
-    "cta": "View Competitions"
+    "titleLine1": "Your dream prize is",
+    "titleLine2": "one ticket away",
+    "subtitle": "Answer a skill-based question, buy your ticket from just £1.99, and watch the live draw. Premium prizes. Real winners. Every week.",
+    "cta": "Browse Prizes"
   },
   "stats": {
     "activeCompetitions": "Active Competitions",

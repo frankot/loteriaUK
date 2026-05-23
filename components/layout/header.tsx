@@ -49,7 +49,7 @@ export default function Header() {
           <LanguageSwitcher />
           <Link
             href={`/${locale}/login`}
-            className="rounded-3xl border border-ink bg-transparent px-5 py-2 font-medium text-sm text-ink transition-all hover:bg-ink hover:text-white"
+            className="rounded-3xl border border-ink bg-transparent px-5 py-2 font-medium text-sm text-ink transition-all hover:border-gold hover:text-gold-dark"
           >
             {t("signIn")}
           </Link>

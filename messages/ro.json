@@ -35,7 +35,8 @@
     "tagline": "Concursuri bazate pe abilități pentru Marea Britanie."
   },
   "hero": {
-    "title": "Premii Premium. Câștigători Reali. În Fiecare Săptămână.",
+    "titleLine1": "Premii Premium. Câștigători Reali. În Fiecare Săptămână.",
+    "titleLine2": "one ticket away",
     "subtitle": "Răspunde la o întrebare simplă pentru a câștiga premii de lux de la doar £1.99.",
     "cta": "Vezi Concursurile"
   },
@@ -48,9 +49,18 @@
   },
   "howItWorks": {
     "title": "Cum Funcționează",
-    "step1": { "title": "Alege Premiul", "desc": "Răsfoiește premiile noastre de lux." },
-    "step2": { "title": "Răspunde la o Întrebare", "desc": "Fiecare participare necesită un răspuns corect." },
-    "step3": { "title": "Urmărește Extragerea Live", "desc": "Extragem biletul câștigător pe YouTube." }
+    "step1": {
+      "title": "Alege Premiul",
+      "desc": "Răsfoiește premiile noastre de lux."
+    },
+    "step2": {
+      "title": "Răspunde la o Întrebare",
+      "desc": "Fiecare participare necesită un răspuns corect."
+    },
+    "step3": {
+      "title": "Urmărește Extragerea Live",
+      "desc": "Extragem biletul câștigător pe YouTube."
+    }
   },
   "winners": {
     "title": "Câștigători Recenti",
@@ -61,13 +71,34 @@
   "faq": {
     "title": "Întrebări Frecvente",
     "items": [
-      { "q": "Ce este Golden Dream Draw?", "a": "Golden Dream Draw este o platformă de concursuri bazate pe abilități." },
-      { "q": "Este o loterie?", "a": "Nu. Este un concurs de abilități." },
-      { "q": "Cum particip?", "a": "Alege un premiu, răspunde corect la întrebare și cumpără biletul." },
-      { "q": "Cum sunt aleși câștigătorii?", "a": "Extragerile au loc live pe YouTube." },
-      { "q": "Pot participa gratuit?", "a": "Da. Prin poștă — vezi pagina de Participare Poștală." },
-      { "q": "Care este limita de vârstă?", "a": "Trebuie să ai minim 18 ani." },
-      { "q": "Când primesc premiul?", "a": "Câștigătorii sunt notificați în 24 de ore." }
+      {
+        "q": "Ce este Golden Dream Draw?",
+        "a": "Golden Dream Draw este o platformă de concursuri bazate pe abilități."
+      },
+      {
+        "q": "Este o loterie?",
+        "a": "Nu. Este un concurs de abilități."
+      },
+      {
+        "q": "Cum particip?",
+        "a": "Alege un premiu, răspunde corect la întrebare și cumpără biletul."
+      },
+      {
+        "q": "Cum sunt aleși câștigătorii?",
+        "a": "Extragerile au loc live pe YouTube."
+      },
+      {
+        "q": "Pot participa gratuit?",
+        "a": "Da. Prin poștă — vezi pagina de Participare Poștală."
+      },
+      {
+        "q": "Care este limita de vârstă?",
+        "a": "Trebuie să ai minim 18 ani."
+      },
+      {
+        "q": "Când primesc premiul?",
+        "a": "Câștigătorii sunt notificați în 24 de ore."
+      }
     ]
   },
   "ctaBanner": {

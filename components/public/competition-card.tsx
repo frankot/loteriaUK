@@ -61,7 +61,7 @@ export default function CompetitionCard({
       {/* Image */}
       <div className="relative flex h-[200px] items-center justify-center overflow-hidden">
         <span
-          className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold tracking-wider text-white uppercase ${badgeColor}`}
+          className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeColor}`}
         >
           {category || "Prize"}
         </span>

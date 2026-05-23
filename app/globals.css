@@ -116,8 +116,9 @@ body {
 *:focus-visible { outline: 2px solid #B8943A; outline-offset: 2px; }
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-sans);
+  --font-heading: var(--font-inter);
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-playfair);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);

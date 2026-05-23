@@ -36,7 +36,8 @@ export default async function Hero() {
             </div>
 
             <h1 className="font-serif text-[56px] leading-[1.1] font-semibold tracking-tight">
-              {t("title")}
+              {t("titleLine1")}<br />
+              <em className="text-gold font-bold">{t("titleLine2")}</em>
             </h1>
 
             <p className="mt-5 mb-9 max-w-[440px] text-[17px] leading-relaxed text-ink-soft">

@@ -35,7 +35,8 @@
     "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy."
   },
   "hero": {
-    "title": "Ekskluzywne Nagrody. Prawdziwi Zwycięzcy. Każdego Tygodnia.",
+    "titleLine1": "Ekskluzywne Nagrody. Prawdziwi Zwycięzcy. Każdego Tygodnia.",
+    "titleLine2": "one ticket away",
     "subtitle": "Odpowiedz na proste pytanie i wygraj luksusowe nagrody już od 1,99 £. Losowania na żywo na YouTube.",
     "cta": "Zobacz Konkursy"
   },
@@ -48,9 +49,18 @@
   },
   "howItWorks": {
     "title": "Jak to Działa",
-    "step1": { "title": "Wybierz Nagrodę", "desc": "Przeglądaj luksusowe nagrody — od Rolexów po najnowsze gadżety Apple." },
-    "step2": { "title": "Odpowiedz na Pytanie", "desc": "Każde zgłoszenie wymaga poprawnej odpowiedzi na pytanie umiejętnościowe." },
-    "step3": { "title": "Obserwuj Losowanie", "desc": "Losujemy zwycięski bilet na żywo na YouTube." }
+    "step1": {
+      "title": "Wybierz Nagrodę",
+      "desc": "Przeglądaj luksusowe nagrody — od Rolexów po najnowsze gadżety Apple."
+    },
+    "step2": {
+      "title": "Odpowiedz na Pytanie",
+      "desc": "Każde zgłoszenie wymaga poprawnej odpowiedzi na pytanie umiejętnościowe."
+    },
+    "step3": {
+      "title": "Obserwuj Losowanie",
+      "desc": "Losujemy zwycięski bilet na żywo na YouTube."
+    }
   },
   "winners": {
     "title": "Nasi Zwycięzcy",
@@ -61,13 +71,34 @@
   "faq": {
     "title": "Często Zadawane Pytania",
     "items": [
-      { "q": "Czym jest Golden Dream Draw?", "a": "Golden Dream Draw to platforma konkursów umiejętnościowych. W przeciwieństwie do loterii, musisz poprawnie odpowiedzieć na pytanie." },
-      { "q": "Czy to loteria?", "a": "Nie. To konkurs umiejętności. Prawo brytyjskie wymaga, aby zwycięzcy byli wyłaniani na podstawie umiejętności." },
-      { "q": "Jak wziąć udział?", "a": "Przeglądaj konkursy, wybierz nagrodę, odpowiedz poprawnie na pytanie i kup bilet." },
-      { "q": "Jak wybierani są zwycięzcy?", "a": "Zwycięskie zgłoszenia są losowane na żywo na YouTube." },
-      { "q": "Czy mogę wziąć udział za darmo?", "a": "Tak. Wysyłając zgłoszenie pocztą — szczegóły na stronie Darmowy Wpis Pocztowy." },
-      { "q": "Jaki jest limit wieku?", "a": "Musisz mieć ukończone 18 lat." },
-      { "q": "Kiedy otrzymam nagrodę?", "a": "Zwycięzcy są powiadamiani w ciągu 24 godzin. Nagrody wysyłamy w ciągu 5 dni roboczych." }
+      {
+        "q": "Czym jest Golden Dream Draw?",
+        "a": "Golden Dream Draw to platforma konkursów umiejętnościowych. W przeciwieństwie do loterii, musisz poprawnie odpowiedzieć na pytanie."
+      },
+      {
+        "q": "Czy to loteria?",
+        "a": "Nie. To konkurs umiejętności. Prawo brytyjskie wymaga, aby zwycięzcy byli wyłaniani na podstawie umiejętności."
+      },
+      {
+        "q": "Jak wziąć udział?",
+        "a": "Przeglądaj konkursy, wybierz nagrodę, odpowiedz poprawnie na pytanie i kup bilet."
+      },
+      {
+        "q": "Jak wybierani są zwycięzcy?",
+        "a": "Zwycięskie zgłoszenia są losowane na żywo na YouTube."
+      },
+      {
+        "q": "Czy mogę wziąć udział za darmo?",
+        "a": "Tak. Wysyłając zgłoszenie pocztą — szczegóły na stronie Darmowy Wpis Pocztowy."
+      },
+      {
+        "q": "Jaki jest limit wieku?",
+        "a": "Musisz mieć ukończone 18 lat."
+      },
+      {
+        "q": "Kiedy otrzymam nagrodę?",
+        "a": "Zwycięzcy są powiadamiani w ciągu 24 godzin. Nagrody wysyłamy w ciągu 5 dni roboczych."
+      }
     ]
   },
   "ctaBanner": {

@@ -48,6 +48,14 @@ export default async function CompetitionDetailPage({ params }: Props) {
   const drawPast = competition.drawDate < new Date();
   const category = categoryLabels[competition.prizeCategory || ""] || competition.prizeCategory || "Prize";
 
+  const categoryBadgeColors: Record<string, string> = {
+    electronics: "bg-badge-electronics",
+    jewellery: "bg-badge-jewellery",
+    fashion: "bg-badge-fashion",
+    cash: "bg-badge-cash",
+  };
+  const badgeBg = categoryBadgeColors[competition.prizeCategory || ""] || "bg-badge-electronics";
+
   return (
     <div className="bg-cream px-12 py-16">
       <div className="mx-auto max-w-6xl">
@@ -85,8 +93,8 @@ export default async function CompetitionDetailPage({ params }: Props) {
                 priority
               />
 
-              {/* Category badge */}
-              <span className="absolute bottom-5 right-5 rounded-xl bg-white/80 px-3 py-1 text-[11px] font-semibold tracking-wider text-ink-muted uppercase shadow-sm backdrop-blur-sm">
+              {/* Category badge — top-right, same style as trending grid */}
+              <span className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeBg}`}>
                 {category}
               </span>
             </div>
@@ -94,11 +102,8 @@ export default async function CompetitionDetailPage({ params }: Props) {
 
           {/* ── Right — Details + Purchase ── */}
           <div>
-            {/* Prize value badge + Category */}
+            {/* Prize value badge */}
             <div className="mb-4 flex items-center gap-3">
-              <div className="text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-                {category}
-              </div>
               {competition.prizeValue && (
                 <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
                   RRP £{Number(competition.prizeValue).toLocaleString()}
@@ -144,12 +149,10 @@ export default async function CompetitionDetailPage({ params }: Props) {
             {/* Purchase Section */}
             {!soldOut && !drawPast ? (
               <PurchaseSection
-                competitionId={competition.id}
                 slug={slug}
                 price={price}
                 maxAvailable={left}
                 locale={locale}
-                question={competition.question}
               />
             ) : (
               <SoldOutBanner soldOut={soldOut} />
