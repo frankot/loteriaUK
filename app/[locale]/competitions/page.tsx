@@ -1,7 +1,7 @@
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import CompetitionCard from "@/components/public/competition-card";
-import type { Prisma } from "@prisma/client";
+
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -16,8 +16,8 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
   const { category, page: pageStr } = await searchParams;
   const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
 
-  const where: Prisma.CompetitionWhereInput = {
-    status: "ACTIVE",
+  const where = {
+    status: "ACTIVE" as const,
     ...(category && { prizeCategory: category }),
   };
 
