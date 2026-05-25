@@ -59,10 +59,22 @@ export async function createCheckoutSession(
       select: { email: true },
     });
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/+$/, "");
 
     // 4. Create Stripe Checkout Session
     const lineItemPrice = Math.round(Number(competition.pricePounds) * 100); // cents
+
+    // Build image URL: if prizeImageUrl is already absolute, use as-is; otherwise prefix with appUrl
+    const imageUrl = competition.prizeImageUrl
+      ? competition.prizeImageUrl.startsWith("http://") || competition.prizeImageUrl.startsWith("https://")
+        ? competition.prizeImageUrl
+        : `${appUrl}${competition.prizeImageUrl.startsWith("/") ? "" : "/"}${competition.prizeImageUrl}`
+      : null;
+
+    // Skip images when running on localhost — Stripe can't fetch them
+    const finalImages = imageUrl && !imageUrl.includes("localhost") && !imageUrl.includes("127.0.0.1")
+      ? [imageUrl]
+      : undefined;
 
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
@@ -74,9 +86,7 @@ export async function createCheckoutSession(
             product_data: {
               name: competition.titleEn,
               description: `${quantity} ticket${quantity > 1 ? "s" : ""} for ${competition.titleEn}`,
-              images: competition.prizeImageUrl
-                ? [`${appUrl}${competition.prizeImageUrl}`]
-                : undefined,
+              images: finalImages,
             },
             unit_amount: lineItemPrice,
           },

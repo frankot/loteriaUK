@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import { Prisma } from "@prisma/client";
-
 // ── Auth guard helper ─────────────────────────────────────────
 async function requireAdmin() {
   const session = await getSession();
@@ -85,12 +83,12 @@ export async function createCompetition(
         descPl: data.descPl || null,
         descRo: data.descRo || null,
         descBg: data.descBg || null,
-        pricePounds: new Prisma.Decimal(data.pricePounds),
+        pricePounds: Number(data.pricePounds),
         maxTickets: data.maxTickets,
         drawDate: new Date(data.drawDate),
         prizeImageUrl: data.prizeImageUrl || null,
         prizeCategory: data.prizeCategory || null,
-        prizeValue: data.prizeValue ? new Prisma.Decimal(data.prizeValue) : null,
+        prizeValue: data.prizeValue ? Number(data.prizeValue) : null,
         questionId: data.questionId || null,
         status: data.status,
       },
@@ -148,12 +146,12 @@ export async function updateCompetition(
         descPl: data.descPl || null,
         descRo: data.descRo || null,
         descBg: data.descBg || null,
-        pricePounds: new Prisma.Decimal(data.pricePounds),
+        pricePounds: Number(data.pricePounds),
         maxTickets: data.maxTickets,
         drawDate: new Date(data.drawDate),
         prizeImageUrl: data.prizeImageUrl || null,
         prizeCategory: data.prizeCategory || null,
-        prizeValue: data.prizeValue ? new Prisma.Decimal(data.prizeValue) : null,
+        prizeValue: data.prizeValue ? Number(data.prizeValue) : null,
         questionId: data.questionId || null,
         status: data.status,
       },
