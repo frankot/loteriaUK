@@ -3,7 +3,9 @@
 import { useState, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { createCompetition, updateCompetition, uploadImage, deleteImage } from "@/actions/admin";
-import type { CompetitionStatus, SkillQuestion } from "@prisma/client";
+// Local type definitions — Prisma generated types not available on Vercel
+type CompetitionStatus = "DRAFT" | "ACTIVE" | "CLOSED" | "DRAWN" | "CANCELLED";
+interface SkillQuestion { id: string; questionEn: string; }
 
 interface CompetitionFormData {
   titleEn: string;

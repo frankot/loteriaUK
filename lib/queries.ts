@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/prisma";
-import type { Competition, Winner } from "@prisma/client";
 
 // ── Trending competitions (ACTIVE, ordered by urgency) ────────
 export async function getTrendingCompetitions(limit = 6) {
