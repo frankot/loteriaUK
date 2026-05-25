@@ -79,7 +79,7 @@ export default async function EditUserPage({ params }: Props) {
               <p className="text-sm text-ink-muted">No entries</p>
             ) : (
               <ul className="space-y-3">
-                {entries.map((entry) => (
+                {entries.map((entry: typeof entries[number]) => (
                   <li
                     key={entry.id}
                     className="rounded-lg border border-border-light p-3 text-xs"

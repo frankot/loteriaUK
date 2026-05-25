@@ -80,7 +80,7 @@ export default async function SuccessPage({ params, searchParams }: Props) {
             Your Ticket Numbers
           </h2>
           <div className="flex flex-wrap justify-center gap-3">
-            {tickets.map((t) => (
+            {tickets.map((t: typeof tickets[number]) => (
               <span
                 key={t.number}
                 className="rounded-xl bg-gold-pale px-4 py-2 font-mono text-lg font-bold text-gold-dark"

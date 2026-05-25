@@ -233,7 +233,7 @@ export default async function ProfilePage({ params }: Props) {
                 </tr>
               </thead>
               <tbody>
-                {entries.map((entry) => (
+                {entries.map((entry: typeof entries[number]) => (
                   <tr
                     key={entry.id}
                     className="border-b border-border-light last:border-b-0 hover:bg-cream/50"

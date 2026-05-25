@@ -77,7 +77,7 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
       ) : (
         <>
           <div className="grid grid-cols-3 gap-6">
-            {competitions.map((comp) => (
+            {competitions.map((comp: typeof competitions[number]) => (
               <CompetitionCard
                 key={comp.id}
                 slug={comp.slug}

@@ -90,7 +90,7 @@ export default async function AdminUsersPage({ params, searchParams }: Props) {
                 </td>
               </tr>
             ) : (
-              users.map((user) => (
+              users.map((user: typeof users[number]) => (
                 <tr
                   key={user.id}
                   className="border-b border-border-light last:border-b-0 hover:bg-cream/50"
