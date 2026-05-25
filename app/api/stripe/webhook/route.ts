@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { stripe, getWebhookSecret } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import type Stripe from "stripe";
-import type { PrismaClient } from "@prisma/client";
-
-// Prisma transaction client = PrismaClient minus lifecycle methods not available in $transaction
-type TxPrismaClient = Omit<PrismaClient, "$connect" | "$disconnect" | "$on" | "$use" | "$extends">;
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -61,7 +57,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   }
 
   // Use a transaction to ensure atomicity
-  await prisma.$transaction(async (tx: TxPrismaClient) => {
+  await prisma.$transaction(async (tx: any) => {
     // 1. Get competition and lock row (via update)
     const competition = await tx.competition.findUnique({
       where: { id: competitionId },
