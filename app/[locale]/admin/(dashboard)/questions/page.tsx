@@ -56,7 +56,7 @@ export default async function AdminQuestionsPage({ params }: Props) {
                 </td>
               </tr>
             ) : (
-              questions.map((q) => (
+              questions.map((q: typeof questions[number]) => (
                 <tr
                   key={q.id}
                   className="border-b border-border-light last:border-b-0 hover:bg-cream/50"

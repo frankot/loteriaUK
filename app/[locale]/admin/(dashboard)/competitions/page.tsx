@@ -143,7 +143,7 @@ export default async function AdminCompetitionsPage({
                 </td>
               </tr>
             ) : (
-              competitions.map((comp) => (
+              competitions.map((comp: typeof competitions[number]) => (
                 <tr
                   key={comp.id}
                   className="border-b border-border-light last:border-b-0 hover:bg-cream/50"
