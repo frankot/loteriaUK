@@ -25,7 +25,7 @@ export async function GET(
 
     // Build CSV
     const header = "email,name,ticketNumber,type,answerCorrect,createdAt";
-    const rows = entries.map((e) => {
+    const rows = entries.map((e: typeof entries[number]) => {
       const answerCorrect =
         e.answerCorrect === null ? "" : e.answerCorrect ? "Yes" : "No";
       return [
