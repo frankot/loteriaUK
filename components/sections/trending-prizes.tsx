@@ -30,7 +30,7 @@ export default async function TrendingPrizes() {
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-6">
-            {competitions.map((comp) => (
+            {competitions.map((comp: typeof competitions[number]) => (
               <CompetitionCard
                 key={comp.slug}
                 slug={comp.slug}

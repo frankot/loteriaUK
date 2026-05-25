@@ -50,7 +50,7 @@ export default async function Winners() {
           </div>
         ) : (
           <div className="grid grid-cols-5 gap-5">
-            {winners.map((w) => (
+            {winners.map((w: typeof winners[number]) => (
               <div
                 key={w.id}
                 className="rounded-xl bg-white px-5 pt-7 pb-7 text-center shadow-card transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover"
