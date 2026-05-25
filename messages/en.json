@@ -115,16 +115,21 @@
     "verify": "Verify",
     "invalidCode": "Invalid or expired code",
     "ageConfirm": "I confirm I am 18 or older",
-    "ageConfirmRequired": "You must be 18 or older to use this site"
+    "ageConfirmRequired": "You must be 18 or older to use this site",
+    "loggedIn": "You are already signed in"
   },
   "register": {
     "title": "Complete Your Profile",
+    "subtitle": "Fill in your details to continue",
     "fullName": "Full Name",
     "address": "Address",
     "phone": "Phone Number",
     "dateOfBirth": "Date of Birth",
     "ageConfirm": "I confirm I am 18 or older",
-    "submit": "Create Account"
+    "submit": "Create Account",
+    "namePlaceholder": "John Smith",
+    "addressPlaceholder": "123 Main Street, London, SW1A 1AA",
+    "phonePlaceholder": "+44 7700 900000"
   },
   "competition": {
     "soldOut": "Sold Out",
@@ -151,7 +156,65 @@
     "tickets": "My Tickets",
     "entries": "Entry History",
     "noTickets": "You haven't entered any competitions yet",
-    "settings": "Settings"
+    "noEntries": "No entry history yet",
+    "settings": "Settings",
+    "settingsTitle": "Profile Settings",
+    "settingsDesc": "Update your personal information",
+    "email": "Email",
+    "name": "Name",
+    "address": "Address",
+    "phone": "Phone",
+    "ticketNumber": "Ticket #",
+    "competition": "Competition",
+    "type": "Type",
+    "date": "Date",
+    "paid": "Paid",
+    "postal": "Postal",
+    "notProvided": "Not provided",
+    "updatedSuccess": "Profile updated successfully",
+    "browseCompetitions": "Browse Competitions",
+    "signInPrompt": "Sign in to view your tickets and entries",
+    "signIn": "Sign In"
+  },
+  "freePostalEntry": {
+    "title": "Free Postal Entry",
+    "subtitle": "Enter any competition for free — no purchase necessary",
+    "intro": "Under UK law, every skill-based competition must offer a free entry route. You can enter any of our competitions by post.",
+    "howTo": "How to Enter by Post",
+    "step1": {
+      "title": "Choose your competition",
+      "desc": "Pick any active competition from our Competitions page."
+    },
+    "step2": {
+      "title": "Write your entry",
+      "desc": "On a postcard or piece of paper, write the following details clearly:"
+    },
+    "step3": {
+      "title": "Post it to us",
+      "desc": "Send your entry to the address below. It must arrive before the competition's draw date."
+    },
+    "requiredFields": "Required Fields",
+    "fields": {
+      "fullName": "Your full name",
+      "address": "Your address",
+      "email": "Your email address",
+      "dob": "Your date of birth",
+      "competition": "The name of the competition you want to enter",
+      "answer": "Your answer to the skill question (A, B, C, or D)"
+    },
+    "mailingAddress": "Our Postal Address",
+    "addressLine1": "Golden Dream Draw Ltd",
+    "addressLine2": "PO Box 1234",
+    "addressLine3": "London, EC1A 1AA",
+    "addressLine4": "United Kingdom",
+    "deadline": "Deadline",
+    "deadlineText": "Your postal entry must arrive before the draw date of the competition you're entering. Entries received after the draw date will not be entered.",
+    "equalChance": "Equal Chance",
+    "equalChanceText": "Postal entries have an equal chance of winning as paid entries. All entries are included in the same live draw. One entry per person per competition.",
+    "limits": "Limits",
+    "limitsText": "One free postal entry per person per competition. Multiple entries from the same person for the same competition will be disqualified.",
+    "questions": "Questions?",
+    "questionsText": "If you have any questions about postal entries, email us at postal@goldendreandraw.com."
   },
   "common": {
     "loading": "Loading...",
@@ -163,6 +226,7 @@
     "search": "Search",
     "noResults": "No results found",
     "back": "Back",
-    "close": "Close"
+    "close": "Close",
+    "saving": "Saving..."
   }
 }

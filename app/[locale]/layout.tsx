@@ -3,8 +3,8 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
+import { getSession } from "@/lib/session";
+import { LayoutShell } from "@/components/layout/layout-shell";
 
 type Props = {
   children: React.ReactNode;
@@ -20,12 +20,16 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const session = await getSession();
 
   return (
     <NextIntlClientProvider messages={messages}>
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
+      <LayoutShell
+        isLoggedIn={!!session.userId}
+        userEmail={session.email}
+      >
+        {children}
+      </LayoutShell>
     </NextIntlClientProvider>
   );
 }

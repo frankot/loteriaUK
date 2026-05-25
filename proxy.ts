@@ -40,17 +40,18 @@ async function authGuard(
   const isLoggedIn = !!session.userId;
   const isAdmin = session.role === "admin";
 
+  // 0) Admin login — allow unauthenticated access, redirect if already admin
+  if (basePath === "/admin/login" || basePath.startsWith("/admin/login?")) {
+    if (isLoggedIn && isAdmin) {
+      return NextResponse.redirect(new URL(`/${locale}/admin`, request.url));
+    }
+    return response;
+  }
+
   // 1) Public routes — pass through
   if (
     publicRoutes.some((r) => basePath === r || basePath.startsWith(r + "/"))
   ) {
-    // Admin login: if already logged in as admin, redirect to dashboard
-    if (basePath === "/admin/login") {
-      if (isLoggedIn && isAdmin) {
-        return NextResponse.redirect(new URL(`/${locale}/admin`, request.url));
-      }
-      return response;
-    }
     return response;
   }
 

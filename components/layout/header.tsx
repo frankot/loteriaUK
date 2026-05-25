@@ -3,10 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import LanguageSwitcher from "./language-switcher";
 
-export default function Header() {
+interface HeaderProps {
+  isLoggedIn?: boolean;
+  userEmail?: string;
+}
+
+export default function Header({ isLoggedIn, userEmail }: HeaderProps) {
   const t = useTranslations("nav");
   const params = useParams();
   const locale = (params.locale as string) || "en";
@@ -47,14 +53,52 @@ export default function Header() {
 
         <div className="flex items-center gap-4">
           <LanguageSwitcher />
-          <Link
-            href={`/${locale}/login`}
-            className="rounded-3xl border border-ink bg-transparent px-5 py-2 font-medium text-sm text-ink transition-all hover:border-gold hover:text-gold-dark"
-          >
-            {t("signIn")}
-          </Link>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3">
+              <Link
+                href={`/${locale}/profile`}
+                className="rounded-3xl border border-gold bg-gold-pale px-5 py-2 font-medium text-sm text-gold-dark transition-all hover:bg-gold hover:text-white"
+              >
+                {t("profile")}
+              </Link>
+              <SignOutButton locale={locale} />
+            </div>
+          ) : (
+            <Link
+              href={`/${locale}/login`}
+              className="rounded-3xl border border-ink bg-transparent px-5 py-2 font-medium text-sm text-ink transition-all hover:border-gold hover:text-gold-dark"
+            >
+              {t("signIn")}
+            </Link>
+          )}
         </div>
       </div>
     </header>
+  );
+}
+
+function SignOutButton({ locale }: { locale: string }) {
+  const t = useTranslations("nav");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  async function handleSignOut() {
+    setLoading(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.push(`/${locale}`);
+      router.refresh();
+    }
+  }
+
+  return (
+    <button
+      onClick={handleSignOut}
+      disabled={loading}
+      className="rounded-3xl border border-border px-4 py-2 text-sm font-medium text-ink-muted transition-all hover:border-urgent hover:text-urgent disabled:opacity-50"
+    >
+      {loading ? "..." : t("signOut")}
+    </button>
   );
 }
