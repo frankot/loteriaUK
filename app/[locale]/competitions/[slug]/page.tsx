@@ -74,12 +74,12 @@ export default async function CompetitionDetailPage({ params }: Props) {
             <div className="relative flex h-[480px] items-center justify-center overflow-hidden rounded-2xl bg-white shadow-featured">
               {/* Status badge */}
               {soldOut && (
-                <span className="absolute top-5 left-5 z-10 rounded-full bg-urgent px-4 py-1.5 text-xs font-semibold tracking-wide text-white">
+                <span className="absolute top-3 left-5 z-10 rounded-full bg-urgent px-2.5 py-1 text-xs font-semibold tracking-wide text-white">
                   Sold Out
                 </span>
               )}
               {!soldOut && left < 20 && (
-                <span className="absolute top-5 left-5 z-10 rounded-full bg-gold px-4 py-1.5 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
+                <span className="absolute top-3 left-5 z-10 rounded-full bg-gold px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
                   🔥 Only {left} left
                 </span>
               )}

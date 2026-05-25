@@ -65,6 +65,11 @@ export default function CompetitionCard({
         >
           {category || "Prize"}
         </span>
+        {urgent && (
+          <span className="absolute top-3 left-5 z-10 rounded-full bg-gold px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
+            🔥 Only {left} left
+          </span>
+        )}
         <Image
           src={imageUrl || "/images/rolex.png"}
           alt={title}
