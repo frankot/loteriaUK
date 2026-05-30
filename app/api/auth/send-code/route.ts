@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
+import resend from "@/lib/resend";
+import { loginCodeEmailHtml } from "@/lib/email-templates";
 
 export async function POST(request: Request) {
   try {
@@ -37,9 +39,24 @@ export async function POST(request: Request) {
       },
     });
 
-    // TODO: Send via Resend when configured
-    // For now, log to console for development
-    console.log(`\n🔑 Login code for ${normalizedEmail}: ${code}\n`);
+    // Send via Resend
+    const hasResend = !!process.env.RESEND_API_KEY;
+    if (hasResend) {
+      try {
+        await resend.emails.send({
+          from: "Golden Dream Draw <auth@goldendreandraw.com>",
+          to: normalizedEmail,
+          subject: "Your login code — Golden Dream Draw",
+          html: loginCodeEmailHtml(code),
+        });
+        console.log(`📧 Login code sent to ${normalizedEmail}`);
+      } catch (emailError) {
+        console.error("Failed to send login email:", emailError);
+        // Still return success — code is stored, user can retry
+      }
+    } else {
+      console.log(`\n🔑 Login code for ${normalizedEmail}: ${code}\n`);
+    }
 
     return NextResponse.json({
       message: "Code sent",

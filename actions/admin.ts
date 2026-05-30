@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import resend from "@/lib/resend";
+import { winnerNotificationHtml } from "@/lib/email-templates";
 // ── Auth guard helper ─────────────────────────────────────────
 async function requireAdmin() {
   const session = await getSession();
@@ -749,9 +751,6 @@ export async function assignWinner(
       });
 
       if (user && competition && process.env.RESEND_API_KEY) {
-        const { Resend } = await import("resend");
-        const resend = new Resend(process.env.RESEND_API_KEY);
-
         await resend.emails.send({
           from: "Golden Dream Draw <winners@goldendreandraw.com>",
           to: user.email,
@@ -794,64 +793,6 @@ export async function assignWinner(
 }
 
 // Winner notification HTML template (inline, no React Email dependency at runtime)
-function winnerNotificationHtml({
-  userName,
-  competitionTitle,
-  competitionSlug,
-  claimDeadline,
-}: {
-  userName: string;
-  competitionTitle: string;
-  competitionSlug: string;
-  claimDeadline: string;
-}): string {
-  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://goldendreandraw.com";
-  return `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <style>
-    body { font-family: Georgia, serif; background: #F8F5F0; color: #1A1A1A; }
-    .email { max-width: 520px; margin: 40px auto; background: #fff; border-radius: 16px; border: 1px solid #E5DFD5; padding: 40px; }
-    .trophy { text-align: center; font-size: 48px; margin-bottom: 16px; }
-    h1 { font-family: Georgia, serif; font-size: 24px; text-align: center; color: #1A1A1A; }
-    .prize { background: #FDF4E3; border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; }
-    .prize-name { font-size: 20px; font-weight: 700; color: #C6942E; }
-    .deadline { background: #FFF3E0; border-radius: 8px; padding: 14px; margin: 20px 0; text-align: center; font-size: 13px; color: #8B6914; }
-    .cta { display: block; text-align: center; background: #C6942E; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; margin: 24px 0 8px; }
-    .footer { font-size: 12px; color: #9B968B; text-align: center; margin-top: 28px; }
-  </style>
-</head>
-<body>
-  <div class="email">
-    <div class="trophy">🏆</div>
-    <h1>Congratulations, ${userName}!</h1>
-    <p style="text-align:center;color:#6B6460;">You are the lucky winner of:</p>
-    <div class="prize">
-      <div class="prize-name">${competitionTitle}</div>
-    </div>
-    <div class="deadline">
-      ⏰ You have <strong>14 days</strong> to claim your prize.<br>
-      Claim deadline: <strong>${claimDeadline}</strong>
-    </div>
-    <p style="text-align:center;color:#6B6460;font-size:14px;">
-      To claim your prize, sign in to your account at the link below:
-    </p>
-    <a href="${siteUrl}/en/competitions/${competitionSlug}" class="cta">
-      Claim Your Prize →
-    </a>
-    <p style="text-align:center;font-size:12px;color:#9B968B;">
-      If you don't claim within 14 days, a new winner will be drawn.
-    </p>
-    <div class="footer">
-      Golden Dream Draw Ltd — Skill-based prize competitions<br>
-      © ${new Date().getFullYear()} All rights reserved.
-    </div>
-  </div>
-</body>
-</html>`;
-}
-
 // ═══════════════════════════════════════════════════════════════
 // Winners Management (Phase 6e)
 // ═══════════════════════════════════════════════════════════════
@@ -885,9 +826,6 @@ export async function toggleWinnerNotified(
     // Send notification email
     if (process.env.RESEND_API_KEY) {
       try {
-        const { Resend } = await import("resend");
-        const resend = new Resend(process.env.RESEND_API_KEY);
-
         await resend.emails.send({
           from: "Golden Dream Draw <winners@goldendreandraw.com>",
           to: winner.user.email,
