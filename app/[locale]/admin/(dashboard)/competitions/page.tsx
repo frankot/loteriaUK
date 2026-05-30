@@ -2,6 +2,7 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { RowActionsDropdown } from "./row-actions-dropdown";
+import { EmptyState } from "@/components/ui/empty-state";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -109,7 +110,8 @@ export default async function AdminCompetitionsPage({
 
       {/* Table */}
       <div className="overflow-hidden rounded-xl border border-border bg-white">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-cream-warm">
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -137,11 +139,12 @@ export default async function AdminCompetitionsPage({
           </thead>
           <tbody>
             {competitions.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="px-4 py-12 text-center text-ink-muted">
-                  No competitions found
-                </td>
-              </tr>
+              <EmptyState
+                asTableCell
+                colSpan={7}
+                icon="trophy"
+                message="No competitions found"
+              />
             ) : (
               competitions.map((comp: typeof competitions[number]) => (
                 <tr
@@ -200,7 +203,8 @@ export default async function AdminCompetitionsPage({
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   );

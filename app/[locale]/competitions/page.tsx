@@ -1,6 +1,7 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import CompetitionCard from "@/components/public/competition-card";
+import { EmptyState } from "@/components/ui/empty-state";
 
 
 type Props = {
@@ -19,6 +20,7 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
 
   const where = {
     status: "ACTIVE" as const,
+    drawDate: { gte: new Date() },
     ...(category && { prizeCategory: category }),
   };
 
@@ -73,10 +75,11 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
       </div>
 
       {competitions.length === 0 ? (
-        <div className="rounded-xl border border-border bg-white py-16 text-center text-ink-muted">
-          <p className="text-lg">{t("empty.title")}{category ? t("empty.inCategory") : ""}</p>
-          <p className="mt-1 text-sm">{t("empty.checkBack")}</p>
-        </div>
+        <EmptyState
+          icon="search"
+          message={t("empty.title") + (category ? t("empty.inCategory") : "")}
+          description={t("empty.checkBack")}
+        />
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">

@@ -18,6 +18,57 @@ function formatDrawDate(date: Date): string {
   return date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 }
 
+/** Shown when no competitions exist at all — not just un-featured, but zero ACTIVE */
+function NoCompetitionsCard({
+  t,
+  fallbackImage,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: any;
+  fallbackImage: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured">
+      <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden bg-cream-warm">
+        <Image
+          src={fallbackImage}
+          alt="Coming soon"
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+          className="object-contain p-4 opacity-60"
+        />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="text-center px-6">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gold-pale px-4 py-1.5 text-xs font-semibold tracking-wide text-gold-dark uppercase">
+              <span className="inline-block h-[7px] w-[7px] rounded-full bg-gold" />
+              {t("comingSoonBadge")}
+            </span>
+            <h3 className="mt-4 font-serif text-xl md:text-2xl font-semibold text-ink">
+              {t("comingSoonTitle")}
+            </h3>
+            <p className="mt-2 text-sm text-ink-muted">
+              {t("comingSoonSubtitle")}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="p-5 md:p-7">
+        <div className="flex items-center justify-between">
+          <div className="text-lg md:text-[22px] font-bold text-ink">
+            £1.99{" "}
+            <span className="text-[12px] md:text-[13px] font-normal text-ink-muted">
+              {t("perTicket")}
+            </span>
+          </div>
+          <span className="text-[12px] md:text-[13px] text-ink-muted">
+            {t("comingSoonCheckBack")}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const featured = await getHeroCompetition();
@@ -132,7 +183,7 @@ export default async function Hero({ locale }: { locale: string }) {
           </Link>
           ) : (
             <div className="animate-fade-in-up order-0 lg:order-1 [animation-delay:200ms]">
-              <NoCompetitionsCard t={t} fallbackImage={fallbackImage} locale={locale} />
+              <NoCompetitionsCard t={t} fallbackImage={fallbackImage} />
             </div>
           )}
         </div>

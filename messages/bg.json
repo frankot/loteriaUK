@@ -60,7 +60,11 @@
     "draw": "Жребий:",
     "prizesAwarded": "в раздадени награди",
     "happyWinners": "щастливи победители",
-    "trustpilot": "в Trustpilot"
+    "trustpilot": "в Trustpilot",
+    "comingSoonBadge": "Очаквайте скоро",
+    "comingSoonTitle": "Нови награди идват скоро",
+    "comingSoonSubtitle": "Подготвяме следващото теглене. Проверете отново скоро.",
+    "comingSoonCheckBack": "Проверете скоро"
   },
   "stats": {
     "activeCompetitions": "Активни конкурси",

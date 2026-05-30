@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getRecentWinners } from "@/lib/queries";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default async function Winners() {
   const t = await getTranslations("winners");
@@ -47,9 +48,7 @@ export default async function Winners() {
         </div>
 
         {winners.length === 0 ? (
-          <div className="rounded-xl border border-border bg-white py-16 text-center text-ink-muted">
-            <p className="text-lg">{t("noWinners")}</p>
-          </div>
+          <EmptyState icon="trophy" message={t("noWinners")} />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5">
             {winners.slice(0, 6).map((w: typeof winners[number]) => (

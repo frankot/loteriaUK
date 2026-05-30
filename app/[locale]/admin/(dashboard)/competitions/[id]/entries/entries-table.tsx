@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface Entry {
   id: string;
@@ -127,7 +128,8 @@ export function EntriesTable({
 
       {/* Table */}
       <div className="overflow-hidden rounded-xl border border-border bg-white">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-cream-warm">
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -152,11 +154,12 @@ export function EntriesTable({
           </thead>
           <tbody>
             {entries.length === 0 ? (
-              <tr>
-                <td colSpan={6} className="px-4 py-12 text-center text-ink-muted">
-                  No entries found
-                </td>
-              </tr>
+              <EmptyState
+                asTableCell
+                colSpan={6}
+                icon="search"
+                message="No entries found"
+              />
             ) : (
               entries.map((entry) => (
                 <tr
@@ -207,7 +210,8 @@ export function EntriesTable({
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
 
       {/* Pagination */}

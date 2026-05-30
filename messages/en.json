@@ -62,7 +62,11 @@
     "draw": "Draw:",
     "prizesAwarded": "in prizes awarded",
     "happyWinners": "happy winners",
-    "trustpilot": "on Trustpilot"
+    "trustpilot": "on Trustpilot",
+    "comingSoonBadge": "Coming Soon",
+    "comingSoonTitle": "New prizes arriving soon",
+    "comingSoonSubtitle": "We're preparing the next draw. Check back shortly.",
+    "comingSoonCheckBack": "Check back soon"
   },
   "stats": {
     "activeCompetitions": "Active Competitions",

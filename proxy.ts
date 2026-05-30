@@ -4,6 +4,7 @@ import { getIronSession } from "iron-session";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { sessionOptions, SessionData } from "./lib/session";
+import { transitionPastDueCompetitions } from "./lib/status-transitions";
 
 // ── next-intl ──
 const intlMiddleware = createMiddleware(routing);
@@ -98,7 +99,13 @@ export default async function proxy(request: NextRequest) {
     return intlResponse;
   }
 
-  // Step 3: Run auth guard using the i18n response as the base
+  // Step 3: Run status transitions in the background (non-blocking for response)
+  // Transitions ACTIVE→CLOSED for competitions past their draw date
+  transitionPastDueCompetitions().catch((err) =>
+    console.error("[proxy] status transition failed:", err)
+  );
+
+  // Step 4: Run auth guard using the i18n response as the base
   return authGuard(request, intlResponse);
 }
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { X, History, Loader2 } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface UserRow {
   id: string;
@@ -100,7 +101,8 @@ export function UsersTable({
 
       {/* Table */}
       <div className="overflow-hidden rounded-xl border border-border bg-white">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-cream-warm">
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -128,14 +130,12 @@ export function UsersTable({
           </thead>
           <tbody>
             {users.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={7}
-                  className="px-4 py-12 text-center text-ink-muted"
-                >
-                  No users found
-                </td>
-              </tr>
+              <EmptyState
+                asTableCell
+                colSpan={7}
+                icon="search"
+                message="No users found"
+              />
             ) : (
               users.map((user) => (
                 <tr
@@ -188,7 +188,8 @@ export function UsersTable({
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
 
       {/* Pagination */}

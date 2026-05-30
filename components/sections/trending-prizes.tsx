@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getTrendingCompetitions } from "@/lib/queries";
 import CompetitionCard from "@/components/public/competition-card";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default async function TrendingPrizes() {
   const t = await getTranslations("trending");
@@ -27,9 +28,7 @@ export default async function TrendingPrizes() {
         </div>
 
         {competitions.length === 0 ? (
-          <div className="rounded-xl border border-border bg-white py-16 text-center text-ink-muted">
-            <p className="text-lg">{t("empty")}</p>
-          </div>
+          <EmptyState icon="clock" message={t("empty")} />
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {competitions.map((comp: typeof competitions[number]) => (

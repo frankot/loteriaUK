@@ -3,7 +3,7 @@ import Link from "next/link";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
-import { Ticket } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -147,18 +147,12 @@ export default async function ProfilePage({ params }: Props) {
         </h2>
 
         {!hasTickets ? (
-          <div className="rounded-xl border border-border bg-white py-12 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold-pale">
-              <Ticket className="h-6 w-6 text-gold-dark" />
-            </div>
-            <p className="text-sm text-ink-muted">{t("noTickets")}</p>
-            <Link
-              href={`/${locale}/competitions`}
-              className="mt-4 inline-block rounded-3xl bg-gold px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-gold-dark"
-            >
-              {t("browseCompetitions")}
-            </Link>
-          </div>
+          <EmptyState
+            icon="ticket"
+            message={t("noTickets")}
+            ctaLabel={t("browseCompetitions")}
+            ctaHref={`/${locale}/competitions`}
+          />
         ) : (
           <div className="space-y-4">
             {Object.entries(ticketsByCompetition).map(([slug, { competition, tickets }]) => (
@@ -210,12 +204,11 @@ export default async function ProfilePage({ params }: Props) {
         </h2>
 
         {!hasEntries ? (
-          <div className="rounded-xl border border-border bg-white py-12 text-center">
-            <p className="text-sm text-ink-muted">{t("noEntries")}</p>
-          </div>
+          <EmptyState icon="inbox" message={t("noEntries")} />
         ) : (
           <div className="overflow-hidden rounded-xl border border-border bg-white">
-            <table className="w-full text-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border bg-cream-warm">
                   <th className="px-5 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -277,6 +270,7 @@ export default async function ProfilePage({ params }: Props) {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
       </section>

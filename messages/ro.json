@@ -60,7 +60,11 @@
     "draw": "Tragere:",
     "prizesAwarded": "în premii acordate",
     "happyWinners": "câștigători fericiți",
-    "trustpilot": "pe Trustpilot"
+    "trustpilot": "pe Trustpilot",
+    "comingSoonBadge": "În curând",
+    "comingSoonTitle": "Premii noi în curând",
+    "comingSoonSubtitle": "Pregătim următoarea extragere. Reveniți în curând.",
+    "comingSoonCheckBack": "Reveniți în curând"
   },
   "stats": {
     "activeCompetitions": "Concursuri active",

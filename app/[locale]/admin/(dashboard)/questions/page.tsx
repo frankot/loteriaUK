@@ -2,6 +2,7 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { DeleteQuestionButton } from "./delete-button";
+import { EmptyState } from "@/components/ui/empty-state";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -31,7 +32,8 @@ export default async function AdminQuestionsPage({ params }: Props) {
       </div>
 
       <div className="overflow-hidden rounded-xl border border-border bg-white">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-cream-warm">
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -50,11 +52,12 @@ export default async function AdminQuestionsPage({ params }: Props) {
           </thead>
           <tbody>
             {questions.length === 0 ? (
-              <tr>
-                <td colSpan={4} className="px-4 py-12 text-center text-ink-muted">
-                  No questions yet
-                </td>
-              </tr>
+              <EmptyState
+                asTableCell
+                colSpan={4}
+                icon="inbox"
+                message="No questions yet"
+              />
             ) : (
               questions.map((q: typeof questions[number]) => (
                 <tr
@@ -94,7 +97,8 @@ export default async function AdminQuestionsPage({ params }: Props) {
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   );

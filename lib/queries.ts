@@ -3,7 +3,10 @@ import { prisma } from "@/lib/prisma";
 // ── Trending competitions (ACTIVE, ordered by urgency) ────────
 export async function getTrendingCompetitions(limit = 6) {
   return prisma.competition.findMany({
-    where: { status: "ACTIVE" },
+    where: {
+      status: "ACTIVE",
+      drawDate: { gte: new Date() },
+    },
     orderBy: { drawDate: "asc" },
     take: limit,
     select: {
@@ -28,7 +31,11 @@ export async function getTrendingCompetitions(limit = 6) {
 // ── Featured competition (admin-picked, for hero card) ────
 export async function getFeaturedCompetition() {
   return prisma.competition.findFirst({
-    where: { featured: true, status: "ACTIVE" },
+    where: {
+      featured: true,
+      status: "ACTIVE",
+      drawDate: { gte: new Date() },
+    },
     select: {
       id: true,
       slug: true,
@@ -48,7 +55,11 @@ export async function getFeaturedCompetition() {
 export async function getHeroCompetition() {
   // Try admin-picked featured first
   const featured = await prisma.competition.findFirst({
-    where: { featured: true, status: "ACTIVE" },
+    where: {
+      featured: true,
+      status: "ACTIVE",
+      drawDate: { gte: new Date() },
+    },
     select: {
       id: true,
       slug: true,
@@ -67,7 +78,10 @@ export async function getHeroCompetition() {
 
   // Fall back to the most urgent ACTIVE competition (closest draw date)
   return prisma.competition.findFirst({
-    where: { status: "ACTIVE" },
+    where: {
+      status: "ACTIVE",
+      drawDate: { gte: new Date() },
+    },
     orderBy: { drawDate: "asc" },
     select: {
       id: true,
@@ -103,7 +117,12 @@ export async function getRecentWinners(limit = 6) {
 // ── Homepage stats ────────────────────────────────────────────
 export async function getHomepageStats() {
   const [activeCompetitions, totalWinners, totalEntries, prizesGiven] = await Promise.all([
-    prisma.competition.count({ where: { status: "ACTIVE" } }),
+    prisma.competition.count({
+      where: {
+        status: "ACTIVE",
+        drawDate: { gte: new Date() },
+      },
+    }),
     prisma.winner.count(),
     prisma.entry.count(),
     prisma.winner.count(), // each winner = one prize given

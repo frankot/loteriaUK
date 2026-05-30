@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { EditUserForm } from "./form";
+import { EmptyState } from "@/components/ui/empty-state";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -76,7 +77,7 @@ export default async function EditUserPage({ params }: Props) {
             </h3>
 
             {entries.length === 0 ? (
-              <p className="text-sm text-ink-muted">No entries</p>
+              <EmptyState icon="inbox" message="No entries" className="py-8" />
             ) : (
               <ul className="space-y-3">
                 {entries.map((entry: typeof entries[number]) => (

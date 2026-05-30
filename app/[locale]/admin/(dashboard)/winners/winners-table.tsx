@@ -8,7 +8,8 @@ import {
   toggleWinnerClaimed,
   resetWinner,
 } from "@/actions/admin";
-import { Mail, CheckCircle, XCircle, RefreshCw, Trophy } from "lucide-react";
+import { Mail, CheckCircle, XCircle, RefreshCw } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 
 interface WinnerData {
   id: string;
@@ -110,7 +111,8 @@ export function WinnersTable({ winners, locale }: WinnersTableProps) {
       )}
 
       <div className="overflow-hidden rounded-xl border border-border bg-white">
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-cream-warm">
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
@@ -138,14 +140,12 @@ export function WinnersTable({ winners, locale }: WinnersTableProps) {
           </thead>
           <tbody>
             {winners.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="px-4 py-12 text-center text-ink-muted">
-                  <div className="flex flex-col items-center gap-2">
-                    <Trophy className="h-8 w-8 text-ink-muted/40" />
-                    <span className="text-sm">No winners yet</span>
-                  </div>
-                </td>
-              </tr>
+              <EmptyState
+                asTableCell
+                colSpan={7}
+                icon="trophy"
+                message="No winners yet"
+              />
             ) : (
               winners.map((w) => {
                 const isLoading = loadingIds.has(w.id);
@@ -275,7 +275,8 @@ export function WinnersTable({ winners, locale }: WinnersTableProps) {
               })
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   );

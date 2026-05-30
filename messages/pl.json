@@ -62,7 +62,11 @@
     "draw": "Losowanie:",
     "prizesAwarded": "wypłaconych nagród",
     "happyWinners": "zadowolonych zwycięzców",
-    "trustpilot": "na Trustpilot"
+    "trustpilot": "na Trustpilot",
+    "comingSoonBadge": "Wkrótce",
+    "comingSoonTitle": "Nowe nagrody już wkrótce",
+    "comingSoonSubtitle": "Przygotowujemy kolejne losowanie. Sprawdź ponownie niedługo.",
+    "comingSoonCheckBack": "Sprawdź wkrótce"
   },
   "stats": {
     "activeCompetitions": "Aktywne konkursy",

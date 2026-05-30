@@ -57,7 +57,7 @@ export function AdminSidebar({ locale }: AdminSidebarProps) {
   }
 
   return (
-    <aside className="sticky top-0 flex h-screen w-60 flex-col border-r border-border bg-white">
+    <aside className="sticky top-0 hidden h-screen w-60 flex-col border-r border-border bg-white lg:flex">
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 border-b border-border px-5">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink">
