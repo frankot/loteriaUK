@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
-import resend from "@/lib/resend";
+import resend, { FROM_WINNERS } from "@/lib/resend";
 import { winnerNotificationHtml } from "@/lib/email-templates";
 // ── Auth guard helper ─────────────────────────────────────────
 async function requireAdmin() {
@@ -752,7 +752,7 @@ export async function assignWinner(
 
       if (user && competition && process.env.RESEND_API_KEY) {
         await resend.emails.send({
-          from: "Golden Dream Draw <winners@goldendreandraw.com>",
+          from: FROM_WINNERS,
           to: user.email,
           subject: `🎉 Congratulations! You won ${competition.titleEn}!`,
           html: winnerNotificationHtml({
@@ -827,7 +827,7 @@ export async function toggleWinnerNotified(
     if (process.env.RESEND_API_KEY) {
       try {
         await resend.emails.send({
-          from: "Golden Dream Draw <winners@goldendreandraw.com>",
+          from: FROM_WINNERS,
           to: winner.user.email,
           subject: `🎉 Congratulations! You won ${winner.competition.titleEn}!`,
           html: winnerNotificationHtml({

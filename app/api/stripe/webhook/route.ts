@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, getWebhookSecret } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
-import resend from "@/lib/resend";
+import resend, { FROM_AUTH } from "@/lib/resend";
 import { purchaseConfirmationHtml } from "@/lib/email-templates";
 import type Stripe from "stripe";
 
@@ -163,7 +163,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
               : "0.00";
 
           await resend.emails.send({
-            from: "Golden Dream Draw <auth@goldendreandraw.com>",
+            from: FROM_AUTH,
             to: user.email,
             subject: `🎟️ Tickets confirmed — ${comp.titleEn}`,
             html: purchaseConfirmationHtml({
