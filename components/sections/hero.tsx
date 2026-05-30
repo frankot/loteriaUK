@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
-import { getFeaturedCompetition } from "@/lib/queries";
+import { getHeroCompetition } from "@/lib/queries";
 
 function CalendarIcon() {
   return (
@@ -20,7 +20,7 @@ function formatDrawDate(date: Date): string {
 
 export default async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
-  const featured = await getFeaturedCompetition();
+  const featured = await getHeroCompetition();
 
   const fallbackImage = "/images/cartier.webp";
 
@@ -131,30 +131,8 @@ export default async function Hero({ locale }: { locale: string }) {
             </div>
           </Link>
           ) : (
-            <div className="animate-fade-in-up order-0 lg:order-1 overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured [animation-delay:200ms]">
-              <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden">
-                <Image
-                  src={fallbackImage}
-                  alt="Featured Prize"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-                  className="object-contain p-4"
-                />
-              </div>
-              <div className="p-5 md:p-7">
-                <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
-                  {t("trendingBadge")}
-                </div>
-                <h3 className="font-serif mb-4 md:mb-5 text-xl md:text-2xl leading-tight font-semibold">
-                  Featured Prize
-                </h3>
-                <div className="flex items-center justify-between">
-                  <div className="text-lg md:text-[22px] font-bold text-ink">
-                    £1.99{" "}
-                    <span className="text-[12px] md:text-[13px] font-normal text-ink-muted">{t("perTicket")}</span>
-                  </div>
-                </div>
-              </div>
+            <div className="animate-fade-in-up order-0 lg:order-1 [animation-delay:200ms]">
+              <NoCompetitionsCard t={t} fallbackImage={fallbackImage} locale={locale} />
             </div>
           )}
         </div>

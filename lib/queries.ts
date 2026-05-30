@@ -44,6 +44,46 @@ export async function getFeaturedCompetition() {
   });
 }
 
+// ── Hero competition — featured first, else most urgent ACTIVE ──
+export async function getHeroCompetition() {
+  // Try admin-picked featured first
+  const featured = await prisma.competition.findFirst({
+    where: { featured: true, status: "ACTIVE" },
+    select: {
+      id: true,
+      slug: true,
+      titleEn: true,
+      pricePounds: true,
+      maxTickets: true,
+      ticketsSold: true,
+      drawDate: true,
+      prizeImageUrl: true,
+      prizeCategory: true,
+      prizeValue: true,
+    },
+  });
+
+  if (featured) return featured;
+
+  // Fall back to the most urgent ACTIVE competition (closest draw date)
+  return prisma.competition.findFirst({
+    where: { status: "ACTIVE" },
+    orderBy: { drawDate: "asc" },
+    select: {
+      id: true,
+      slug: true,
+      titleEn: true,
+      pricePounds: true,
+      maxTickets: true,
+      ticketsSold: true,
+      drawDate: true,
+      prizeImageUrl: true,
+      prizeCategory: true,
+      prizeValue: true,
+    },
+  });
+}
+
 // ── Recent winners (with user + competition info) ─────────────
 export async function getRecentWinners(limit = 6) {
   return prisma.winner.findMany({
