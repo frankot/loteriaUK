@@ -31,6 +31,24 @@ export default function VerifyPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code]);
 
+  function handlePaste(e: React.ClipboardEvent) {
+    const pastedText = e.clipboardData.getData("text");
+    const digits = pastedText.replaceAll(/\D/g, "").slice(0, 6).split("");
+    if (digits.length === 0 || digits.some((d) => !d)) return;
+
+    e.preventDefault();
+
+    const newCode = ["", "", "", "", "", ""];
+    digits.forEach((d, i) => {
+      newCode[i] = d;
+    });
+    setCode(newCode);
+
+    // Focus the last filled input
+    const focusIdx = Math.min(digits.length - 1, 5);
+    inputRefs.current[focusIdx]?.focus();
+  }
+
   function handleChange(index: number, value: string) {
     if (value.length > 1) {
       // Handle paste
@@ -132,7 +150,7 @@ export default function VerifyPage() {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="flex justify-center gap-3">
+            <div className="flex justify-center gap-3" onPaste={handlePaste}>
               {code.map((digit, i) => (
                 <input
                   key={i}
