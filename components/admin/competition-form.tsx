@@ -24,6 +24,7 @@ interface CompetitionFormData {
   prizeCategory: string;
   prizeValue: string;
   questionId: string;
+  featured: boolean;
   status: CompetitionStatus;
 }
 
@@ -51,6 +52,7 @@ const defaultForm: CompetitionFormData = {
   prizeCategory: "",
   prizeValue: "",
   questionId: "",
+  featured: false,
   status: "DRAFT",
 };
 
@@ -81,11 +83,11 @@ export function CompetitionForm({
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [imageUploading, setImageUploading] = useState(false);
 
-  function update(field: keyof CompetitionFormData, value: string) {
+  function update(field: keyof CompetitionFormData, value: string | boolean) {
     setForm((prev) => {
       const next = { ...prev, [field]: value };
       // Auto-generate slug from titleEn
-      if (field === "titleEn" && !isEdit) {
+      if (field === "titleEn" && !isEdit && typeof value === "string") {
         next.slug = value
           .toLowerCase()
           .replace(/[^a-z0-9\s-]/g, "")
@@ -139,7 +141,7 @@ export function CompetitionForm({
     try {
       const fd = new FormData();
       for (const [key, value] of Object.entries(form)) {
-        fd.append(key, value);
+        fd.append(key, String(value));
       }
 
       const result = isEdit
@@ -248,7 +250,7 @@ export function CompetitionForm({
                 Description ({lang})
               </label>
               <textarea
-                value={form[`desc${lang}` as keyof CompetitionFormData]}
+                value={form[`desc${lang}` as keyof CompetitionFormData] as string}
                 onChange={(e) =>
                   update(`desc${lang}` as keyof CompetitionFormData, e.target.value)
                 }
@@ -383,6 +385,23 @@ export function CompetitionForm({
               ))}
             </select>
           </div>
+        </div>
+
+        {/* Featured toggle */}
+        <div className="mt-4 flex items-center gap-3 rounded-xl border border-gold-pale bg-gold-pale/30 px-4 py-3">
+          <input
+            type="checkbox"
+            id="featured"
+            checked={form.featured}
+            onChange={(e) => update("featured", e.target.checked)}
+            className="h-5 w-5 cursor-pointer rounded border-border text-gold accent-gold"
+          />
+          <label htmlFor="featured" className="cursor-pointer text-sm font-medium text-ink">
+            ⭐ Feature this competition on the homepage hero
+          </label>
+          <span className="ml-auto text-xs text-ink-muted">
+            Only one can be featured at a time
+          </span>
         </div>
       </section>
 

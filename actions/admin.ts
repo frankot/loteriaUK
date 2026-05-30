@@ -34,8 +34,20 @@ const competitionSchema = z.object({
   prizeCategory: z.string().optional().default(""),
   prizeValue: z.coerce.number().optional(),
   questionId: z.string().optional().nullable().default(null),
+  featured: z.coerce.boolean().default(false),
   status: z.enum(["DRAFT", "ACTIVE", "CLOSED", "DRAWN", "CANCELLED"]).default("DRAFT"),
 });
+
+// ── Ensure only one competition is featured at a time ─────────
+async function enforceSingleFeatured(excludeId?: string) {
+  await prisma.competition.updateMany({
+    where: {
+      featured: true,
+      ...(excludeId ? { id: { not: excludeId } } : {}),
+    },
+    data: { featured: false },
+  });
+}
 
 export interface AdminResult {
   success?: boolean;
@@ -72,6 +84,11 @@ export async function createCompetition(
       return { error: "Slug already taken", fieldErrors: { slug: "This slug is already in use" } };
     }
 
+    // Unset any existing featured if this one is featured
+    if (data.featured) {
+      await enforceSingleFeatured();
+    }
+
     const competition = await prisma.competition.create({
       data: {
         titleEn: data.titleEn,
@@ -90,6 +107,7 @@ export async function createCompetition(
         prizeCategory: data.prizeCategory || null,
         prizeValue: data.prizeValue ? Number(data.prizeValue) : null,
         questionId: data.questionId || null,
+        featured: data.featured,
         status: data.status,
       },
     });
@@ -134,6 +152,11 @@ export async function updateCompetition(
       return { error: "Slug already taken", fieldErrors: { slug: "This slug is already in use" } };
     }
 
+    // Unset any existing featured if this one is featured
+    if (data.featured) {
+      await enforceSingleFeatured(id);
+    }
+
     await prisma.competition.update({
       where: { id },
       data: {
@@ -153,6 +176,7 @@ export async function updateCompetition(
         prizeCategory: data.prizeCategory || null,
         prizeValue: data.prizeValue ? Number(data.prizeValue) : null,
         questionId: data.questionId || null,
+        featured: data.featured,
         status: data.status,
       },
     });
@@ -186,6 +210,49 @@ export async function deleteCompetition(id: string): Promise<AdminResult> {
     }
     console.error("deleteCompetition error:", error);
     return { error: "Failed to delete competition" };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Featured toggle (admin list page quick action)
+// ═══════════════════════════════════════════════════════════════
+
+export async function toggleFeatured(
+  competitionId: string
+): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    const comp = await prisma.competition.findUnique({
+      where: { id: competitionId },
+      select: { featured: true },
+    });
+
+    if (!comp) return { error: "Competition not found" };
+
+    if (comp.featured) {
+      // Un-feature
+      await prisma.competition.update({
+        where: { id: competitionId },
+        data: { featured: false },
+      });
+    } else {
+      // Unset any other featured, then set this one
+      await enforceSingleFeatured();
+      await prisma.competition.update({
+        where: { id: competitionId },
+        data: { featured: true },
+      });
+    }
+
+    revalidatePath("/[locale]/admin/competitions", "page");
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("toggleFeatured error:", error);
+    return { error: "Failed to update featured status" };
   }
 }
 

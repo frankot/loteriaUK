@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
-import { DeleteButton } from "./delete-button";
+import { RowActionsDropdown } from "./row-actions-dropdown";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -130,8 +130,8 @@ export default async function AdminCompetitionsPage({
               <th className="px-4 py-3 text-left text-xs font-semibold tracking-wide text-ink-muted uppercase">
                 Status
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold tracking-wide text-ink-muted uppercase">
-                Actions
+              <th className="px-4 py-3 text-center text-xs font-semibold tracking-wide text-ink-muted uppercase w-[56px]">
+                {/* ⋮ */}
               </th>
             </tr>
           </thead>
@@ -146,15 +146,15 @@ export default async function AdminCompetitionsPage({
               competitions.map((comp: typeof competitions[number]) => (
                 <tr
                   key={comp.id}
-                  className="group relative border-b border-border-light last:border-b-0 hover:bg-cream/50"
+                  className="group border-b border-border-light last:border-b-0 hover:bg-cream/50"
                 >
                   <td className="px-4 py-3 font-medium text-ink">
                     <Link
                       href={`/${locale}/admin/competitions/${comp.id}`}
-                      className="absolute inset-0 z-0"
-                      aria-label={`View ${comp.titleEn}`}
-                    />
-                    {comp.titleEn}
+                      className="text-ink transition-colors hover:text-gold-dark"
+                    >
+                      {comp.titleEn}
+                    </Link>
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-ink-muted">
                     {comp.slug}
@@ -173,47 +173,28 @@ export default async function AdminCompetitionsPage({
                     })}
                   </td>
                   <td className="px-4 py-3">
-                    <span
-                      className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                        statusColors[comp.status] || ""
-                      }`}
-                    >
-                      {comp.status}
-                    </span>
-                  </td>
-                  <td className="relative z-10 px-4 py-3">
-                    <div className="flex items-center justify-end gap-2">
-                      <Link
-                        href={`/${locale}/admin/competitions/${comp.id}`}
-                        className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-gold-dark"
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${
+                          statusColors[comp.status] || ""
+                        }`}
                       >
-                        Entries
-                      </Link>
-                      {comp.status === "CLOSED" && (
-                        <Link
-                          href={`/${locale}/admin/competitions/${comp.id}/assign-winner`}
-                          className="rounded-lg border border-gold-pale bg-gold-pale px-2.5 py-1 text-xs font-medium text-gold-dark transition-colors hover:bg-gold hover:text-white"
-                        >
-                          Assign Winner
-                        </Link>
+                        {comp.status}
+                      </span>
+                      {comp.featured && (
+                        <span className="text-xs" title="Featured on homepage">⭐</span>
                       )}
-                      {comp.status === "DRAWN" && (
-                        <span className="rounded-lg bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
-                          Drawn
-                        </span>
-                      )}
-                      <Link
-                        href={`/${locale}/admin/competitions/${comp.id}/edit`}
-                        className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-gold-dark"
-                      >
-                        Edit
-                      </Link>
-                      <DeleteButton
-                        competitionId={comp.id}
-                        title={comp.titleEn}
-                        locale={locale}
-                      />
                     </div>
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <RowActionsDropdown
+                      competitionId={comp.id}
+                      title={comp.titleEn}
+                      slug={comp.slug}
+                      status={comp.status}
+                      featured={comp.featured}
+                      locale={locale}
+                    />
                   </td>
                 </tr>
               ))

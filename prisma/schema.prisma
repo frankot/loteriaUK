@@ -77,6 +77,8 @@ model Competition {
   prizeCategory String?            // electronics, jewellery, fashion, cash
   prizeValue    Decimal?           @db.Decimal(10, 2)
 
+  featured      Boolean             @default(false)
+
   // Stats (denormalized)
   ticketsSold   Int                @default(0)
 

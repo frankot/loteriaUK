@@ -39,6 +39,7 @@ export default async function EditCompetitionPage({ params }: Props) {
     prizeCategory: competition.prizeCategory || "",
     prizeValue: competition.prizeValue?.toString() || "",
     questionId: competition.questionId || "",
+    featured: competition.featured,
     status: competition.status,
   };
 

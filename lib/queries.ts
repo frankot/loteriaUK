@@ -25,11 +25,10 @@ export async function getTrendingCompetitions(limit = 6) {
   });
 }
 
-// ── Most urgent ACTIVE competition (for hero featured card) ────
+// ── Featured competition (admin-picked, for hero card) ────
 export async function getFeaturedCompetition() {
   return prisma.competition.findFirst({
-    where: { status: "ACTIVE" },
-    orderBy: { drawDate: "asc" },
+    where: { featured: true, status: "ACTIVE" },
     select: {
       id: true,
       slug: true,
