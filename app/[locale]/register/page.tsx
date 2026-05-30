@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { useRouter, useSearchParams, useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { registerUser } from "@/actions/auth";
@@ -12,7 +12,19 @@ export default function RegisterPage() {
   const searchParams = useSearchParams();
   const params = useParams();
   const locale = (params.locale as string) || "en";
-  const email = searchParams.get("email") || "";
+  const [email, setEmail] = useState(searchParams.get("email") || "");
+
+  // If redirected by middleware (no email in URL), fetch from session
+  useEffect(() => {
+    if (!email) {
+      fetch("/api/auth/me")
+        .then((r) => r.json())
+        .then((d) => {
+          if (d.email) setEmail(d.email);
+        })
+        .catch(() => {});
+    }
+  }, [email]);
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");

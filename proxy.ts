@@ -49,10 +49,21 @@ async function authGuard(
     return response;
   }
 
-  // 1) Public routes — pass through
+  // 1) Public routes — pass through (unless registration incomplete)
   if (
     publicRoutes.some((r) => basePath === r || basePath.startsWith(r + "/"))
   ) {
+    // Logged-in user with incomplete registration — force to /register
+    if (
+      isLoggedIn &&
+      !session.ageConfirmed &&
+      basePath !== "/register" &&
+      !basePath.startsWith("/login")
+    ) {
+      return NextResponse.redirect(
+        new URL(`/${locale}/register`, request.url)
+      );
+    }
     return response;
   }
 
