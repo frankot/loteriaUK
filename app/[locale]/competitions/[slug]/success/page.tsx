@@ -4,6 +4,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
 import { CheckCircle } from "lucide-react";
+import TicketPoller from "@/components/public/ticket-poller";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -74,27 +75,12 @@ export default async function SuccessPage({ params, searchParams }: Props) {
           : t("fallbackSubtitle")}
       </p>
 
-      {/* Ticket Numbers */}
-      {tickets.length > 0 && (
-        <div className="mb-8 md:mb-10 rounded-2xl border border-border bg-white p-5 md:p-6">
-          <h2 className="mb-3 md:mb-4 text-sm font-semibold tracking-wide text-gold-dark uppercase">
-            {t("ticketNumbers")}
-          </h2>
-          <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-            {tickets.map((t: typeof tickets[number]) => (
-              <span
-                key={t.number}
-                className="rounded-xl bg-gold-pale px-3 md:px-4 py-1.5 md:py-2 font-mono text-base md:text-lg font-bold text-gold-dark"
-              >
-                #{t.number}
-              </span>
-            ))}
-          </div>
-          <p className="mt-3 md:mt-4 text-xs text-ink-muted">
-            {t("emailSent")}
-          </p>
-        </div>
-      )}
+      {/* Ticket Numbers — polls if webhook hasn't created them yet */}
+      <TicketPoller
+        stripeSessionId={session_id}
+        initialTickets={tickets.map((t) => t.number)}
+        timeoutSec={30}
+      />
 
       {/* CTA buttons */}
       <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">

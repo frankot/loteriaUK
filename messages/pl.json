@@ -323,6 +323,9 @@
     "ticketNumbers": "Numery Twoich biletów",
     "emailSent": "Email z potwierdzeniem został wysłany.",
     "viewTickets": "Moje bilety",
-    "browseMore": "Przeglądaj więcej"
+    "browseMore": "Przeglądaj więcej",
+    "loading": "Generowanie biletów...",
+    "webhookTimeout": "Wciąż czekamy na potwierdzenie. Odśwież lub sprawdź profil.",
+    "refresh": "Odśwież stronę"
   }
 }

@@ -323,6 +323,9 @@
     "ticketNumbers": "Your Ticket Numbers",
     "emailSent": "A confirmation email has been sent with these details.",
     "viewTickets": "View My Tickets",
-    "browseMore": "Browse More"
+    "browseMore": "Browse More",
+    "loading": "Generating your tickets...",
+    "webhookTimeout": "Still waiting for confirmation. Refresh or check your profile.",
+    "refresh": "Refresh page"
   }
 }
