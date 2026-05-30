@@ -84,7 +84,12 @@ export default async function AdminEntriesPage({
               Competitions
             </Link>
             <span className="mx-1.5">/</span>
-            <span className="text-ink">{competition.titleEn}</span>
+            <Link
+              href={`/${locale}/admin/competitions/${id}`}
+              className="hover:text-gold-dark text-ink"
+            >
+              {competition.titleEn}
+            </Link>
             <span className="mx-1.5">/</span>
             <span className="text-ink">Entries</span>
           </nav>

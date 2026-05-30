@@ -94,7 +94,7 @@ export async function createCompetition(
       },
     });
 
-    revalidatePath("/[locale]/admin/competitions");
+    revalidatePath("/[locale]/admin/competitions", "page");
     return { success: true, id: competition.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -157,7 +157,7 @@ export async function updateCompetition(
       },
     });
 
-    revalidatePath("/[locale]/admin/competitions");
+    revalidatePath("/[locale]/admin/competitions", "page");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -178,7 +178,7 @@ export async function deleteCompetition(id: string): Promise<AdminResult> {
       data: { status: "CANCELLED" },
     });
 
-    revalidatePath("/[locale]/admin/competitions");
+    revalidatePath("/[locale]/admin/competitions", "page");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -263,7 +263,7 @@ export async function createQuestion(
       },
     });
 
-    revalidatePath("/[locale]/admin/questions");
+    revalidatePath("/[locale]/admin/questions", "page");
     return { success: true, id: question.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -322,7 +322,7 @@ export async function updateQuestion(
       },
     });
 
-    revalidatePath("/[locale]/admin/questions");
+    revalidatePath("/[locale]/admin/questions", "page");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -348,7 +348,7 @@ export async function deleteQuestion(id: string): Promise<AdminResult> {
 
     await prisma.skillQuestion.delete({ where: { id } });
 
-    revalidatePath("/[locale]/admin/questions");
+    revalidatePath("/[locale]/admin/questions", "page");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -435,7 +435,7 @@ export async function createPostalEntry(
       },
     });
 
-    revalidatePath(`/[locale]/admin/competitions/[id]/entries`);
+    revalidatePath(`/[locale]/admin/competitions/[id]`, "page");
     return { success: true, id: entry.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -488,7 +488,7 @@ export async function adminUpdateUser(
       },
     });
 
-    revalidatePath("/[locale]/admin/users");
+    revalidatePath("/[locale]/admin/users", "page");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -496,6 +496,431 @@ export async function adminUpdateUser(
     }
     console.error("adminUpdateUser error:", error);
     return { error: "Failed to update user" };
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Winner Assignment (Phase 6c)
+// ═══════════════════════════════════════════════════════════════
+
+export interface TicketLookup {
+  id: string;
+  number: number;
+  user: { id: string; email: string; name: string | null };
+  entry: { id: string; type: string; answerCorrect: boolean | null };
+}
+
+export interface TicketLookupResult {
+  success?: boolean;
+  error?: string;
+  ticket?: TicketLookup;
+  competition?: { id: string; titleEn: string; status: string };
+}
+
+export async function lookupTicket(
+  competitionId: string,
+  ticketNumber: number
+): Promise<TicketLookupResult> {
+  try {
+    await requireAdmin();
+
+    const competition = await prisma.competition.findUnique({
+      where: { id: competitionId },
+      select: { id: true, titleEn: true, status: true, slug: true },
+    });
+
+    if (!competition) {
+      return { error: "Competition not found" };
+    }
+
+    // Check competition eligibility
+    if (competition.status === "DRAFT" || competition.status === "ACTIVE") {
+      return {
+        error: `Competition must be CLOSED before assigning a winner. Current status: ${competition.status}`,
+      };
+    }
+
+    if (competition.status === "DRAWN") {
+      return { error: "A winner has already been drawn for this competition" };
+    }
+
+    if (competition.status === "CANCELLED") {
+      return { error: "Cannot assign a winner to a cancelled competition" };
+    }
+
+    // Check no winner already assigned
+    const existingWinner = await prisma.winner.findFirst({
+      where: { competitionId },
+    });
+    if (existingWinner) {
+      return { error: "A winner has already been assigned to this competition" };
+    }
+
+    // Look up ticket
+    const ticket = await prisma.ticket.findUnique({
+      where: {
+        competitionId_number: { competitionId, number: ticketNumber },
+      },
+      include: {
+        user: { select: { id: true, email: true, name: true } },
+        entry: { select: { id: true, type: true, answerCorrect: true } },
+      },
+    });
+
+    if (!ticket) {
+      return {
+        error: `Ticket #${ticketNumber} not found in this competition`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    if (ticket.status !== "SOLD") {
+      return {
+        error: `Ticket #${ticketNumber} is not sold (status: ${ticket.status})`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    if (!ticket.user) {
+      return {
+        error: `Ticket #${ticketNumber} is not assigned to a user`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    if (!ticket.entry) {
+      return {
+        error: `No entry record found for ticket #${ticketNumber}`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    if (ticket.entry.answerCorrect === false) {
+      return {
+        error: `Entry for ticket #${ticketNumber} has an incorrect answer — not eligible`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    if (ticket.entry.answerCorrect === null && ticket.entry.type === "POSTAL") {
+      return {
+        error: `Postal entry for ticket #${ticketNumber} has not been evaluated yet`,
+        competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+      };
+    }
+
+    return {
+      success: true,
+      ticket: {
+        id: ticket.id,
+        number: ticket.number,
+        user: {
+          id: ticket.user.id,
+          email: ticket.user.email,
+          name: ticket.user.name,
+        },
+        entry: {
+          id: ticket.entry.id,
+          type: ticket.entry.type,
+          answerCorrect: ticket.entry.answerCorrect,
+        },
+      },
+      competition: { id: competition.id, titleEn: competition.titleEn, status: competition.status },
+    };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("lookupTicket error:", error);
+    return { error: "Failed to look up ticket" };
+  }
+}
+
+export async function assignWinner(
+  competitionId: string,
+  ticketId: string,
+  entryId: string,
+  userId: string
+): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    // Double-check no winner exists
+    const existingWinner = await prisma.winner.findFirst({
+      where: { competitionId },
+    });
+    if (existingWinner) {
+      return { error: "A winner has already been assigned to this competition" };
+    }
+
+    // Create winner + update competition status in transaction
+    const [winner] = await prisma.$transaction([
+      prisma.winner.create({
+        data: {
+          competitionId,
+          userId,
+          entryId,
+          notified: false,
+        },
+      }),
+      prisma.competition.update({
+        where: { id: competitionId },
+        data: { status: "DRAWN" },
+      }),
+    ]);
+
+    // Try to send winner notification email (non-blocking)
+    try {
+      const competition = await prisma.competition.findUnique({
+        where: { id: competitionId },
+        select: { titleEn: true, slug: true, prizeImageUrl: true },
+      });
+
+      const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: { email: true, name: true },
+      });
+
+      if (user && competition && process.env.RESEND_API_KEY) {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+
+        await resend.emails.send({
+          from: "Golden Dream Draw <winners@goldendreandraw.com>",
+          to: user.email,
+          subject: `🎉 Congratulations! You won ${competition.titleEn}!`,
+          html: winnerNotificationHtml({
+            userName: user.name || "Winner",
+            competitionTitle: competition.titleEn,
+            competitionSlug: competition.slug,
+            claimDeadline: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0],
+          }),
+        });
+
+        // Mark as notified
+        await prisma.winner.update({
+          where: { id: winner.id },
+          data: { notified: true, notifiedAt: new Date() },
+        });
+
+        console.log(`📧 Winner notification sent to ${user.email}`);
+      } else {
+        console.log(`📧 [DEV] Winner notification would be sent to ${user?.email || "unknown"} (RESEND_API_KEY not configured)`);
+      }
+    } catch (emailError) {
+      console.error("Failed to send winner email (non-fatal):", emailError);
+    }
+
+    revalidatePath("/[locale]/admin/competitions/[id]", "page");
+    revalidatePath("/[locale]/admin/winners", "page");
+    revalidatePath("/[locale]/winners", "page");
+    return { success: true, id: winner.id };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("assignWinner error:", error);
+    return { error: "Failed to assign winner" };
+  }
+}
+
+// Winner notification HTML template (inline, no React Email dependency at runtime)
+function winnerNotificationHtml({
+  userName,
+  competitionTitle,
+  competitionSlug,
+  claimDeadline,
+}: {
+  userName: string;
+  competitionTitle: string;
+  competitionSlug: string;
+  claimDeadline: string;
+}): string {
+  const siteUrl = process.env.NEXT_PUBLIC_APP_URL || "https://goldendreandraw.com";
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: Georgia, serif; background: #F8F5F0; color: #1A1A1A; }
+    .email { max-width: 520px; margin: 40px auto; background: #fff; border-radius: 16px; border: 1px solid #E5DFD5; padding: 40px; }
+    .trophy { text-align: center; font-size: 48px; margin-bottom: 16px; }
+    h1 { font-family: Georgia, serif; font-size: 24px; text-align: center; color: #1A1A1A; }
+    .prize { background: #FDF4E3; border-radius: 12px; padding: 20px; margin: 24px 0; text-align: center; }
+    .prize-name { font-size: 20px; font-weight: 700; color: #C6942E; }
+    .deadline { background: #FFF3E0; border-radius: 8px; padding: 14px; margin: 20px 0; text-align: center; font-size: 13px; color: #8B6914; }
+    .cta { display: block; text-align: center; background: #C6942E; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 600; margin: 24px 0 8px; }
+    .footer { font-size: 12px; color: #9B968B; text-align: center; margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <div class="email">
+    <div class="trophy">🏆</div>
+    <h1>Congratulations, ${userName}!</h1>
+    <p style="text-align:center;color:#6B6460;">You are the lucky winner of:</p>
+    <div class="prize">
+      <div class="prize-name">${competitionTitle}</div>
+    </div>
+    <div class="deadline">
+      ⏰ You have <strong>14 days</strong> to claim your prize.<br>
+      Claim deadline: <strong>${claimDeadline}</strong>
+    </div>
+    <p style="text-align:center;color:#6B6460;font-size:14px;">
+      To claim your prize, sign in to your account at the link below:
+    </p>
+    <a href="${siteUrl}/en/competitions/${competitionSlug}" class="cta">
+      Claim Your Prize →
+    </a>
+    <p style="text-align:center;font-size:12px;color:#9B968B;">
+      If you don't claim within 14 days, a new winner will be drawn.
+    </p>
+    <div class="footer">
+      Golden Dream Draw Ltd — Skill-based prize competitions<br>
+      © ${new Date().getFullYear()} All rights reserved.
+    </div>
+  </div>
+</body>
+</html>`;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// Winners Management (Phase 6e)
+// ═══════════════════════════════════════════════════════════════
+
+export async function toggleWinnerNotified(
+  winnerId: string
+): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    const winner = await prisma.winner.findUnique({
+      where: { id: winnerId },
+      include: {
+        user: { select: { email: true, name: true } },
+        competition: { select: { titleEn: true, slug: true } },
+      },
+    });
+
+    if (!winner) return { error: "Winner not found" };
+
+    if (winner.notified) {
+      // Un-notify (rarely used, but togglable)
+      await prisma.winner.update({
+        where: { id: winnerId },
+        data: { notified: false, notifiedAt: null },
+      });
+      revalidatePath("/[locale]/admin/winners", "page");
+      return { success: true };
+    }
+
+    // Send notification email
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
+
+        await resend.emails.send({
+          from: "Golden Dream Draw <winners@goldendreandraw.com>",
+          to: winner.user.email,
+          subject: `🎉 Congratulations! You won ${winner.competition.titleEn}!`,
+          html: winnerNotificationHtml({
+            userName: winner.user.name || "Winner",
+            competitionTitle: winner.competition.titleEn,
+            competitionSlug: winner.competition.slug,
+            claimDeadline: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0],
+          }),
+        });
+      } catch (emailError) {
+        console.error("Failed to send winner email:", emailError);
+        return { error: "Email sending failed. Resend may not be configured." };
+      }
+    } else {
+      console.log(`📧 [DEV] Winner notification would be sent to ${winner.user.email}`);
+    }
+
+    await prisma.winner.update({
+      where: { id: winnerId },
+      data: { notified: true, notifiedAt: new Date() },
+    });
+
+    revalidatePath("/[locale]/admin/winners", "page");
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("toggleWinnerNotified error:", error);
+    return { error: "Failed to toggle notified status" };
+  }
+}
+
+export async function toggleWinnerClaimed(
+  winnerId: string
+): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    const winner = await prisma.winner.findUnique({
+      where: { id: winnerId },
+      select: { claimed: true },
+    });
+
+    if (!winner) return { error: "Winner not found" };
+
+    await prisma.winner.update({
+      where: { id: winnerId },
+      data: {
+        claimed: !winner.claimed,
+        claimedAt: winner.claimed ? null : new Date(),
+      },
+    });
+
+    revalidatePath("/[locale]/admin/winners", "page");
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("toggleWinnerClaimed error:", error);
+    return { error: "Failed to toggle claimed status" };
+  }
+}
+
+export async function resetWinner(
+  winnerId: string
+): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    const winner = await prisma.winner.findUnique({
+      where: { id: winnerId },
+      select: { competitionId: true },
+    });
+
+    if (!winner) return { error: "Winner not found" };
+
+    // Delete winner + revert competition to CLOSED in transaction
+    await prisma.$transaction([
+      prisma.winner.delete({ where: { id: winnerId } }),
+      prisma.competition.update({
+        where: { id: winner.competitionId },
+        data: { status: "CLOSED" },
+      }),
+    ]);
+
+    revalidatePath("/[locale]/admin/winners", "page");
+    revalidatePath("/[locale]/winners", "page");
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("resetWinner error:", error);
+    return { error: "Failed to reset winner" };
   }
 }
 

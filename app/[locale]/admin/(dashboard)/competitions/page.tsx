@@ -146,9 +146,14 @@ export default async function AdminCompetitionsPage({
               competitions.map((comp: typeof competitions[number]) => (
                 <tr
                   key={comp.id}
-                  className="border-b border-border-light last:border-b-0 hover:bg-cream/50"
+                  className="group relative border-b border-border-light last:border-b-0 hover:bg-cream/50"
                 >
                   <td className="px-4 py-3 font-medium text-ink">
+                    <Link
+                      href={`/${locale}/admin/competitions/${comp.id}`}
+                      className="absolute inset-0 z-0"
+                      aria-label={`View ${comp.titleEn}`}
+                    />
                     {comp.titleEn}
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-ink-muted">
@@ -176,14 +181,27 @@ export default async function AdminCompetitionsPage({
                       {comp.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="relative z-10 px-4 py-3">
                     <div className="flex items-center justify-end gap-2">
                       <Link
-                        href={`/${locale}/admin/competitions/${comp.id}/entries`}
+                        href={`/${locale}/admin/competitions/${comp.id}`}
                         className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-gold-dark"
                       >
                         Entries
                       </Link>
+                      {comp.status === "CLOSED" && (
+                        <Link
+                          href={`/${locale}/admin/competitions/${comp.id}/assign-winner`}
+                          className="rounded-lg border border-gold-pale bg-gold-pale px-2.5 py-1 text-xs font-medium text-gold-dark transition-colors hover:bg-gold hover:text-white"
+                        >
+                          Assign Winner
+                        </Link>
+                      )}
+                      {comp.status === "DRAWN" && (
+                        <span className="rounded-lg bg-success/10 px-2.5 py-1 text-xs font-medium text-success">
+                          Drawn
+                        </span>
+                      )}
                       <Link
                         href={`/${locale}/admin/competitions/${comp.id}/edit`}
                         className="rounded-lg border border-border px-2.5 py-1 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-gold-dark"

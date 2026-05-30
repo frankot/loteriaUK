@@ -7,6 +7,7 @@ import {
   Trophy,
   HelpCircle,
   Users,
+  Crown,
   LogOut,
   ChevronRight,
 } from "lucide-react";
@@ -22,6 +23,11 @@ const navItems = [
     href: "/admin/competitions",
     label: "Competitions",
     icon: Trophy,
+  },
+  {
+    href: "/admin/winners",
+    label: "Winners",
+    icon: Crown,
   },
   {
     href: "/admin/questions",
