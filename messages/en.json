@@ -211,7 +211,15 @@
     "left": "left",
     "maxPerPerson": "Max per person",
     "draw": "Draw",
-    "competitions": "Competitions"
+    "competitions": "Competitions",
+    "skillBadge": "Skill Question",
+    "submitAnswer": "Submit Answer",
+    "correctAnswer": "Correct!",
+    "purchaseReady": "You can now purchase your tickets.",
+    "incorrectAnswer": "Incorrect. Loading a different question...",
+    "noQuestions": "No questions available. Try again later.",
+    "loadingQuestion": "Loading question...",
+    "tryAgain": "Try Again"
   },
   "profile": {
     "title": "My Profile",
@@ -287,5 +295,29 @@
       "inCategory": " in this category",
       "checkBack": "Check back soon for new prizes"
     }
+  },
+  "verify": {
+    "badge": "Order Summary",
+    "dueOnSuccess": "due on success",
+    "skillLabel": "Answer the skill question to continue",
+    "breadcrumb": "Verify",
+    "notEnoughTitle": "Not enough tickets",
+    "notEnoughDesc": "Only {left} ticket{left, plural, one {} other {s}} remaining — fewer than the {quantity} you selected.",
+    "backToComp": "← Back to competition",
+    "ticketCount": "{quantity} ticket{quantity, plural, one {} other {s}}",
+    "loading": "Redirecting to secure checkout...",
+    "competitions": "Competitions",
+    "tryAgain": "Try Again"
+  },
+  "success": {
+    "title": "Payment Successful!",
+    "subtitle": "You've entered the {title} competition.",
+    "fallbackSubtitle": "Your entry has been confirmed.",
+    "pendingTitle": "Payment Pending",
+    "pendingDesc": "Your payment is still being processed. You'll receive a confirmation email shortly.",
+    "ticketNumbers": "Your Ticket Numbers",
+    "emailSent": "A confirmation email has been sent with these details.",
+    "viewTickets": "View My Tickets",
+    "browseMore": "Browse More"
   }
 }

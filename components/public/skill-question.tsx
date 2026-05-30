@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface Question {
   id: string;
@@ -33,6 +34,7 @@ export default function SkillQuestion({
   const [loading, setLoading] = useState(false);
   const [passed, setPassed] = useState(false);
   const fetchingRef = useRef(false);
+  const t = useTranslations("competition");
 
   // Auto-fetch first question on mount if none assigned
   useEffect(() => {
@@ -110,8 +112,8 @@ export default function SkillQuestion({
         <div className="flex items-center gap-3">
           <CheckCircle className="h-6 w-6 text-success" />
           <div>
-            <div className="text-sm font-semibold text-success">Correct!</div>
-            <div className="text-xs text-ink-muted">You can now purchase your tickets.</div>
+            <div className="text-sm font-semibold text-success">{t("correctAnswer")}</div>
+            <div className="text-xs text-ink-muted">{t("purchaseReady")}</div>
           </div>
         </div>
       </div>
@@ -121,12 +123,12 @@ export default function SkillQuestion({
   if (!question && !loading) {
     return (
       <div className="rounded-xl border border-border bg-white px-5 py-6 text-center shadow-card">
-        <p className="text-sm text-ink-muted">No questions available. Try again later.</p>
+        <p className="text-sm text-ink-muted">{t("noQuestions")}</p>
         <button
           onClick={retry}
           className="mt-3 rounded-xl border border-gold px-4 py-2 text-xs font-semibold text-gold-dark transition-colors hover:bg-gold-pale"
         >
-          Try Again
+          {t("tryAgain")}
         </button>
       </div>
     );
@@ -136,7 +138,7 @@ export default function SkillQuestion({
     return (
       <div className="rounded-xl border border-border bg-white px-5 py-6 text-center shadow-card">
         <div className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-gold border-t-transparent" />
-        <p className="mt-2 text-sm text-ink-muted">Loading question...</p>
+        <p className="mt-2 text-sm text-ink-muted">{t("loadingQuestion")}</p>
       </div>
     );
   }
@@ -144,7 +146,7 @@ export default function SkillQuestion({
   return (
     <div className="rounded-xl border border-border bg-white px-5 py-5 shadow-card">
       <div className="mb-1 text-xs font-semibold tracking-wide text-gold-dark uppercase">
-        Skill Question
+        {t("skillBadge")}
       </div>
       <p className="mb-4 text-[15px] font-medium leading-relaxed text-ink">
         {question?.questionEn}
@@ -181,7 +183,7 @@ export default function SkillQuestion({
         <div className="mb-4 flex items-center gap-2.5 rounded-xl bg-urgent/10 px-4 py-3">
           <XCircle className="h-5 w-5 flex-shrink-0 text-urgent" />
           <p className="text-sm font-medium text-urgent">
-            Incorrect. Loading a different question...
+            {t("incorrectAnswer")}
           </p>
         </div>
       )}
@@ -191,7 +193,7 @@ export default function SkillQuestion({
         disabled={!selected || result === "incorrect"}
         className="w-full rounded-3xl bg-gold px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)] disabled:cursor-not-allowed disabled:opacity-50"
       >
-        Submit Answer
+        {t("submitAnswer")}
       </button>
     </div>
   );

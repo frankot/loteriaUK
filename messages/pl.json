@@ -211,7 +211,15 @@
     "left": "pozostało",
     "maxPerPerson": "Max na osobę",
     "draw": "Losowanie",
-    "competitions": "Konkursy"
+    "competitions": "Konkursy",
+    "skillBadge": "Pytanie kwalifikacyjne",
+    "submitAnswer": "Wyślij odpowiedź",
+    "correctAnswer": "Poprawnie!",
+    "purchaseReady": "Możesz teraz kupić bilety.",
+    "incorrectAnswer": "Niepoprawnie. Ładuję inne pytanie...",
+    "noQuestions": "Brak dostępnych pytań. Spróbuj później.",
+    "loadingQuestion": "Ładowanie pytania...",
+    "tryAgain": "Spróbuj ponownie"
   },
   "profile": {
     "title": "Mój profil",
@@ -287,5 +295,29 @@
       "inCategory": " w tej kategorii",
       "checkBack": "Zajrzyj wkrótce po nowe nagrody"
     }
+  },
+  "verify": {
+    "badge": "Podsumowanie zamówienia",
+    "dueOnSuccess": "płatne po weryfikacji",
+    "skillLabel": "Odpowiedz na pytanie, aby kontynuować",
+    "breadcrumb": "Weryfikacja",
+    "notEnoughTitle": "Za mało biletów",
+    "notEnoughDesc": "Tylko {left} {left, plural, one {bilet} few {bilety} other {biletów}} — mniej niż wybrane {quantity}.",
+    "backToComp": "← Powrót do konkursu",
+    "ticketCount": "{quantity} {quantity, plural, one {bilet} few {bilety} other {biletów}}",
+    "loading": "Przekierowuję do bezpiecznej płatności...",
+    "competitions": "Konkursy",
+    "tryAgain": "Spróbuj ponownie"
+  },
+  "success": {
+    "title": "Płatność zakończona!",
+    "subtitle": "Bierzesz udział w konkursie {title}.",
+    "fallbackSubtitle": "Twoje zgłoszenie zostało potwierdzone.",
+    "pendingTitle": "Płatność w trakcie",
+    "pendingDesc": "Twoja płatność jest przetwarzana. Otrzymasz email z potwierdzeniem.",
+    "ticketNumbers": "Numery Twoich biletów",
+    "emailSent": "Email z potwierdzeniem został wysłany.",
+    "viewTickets": "Moje bilety",
+    "browseMore": "Przeglądaj więcej"
   }
 }

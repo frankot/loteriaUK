@@ -14,6 +14,7 @@ export async function createCheckoutSession(
   competitionId: string,
   competitionSlug: string,
   quantity: number,
+  locale: string,
   questionId?: string,
   answer?: string
 ): Promise<CreateCheckoutResult> {
@@ -114,8 +115,8 @@ export async function createCheckoutSession(
         userId: session.userId,
         quantity: String(quantity),
       },
-      success_url: `${appUrl}/en/competitions/${competitionSlug}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${appUrl}/en/competitions/${competitionSlug}?cancelled=true`,
+      success_url: `${appUrl}/${locale}/competitions/${competitionSlug}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${appUrl}/${locale}/competitions/${competitionSlug}?cancelled=true`,
     });
 
     if (!checkoutSession.url) {

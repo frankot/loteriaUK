@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import SkillQuestion from "@/components/public/skill-question";
 import { createCheckoutSession } from "@/actions/purchases";
 
@@ -13,6 +14,7 @@ interface VerifyClientProps {
 }
 
 export function VerifyClient({ competitionId, slug, quantity, locale }: VerifyClientProps) {
+  const t = useTranslations("verify");
   const router = useRouter();
   const [checkedOut, setCheckedOut] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +23,7 @@ export function VerifyClient({ competitionId, slug, quantity, locale }: VerifyCl
     if (checkedOut) return;
     setCheckedOut(true);
 
-    const result = await createCheckoutSession(competitionId, slug, quantity, questionId, answer);
+    const result = await createCheckoutSession(competitionId, slug, quantity, locale, questionId, answer);
 
     if (result.error) {
       if (result.status === 401) {
@@ -49,7 +51,7 @@ export function VerifyClient({ competitionId, slug, quantity, locale }: VerifyCl
       {checkedOut && !error && (
         <div className="rounded-xl border border-gold/20 bg-gold-pale/30 px-5 py-4 text-center">
           <div className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-gold border-t-transparent" />
-          <p className="mt-2 text-sm font-medium text-gold-dark">Redirecting to secure checkout...</p>
+          <p className="mt-2 text-sm font-medium text-gold-dark">{t("loading")}</p>
         </div>
       )}
 
@@ -60,7 +62,7 @@ export function VerifyClient({ competitionId, slug, quantity, locale }: VerifyCl
             onClick={() => { setError(""); setCheckedOut(false); }}
             className="mt-2 text-sm font-semibold text-gold-dark underline"
           >
-            Try again
+            {t("tryAgain")}
           </button>
         </div>
       )}
