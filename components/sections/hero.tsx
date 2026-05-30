@@ -32,7 +32,7 @@ export default async function Hero() {
           <div className="animate-fade-in-up">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gold-pale px-4 py-1.5 text-[13px] font-semibold tracking-wide text-gold-dark uppercase">
               <span className="inline-block h-[7px] w-[7px] rounded-full bg-gold" />
-              Trusted by 48,000+ players across the UK
+              {t("trustedBadge")}
             </div>
 
             <h1 className="font-serif text-[56px] leading-[1.1] font-semibold tracking-tight">
@@ -55,15 +55,15 @@ export default async function Hero() {
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 rounded-3xl border border-border bg-transparent px-8 py-3.5 text-[15px] font-medium text-ink transition-all hover:border-gold hover:text-gold-dark"
               >
-                How It Works
+                {t("howItWorks")}
               </Link>
             </div>
 
             <div className="flex gap-8 border-t border-border pt-8">
               {[
-                ["£2.4M+", "in prizes awarded"],
-                ["48,000+", "happy winners"],
-                ["4.9 ★", "on Trustpilot"],
+                ["£2.4M+", t("prizesAwarded")],
+                ["48,000+", t("happyWinners")],
+                ["4.9 ★", t("trustpilot")],
               ].map(([num, label]) => (
                 <div key={label} className="flex flex-col gap-1">
                   <span className="font-serif text-[28px] leading-none font-semibold text-gold-dark">{num}</span>
@@ -77,7 +77,7 @@ export default async function Hero() {
           <div className="animate-fade-in-up overflow-hidden rounded-[20px] bg-white shadow-featured [animation-delay:200ms]">
             <div className="relative flex h-[280px] items-center justify-center overflow-hidden">
               <span className="absolute top-5 left-5 rounded-full bg-gold px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
-                🔥 Trending
+                🔥 {t("trendingBadge")}
               </span>
               <Image
                 src={featured?.prizeImageUrl || fallbackImage}
@@ -89,7 +89,7 @@ export default async function Hero() {
             </div>
             <div className="p-7">
               <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
-                {featured?.prizeCategory || "Prize"}
+                {featured?.prizeCategory || t("trendingBadge")}
               </div>
               <h3 className="font-serif mb-5 text-2xl leading-tight font-semibold">
                 {featured?.titleEn || "Featured Prize"}
@@ -99,10 +99,10 @@ export default async function Hero() {
               <div className="mb-4">
                 <div className="mb-2 flex justify-between text-[13px]">
                   <span className="font-semibold text-gold-dark">
-                    {featured ? `${featured.ticketsSold.toLocaleString()} / ${featured.maxTickets.toLocaleString()} tickets sold` : "—"}
+                    {featured ? `${featured.ticketsSold.toLocaleString()} / ${featured.maxTickets.toLocaleString()} ${t("ticketsSold")}` : "—"}
                   </span>
                   <span className="text-ink-muted">
-                    {featured ? `Only ${featured.maxTickets - featured.ticketsSold} left` : ""}
+                    {featured ? t("ticketsLeft", { left: featured.maxTickets - featured.ticketsSold }) : ""}
                   </span>
                 </div>
                 <div className="h-1.5 overflow-hidden rounded-[3px] bg-border-light">
@@ -116,11 +116,11 @@ export default async function Hero() {
               <div className="flex items-center justify-between">
                 <div className="text-[22px] font-bold text-ink">
                   £{featured ? Number(featured.pricePounds).toFixed(2) : "1.99"}{" "}
-                  <span className="text-[13px] font-normal text-ink-muted">/ ticket</span>
+                  <span className="text-[13px] font-normal text-ink-muted">{t("perTicket")}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[13px] text-ink-muted">
                   <CalendarIcon />
-                  Draw: {featured ? formatDrawDate(featured.drawDate) : "—"}
+                  {t("draw")} {featured ? formatDrawDate(featured.drawDate) : "—"}
                 </div>
               </div>
             </div>

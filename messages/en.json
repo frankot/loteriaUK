@@ -1,4 +1,16 @@
 {
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "search": "Search",
+    "noResults": "No results found",
+    "back": "Back",
+    "close": "Close"
+  },
   "nav": {
     "trending": "Trending Prizes",
     "howItWorks": "How It Works",
@@ -38,35 +50,68 @@
     "titleLine1": "Your dream prize is",
     "titleLine2": "one ticket away",
     "subtitle": "Answer a skill-based question, buy your ticket from just £1.99, and watch the live draw. Premium prizes. Real winners. Every week.",
-    "cta": "Browse Prizes"
+    "cta": "Browse Prizes",
+    "howItWorks": "How It Works",
+    "trustedBadge": "Trusted by 48,000+ players across the UK",
+    "trendingBadge": "Trending",
+    "perTicket": "/ ticket",
+    "ticketsSold": "tickets sold",
+    "ticketsLeft": "Only {left} left",
+    "draw": "Draw:",
+    "prizesAwarded": "in prizes awarded",
+    "happyWinners": "happy winners",
+    "trustpilot": "on Trustpilot"
   },
   "stats": {
     "activeCompetitions": "Active Competitions",
     "totalWinners": "Total Winners",
     "prizesGiven": "Prizes Given",
     "totalEntries": "Total Entries",
-    "thisWeek": "this week"
+    "thisWeek": "this week",
+    "since2023": "since 2023"
   },
   "howItWorks": {
+    "badge": "Simple & Transparent",
     "title": "How It Works",
+    "subtitle": "Three simple steps to win. No hidden fees. No gambling — every competition is skill-based and fully compliant with UK law.",
     "step1": {
-      "title": "Choose Your Prize",
-      "desc": "Browse our luxury prizes — from Rolex watches to the latest Apple gadgets. Every competition features a real, verified prize."
+      "title": "Pick Your Prize",
+      "desc": "Browse our curated selection of premium prizes — electronics, jewellery, fashion, and cash awards. Find the one you want and click to enter."
     },
     "step2": {
-      "title": "Answer a Question",
-      "desc": "Each entry requires a correct answer to a skill-based question. It's a competition of knowledge, not chance."
+      "title": "Answer & Buy Tickets",
+      "desc": "Answer a simple skill-based question to qualify, then purchase your tickets securely. Each ticket costs just £1.99. Enter free by post, too."
     },
     "step3": {
       "title": "Watch the Live Draw",
-      "desc": "We draw the winning ticket live on YouTube. If your number is called, the prize is yours."
+      "desc": "Tune in on draw day — we stream every result live so you can watch the winner announcement in real time."
+    },
+    "youtubeLive": "YouTube Live",
+    "facebookLive": "Facebook Live"
+  },
+  "trending": {
+    "badge": "Trending Now",
+    "title": "Pick your prize",
+    "viewAll": "View all competitions →",
+    "empty": "No active competitions right now — check back soon",
+    "onlyLeft": "Only {left} left",
+    "sold": "sold",
+    "left": "left",
+    "category": {
+      "electronics": "Electronics",
+      "jewellery": "Jewellery",
+      "fashion": "Fashion",
+      "cash": "Cash",
+      "prize": "Prize"
     }
   },
   "winners": {
-    "title": "Recent Winners",
+    "badge": "Real People, Real Prizes",
+    "title": "Our Recent Winners",
     "subtitle": "Real people winning real prizes. Could be you next.",
-    "viewAll": "View All Winners",
-    "noWinners": "No winners yet — be the first!"
+    "viewAll": "View all winners →",
+    "noWinners": "No winners yet — be the first!",
+    "unknownName": "Winner"
   },
   "faq": {
     "title": "Frequently Asked Questions",
@@ -102,9 +147,11 @@
     ]
   },
   "ctaBanner": {
-    "title": "Ready to Win?",
-    "subtitle": "Browse our latest competitions and take your shot at luxury prizes.",
-    "cta": "Browse Competitions"
+    "title": "Never miss a draw",
+    "subtitle": "Get notified when new prizes drop. We'll send you a quick email — no spam, just the good stuff.",
+    "placeholder": "Your email address",
+    "button": "Notify Me",
+    "disabled": "form disabled in mockup"
   },
   "login": {
     "title": "Sign In",
@@ -149,7 +196,16 @@
     "minutes": "minutes",
     "seconds": "seconds",
     "drawDate": "Draw Date",
-    "prizeValue": "Prize Value"
+    "prizeValue": "Prize Value",
+    "perTicket": "/ ticket",
+    "onlyLeft": "Only {left} left",
+    "allSoldOut": "All tickets sold out",
+    "drawPassed": "Draw has passed",
+    "enterNow": "Enter Now",
+    "freePostalOption": "Or enter for free by post",
+    "viewDetails": "View Details",
+    "sold": "sold",
+    "left": "left"
   },
   "profile": {
     "title": "My Profile",
@@ -198,35 +254,16 @@
       "fullName": "Your full name",
       "address": "Your address",
       "email": "Your email address",
-      "dob": "Your date of birth",
-      "competition": "The name of the competition you want to enter",
+      "dateOfBirth": "Your date of birth",
+      "competitionName": "The name of the competition you're entering",
       "answer": "Your answer to the skill question (A, B, C, or D)"
     },
-    "mailingAddress": "Our Postal Address",
-    "addressLine1": "Golden Dream Draw Ltd",
-    "addressLine2": "PO Box 1234",
-    "addressLine3": "London, EC1A 1AA",
-    "addressLine4": "United Kingdom",
-    "deadline": "Deadline",
-    "deadlineText": "Your postal entry must arrive before the draw date of the competition you're entering. Entries received after the draw date will not be entered.",
+    "mailingAddress": "Mailing Address",
+    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, United Kingdom",
+    "deadline": "Important",
+    "deadlineText": "Your postal entry must arrive before the competition's draw date. Entries received after the draw will not be valid.",
     "equalChance": "Equal Chance",
-    "equalChanceText": "Postal entries have an equal chance of winning as paid entries. All entries are included in the same live draw. One entry per person per competition.",
-    "limits": "Limits",
-    "limitsText": "One free postal entry per person per competition. Multiple entries from the same person for the same competition will be disqualified.",
-    "questions": "Questions?",
-    "questionsText": "If you have any questions about postal entries, email us at postal@goldendreandraw.com."
-  },
-  "common": {
-    "loading": "Loading...",
-    "error": "Something went wrong",
-    "retry": "Try Again",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "search": "Search",
-    "noResults": "No results found",
-    "back": "Back",
-    "close": "Close",
-    "saving": "Saving..."
+    "equalChanceText": "Postal entries have exactly the same chance of winning as paid entries. There is no disadvantage to entering for free.",
+    "cta": "Browse Competitions"
   }
 }

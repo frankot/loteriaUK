@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function CalendarIcon() {
   return (
@@ -48,9 +51,11 @@ export default function CompetitionCard({
   pricePounds,
   locale = "en",
 }: CompetitionCardProps) {
+  const t = useTranslations("trending");
   const pct = Math.round((ticketsSold / maxTickets) * 100);
   const left = maxTickets - ticketsSold;
   const urgent = left < 20;
+  const catLabel = category ? t(`category.${category}` as Parameters<typeof t>[0]) : t("category.prize");
   const badgeColor = categoryBadgeColors[category || ""] || "bg-badge-electronics";
 
   return (
@@ -63,11 +68,11 @@ export default function CompetitionCard({
         <span
           className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeColor}`}
         >
-          {category || "Prize"}
+          {catLabel}
         </span>
         {urgent && (
           <span className="absolute top-3 left-5 z-10 rounded-full bg-gold px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
-            🔥 Only {left} left
+            🔥 {t("onlyLeft", { left })}
           </span>
         )}
         <Image
@@ -90,10 +95,10 @@ export default function CompetitionCard({
         <div className="mb-3">
           <div className="mb-1.5 flex justify-between text-xs">
             <span className="font-semibold text-gold-dark">
-              {ticketsSold.toLocaleString()} / {maxTickets.toLocaleString()} sold
+              {ticketsSold.toLocaleString()} / {maxTickets.toLocaleString()} {t("sold")}
             </span>
             <span className={urgent ? "font-semibold text-urgent" : "text-ink-muted"}>
-              {left} left
+              {left} {t("left")}
             </span>
           </div>
           {pct >= 60 && (

@@ -1,8 +1,10 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { getTrendingCompetitions } from "@/lib/queries";
 import CompetitionCard from "@/components/public/competition-card";
 
 export default async function TrendingPrizes() {
+  const t = await getTranslations("trending");
   const competitions = await getTrendingCompetitions(6);
 
   return (
@@ -12,21 +14,21 @@ export default async function TrendingPrizes() {
         <div className="mb-12 flex items-end justify-between">
           <div>
             <div className="mb-3 text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-              Trending Now
+              {t("badge")}
             </div>
-            <h2 className="font-serif text-[36px] leading-[1.15] font-semibold">Pick your prize</h2>
+            <h2 className="font-serif text-[36px] leading-[1.15] font-semibold">{t("title")}</h2>
           </div>
           <Link
             href="/en/competitions"
             className="flex items-center gap-1.5 text-sm font-semibold text-gold-dark transition-[gap] hover:gap-3"
           >
-            View all competitions →
+            {t("viewAll")}
           </Link>
         </div>
 
         {competitions.length === 0 ? (
           <div className="rounded-xl border border-border bg-white py-16 text-center text-ink-muted">
-            <p className="text-lg">No active competitions right now — check back soon</p>
+            <p className="text-lg">{t("empty")}</p>
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-6">

@@ -1,9 +1,21 @@
 {
+  "common": {
+    "loading": "Se încarcă...",
+    "error": "Ceva nu a funcționat",
+    "retry": "Încearcă din nou",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "search": "Caută",
+    "noResults": "Niciun rezultat găsit",
+    "back": "Înapoi",
+    "close": "Închide"
+  },
   "nav": {
-    "trending": "Premii Trending",
-    "howItWorks": "Cum Funcționează",
+    "trending": "Premii populare",
+    "howItWorks": "Cum funcționează",
     "winners": "Câștigători",
-    "faq": "Întrebări Frecvente",
+    "faq": "Întrebări frecvente",
     "competitions": "Concursuri",
     "signIn": "Autentificare",
     "profile": "Profil",
@@ -12,157 +24,246 @@
   },
   "footer": {
     "competitions": "Concursuri",
-    "allPrizes": "Toate Premiile",
-    "electronics": "Electronice",
+    "allPrizes": "Toate premiile",
+    "electronics": "Electronică",
     "jewellery": "Bijuterii",
     "fashion": "Modă",
-    "cashAwards": "Premii în Bani",
+    "cashAwards": "Premii în bani",
     "company": "Companie",
-    "aboutUs": "Despre Noi",
-    "ourWinners": "Câștigătorii Noștri",
-    "liveDraws": "Extrageri Live",
+    "aboutUs": "Despre noi",
+    "ourWinners": "Câștigătorii noștri",
+    "liveDraws": "Extrageri live",
     "contact": "Contact",
     "careers": "Cariere",
     "support": "Suport",
-    "faq": "Întrebări Frecvente",
-    "freePostalEntry": "Participare Poștală Gratuită",
-    "terms": "Termeni și Condiții",
-    "privacy": "Politica de Confidențialitate",
-    "responsiblePlay": "Joc Responsabil",
-    "copyright": "© 2026 Golden Dream Draw Ltd. Toate drepturile rezervate.",
+    "faq": "Întrebări frecvente",
+    "freePostalEntry": "Participare poștală gratuită",
+    "terms": "Termeni și condiții",
+    "privacy": "Politica de confidențialitate",
+    "responsiblePlay": "Joc responsabil",
+    "copyright": "© 2026 Golden Dream Draw Ltd. Toate drepturile rezervate. Golden Dream Draw este o platformă de concursuri bazate pe abilități. Nu este joc de noroc. Licențiat și reglementat în Regatul Unit.",
     "sslEncrypted": "Criptat SSL",
-    "skillCompetition": "Concurs de Abilități",
-    "tagline": "Concursuri bazate pe abilități pentru Marea Britanie."
+    "skillCompetition": "Concurs de abilități",
+    "tagline": "Concursuri bazate pe abilități pentru Marea Britanie. Premii premium, extrageri transparente și câștigători reali — de fiecare dată."
   },
   "hero": {
-    "titleLine1": "Premii Premium. Câștigători Reali. În Fiecare Săptămână.",
-    "titleLine2": "one ticket away",
-    "subtitle": "Răspunde la o întrebare simplă pentru a câștiga premii de lux de la doar £1.99.",
-    "cta": "Vezi Concursurile"
+    "titleLine1": "Premiul tău de vis este",
+    "titleLine2": "la un bilet distanță",
+    "subtitle": "Răspunde la o întrebare, cumpără biletul de la doar £1.99 și urmărește extragerea live. Premii premium. Câștigători reali. În fiecare săptămână.",
+    "cta": "Vezi premiile",
+    "howItWorks": "Cum funcționează",
+    "trustedBadge": "Încrederea a peste 48.000 de jucători din Marea Britanie",
+    "trendingBadge": "În tendințe",
+    "perTicket": "/ bilet",
+    "ticketsSold": "bilete vândute",
+    "ticketsLeft": "Doar {left} rămase",
+    "draw": "Tragere:",
+    "prizesAwarded": "în premii acordate",
+    "happyWinners": "câștigători fericiți",
+    "trustpilot": "pe Trustpilot"
   },
   "stats": {
-    "activeCompetitions": "Concursuri Active",
-    "totalWinners": "Total Câștigători",
-    "prizesGiven": "Premii Acordate",
-    "totalEntries": "Total Participări",
-    "thisWeek": "săptămâna aceasta"
+    "activeCompetitions": "Concursuri active",
+    "totalWinners": "Total câștigători",
+    "prizesGiven": "Premii acordate",
+    "totalEntries": "Total participări",
+    "thisWeek": "săptămâna aceasta",
+    "since2023": "din 2023"
   },
   "howItWorks": {
-    "title": "Cum Funcționează",
+    "badge": "Simplu și transparent",
+    "title": "Cum funcționează",
+    "subtitle": "Trei pași simpli pentru a câștiga. Fără taxe ascunse. Fără jocuri de noroc — fiecare concurs este bazat pe abilități și complet conform cu legislația britanică.",
     "step1": {
-      "title": "Alege Premiul",
-      "desc": "Răsfoiește premiile noastre de lux."
+      "title": "Alege premiul",
+      "desc": "Răsfoiește selecția noastră curatorială de premii premium — electronică, bijuterii, modă și premii în bani. Găsește-l pe cel dorit și click pentru a participa."
     },
     "step2": {
-      "title": "Răspunde la o Întrebare",
-      "desc": "Fiecare participare necesită un răspuns corect."
+      "title": "Răspunde și cumpără bilete",
+      "desc": "Răspunde la o întrebare simplă bazată pe abilități pentru a te califica, apoi cumpără biletele în siguranță. Fiecare bilet costă doar £1.99. Poți participa și gratuit prin poștă."
     },
     "step3": {
-      "title": "Urmărește Extragerea Live",
-      "desc": "Extragem biletul câștigător pe YouTube."
+      "title": "Urmărește extragerea live",
+      "desc": "Conectează-te în ziua extragerii — transmitem fiecare rezultat live pentru a putea vedea anunțarea câștigătorului în timp real."
+    },
+    "youtubeLive": "YouTube Live",
+    "facebookLive": "Facebook Live"
+  },
+  "trending": {
+    "badge": "În tendințe acum",
+    "title": "Alege premiul tău",
+    "viewAll": "Vezi toate concursurile →",
+    "empty": "Momentan nu sunt concursuri active — revino curând",
+    "onlyLeft": "Doar {left} rămase",
+    "sold": "vândute",
+    "left": "rămase",
+    "category": {
+      "electronics": "Electronică",
+      "jewellery": "Bijuterii",
+      "fashion": "Modă",
+      "cash": "Bani",
+      "prize": "Premiu"
     }
   },
   "winners": {
-    "title": "Câștigători Recenti",
-    "subtitle": "Oameni reali câștigă premii reale.",
-    "viewAll": "Vezi Toți Câștigătorii",
-    "noWinners": "Niciun câștigător încă — fii primul!"
+    "badge": "Oameni reali, premii reale",
+    "title": "Câștigătorii noștri recenți",
+    "subtitle": "Oameni reali câștigă premii reale. Ai putea fi următorul.",
+    "viewAll": "Vezi toți câștigătorii →",
+    "noWinners": "Niciun câștigător încă — fii primul!",
+    "unknownName": "Câștigător"
   },
   "faq": {
-    "title": "Întrebări Frecvente",
+    "title": "Întrebări frecvente",
     "items": [
       {
         "q": "Ce este Golden Dream Draw?",
-        "a": "Golden Dream Draw este o platformă de concursuri bazate pe abilități."
+        "a": "Golden Dream Draw este o platformă de concursuri bazate pe abilități. Spre deosebire de o loterie, trebuie să răspunzi corect la o întrebare pentru a participa, fiind un concurs de abilități, nu de noroc."
       },
       {
         "q": "Este o loterie?",
-        "a": "Nu. Este un concurs de abilități."
+        "a": "Nu. Golden Dream Draw este un concurs de abilități. Legea britanică cere ca câștigătorii să fie determinați de abilități, nu doar de noroc. Întrebarea noastră asigură conformitatea."
       },
       {
         "q": "Cum particip?",
-        "a": "Alege un premiu, răspunde corect la întrebare și cumpără biletul."
+        "a": "Răsfoiește concursurile, alege un premiu, răspunde corect la întrebare și cumpără biletul. Poți participa și gratuit prin poștă — vezi pagina de Participare Poștală Gratuită."
       },
       {
         "q": "Cum sunt aleși câștigătorii?",
-        "a": "Extragerile au loc live pe YouTube."
+        "a": "Toate extragerile au loc live pe YouTube. Un număr de bilet aleatoriu este selectat din toate participările valide. Extragerea completă este înregistrată și publicată."
       },
       {
         "q": "Pot participa gratuit?",
-        "a": "Da. Prin poștă — vezi pagina de Participare Poștală."
+        "a": "Da. Reglementările britanice cer o rută de participare poștală gratuită. Trimite participarea prin carte poștală — detalii complete pe pagina de Participare Poștală Gratuită."
       },
       {
         "q": "Care este limita de vârstă?",
-        "a": "Trebuie să ai minim 18 ani."
+        "a": "Trebuie să ai minim 18 ani pentru a participa la orice concurs Golden Dream Draw."
       },
       {
         "q": "Când primesc premiul?",
-        "a": "Câștigătorii sunt notificați în 24 de ore."
+        "a": "Câștigătorii sunt notificați în 24 de ore de la extragere. Premiile sunt expediate în 5 zile lucrătoare după verificarea câștigătorului."
       }
     ]
   },
   "ctaBanner": {
-    "title": "Gata să Câștigi?",
-    "subtitle": "Vezi concursurile noastre.",
-    "cta": "Vezi Concursurile"
+    "title": "Nu rata nicio extragere",
+    "subtitle": "Primește notificări când apar premii noi. Îți trimitem un email rapid — fără spam, doar lucrurile bune.",
+    "placeholder": "Adresa ta de email",
+    "button": "Notifică-mă",
+    "disabled": "formular dezactivat în demo"
   },
   "login": {
     "title": "Autentificare",
     "emailPlaceholder": "Introdu adresa de email",
-    "sendCode": "Trimite Codul",
+    "sendCode": "Trimite codul",
     "checkEmail": "Verifică emailul pentru codul de 6 cifre",
     "codePlaceholder": "Introdu codul de 6 cifre",
     "verify": "Verifică",
     "invalidCode": "Cod invalid sau expirat",
     "ageConfirm": "Confirm că am 18 ani sau mai mult",
-    "ageConfirmRequired": "Trebuie să ai cel puțin 18 ani"
+    "ageConfirmRequired": "Trebuie să ai cel puțin 18 ani pentru a folosi acest site",
+    "loggedIn": "Ești deja autentificat"
   },
   "register": {
-    "title": "Completează Profilul",
-    "fullName": "Nume Complet",
+    "title": "Completează profilul",
+    "subtitle": "Completează datele tale pentru a continua",
+    "fullName": "Nume complet",
     "address": "Adresă",
-    "phone": "Număr de Telefon",
-    "dateOfBirth": "Data Nașterii",
+    "phone": "Număr de telefon",
+    "dateOfBirth": "Data nașterii",
     "ageConfirm": "Confirm că am 18 ani sau mai mult",
-    "submit": "Creează Cont"
+    "submit": "Creează cont",
+    "namePlaceholder": "Ion Popescu",
+    "addressPlaceholder": "Str. Principală 123, București, 010001",
+    "phonePlaceholder": "+40 700 800 900"
   },
   "competition": {
-    "soldOut": "Vândut",
-    "expiringSoon": "Expiră Curând",
-    "timeRemaining": "Timp Rămas",
+    "soldOut": "Epuizat",
+    "expiringSoon": "Expiră curând",
+    "timeRemaining": "Timp rămas",
     "ticketsSold": "bilete vândute",
     "price": "Preț",
-    "buyTickets": "Cumpără Bilete",
+    "buyTickets": "Cumpără bilete",
     "quantity": "Cantitate",
     "total": "Total",
     "answerQuestion": "Răspunde la întrebare pentru a continua",
     "correct": "Corect!",
-    "incorrect": "Incorect. Încearcă o altă întrebare.",
+    "incorrect": "Incorect. Încearcă altă întrebare.",
     "noMoreQuestions": "Nu mai sunt întrebări disponibile",
     "days": "zile",
     "hours": "ore",
-    "minutes": "minute",
-    "seconds": "secunde",
-    "drawDate": "Data Extragerii",
-    "prizeValue": "Valoarea Premiului"
+    "minutes": "min.",
+    "seconds": "sec.",
+    "drawDate": "Data extragerii",
+    "prizeValue": "Valoarea premiului",
+    "perTicket": "/ bilet",
+    "onlyLeft": "Doar {left} rămase",
+    "allSoldOut": "Toate biletele epuizate",
+    "drawPassed": "Extragerea a avut deja loc",
+    "enterNow": "Participă acum",
+    "freePostalOption": "Sau participă gratuit prin poștă",
+    "viewDetails": "Detalii",
+    "sold": "vândute",
+    "left": "rămase"
   },
   "profile": {
-    "title": "Profilul Meu",
-    "tickets": "Biletele Mele",
-    "entries": "Istoric Participări",
+    "title": "Profilul meu",
+    "tickets": "Biletele mele",
+    "entries": "Istoric participări",
     "noTickets": "Nu ai participat încă la niciun concurs",
-    "settings": "Setări"
+    "noEntries": "Nicio participare înregistrată",
+    "settings": "Setări",
+    "settingsTitle": "Setări profil",
+    "settingsDesc": "Actualizează informațiile personale",
+    "email": "Email",
+    "name": "Nume",
+    "address": "Adresă",
+    "phone": "Telefon",
+    "ticketNumber": "Bilet nr.",
+    "competition": "Concurs",
+    "type": "Tip",
+    "date": "Dată",
+    "paid": "Plătit",
+    "postal": "Poștal",
+    "notProvided": "Nefurnizat",
+    "updatedSuccess": "Profil actualizat cu succes",
+    "browseCompetitions": "Vezi concursurile",
+    "signInPrompt": "Autentifică-te pentru a vedea biletele și participările",
+    "signIn": "Autentificare"
   },
-  "common": {
-    "loading": "Se încarcă...",
-    "error": "Ceva nu a funcționat",
-    "retry": "Încearcă Din Nou",
-    "save": "Salvează",
-    "cancel": "Anulează",
-    "delete": "Șterge",
-    "search": "Caută",
-    "noResults": "Niciun rezultat găsit",
-    "back": "Înapoi",
-    "close": "Închide"
+  "freePostalEntry": {
+    "title": "Participare poștală gratuită",
+    "subtitle": "Participă la orice concurs gratuit — fără obligația de cumpărare",
+    "intro": "Conform legii britanice, fiecare concurs bazat pe abilități trebuie să ofere o rută de participare gratuită. Poți participa la oricare dintre concursurile noastre prin poștă.",
+    "howTo": "Cum să participi prin poștă",
+    "step1": {
+      "title": "Alege concursul",
+      "desc": "Alege orice concurs activ din pagina Concursuri."
+    },
+    "step2": {
+      "title": "Scrie participarea",
+      "desc": "Pe o carte poștală sau o foaie de hârtie, scrie clar următoarele informații:"
+    },
+    "step3": {
+      "title": "Trimite-ne-o",
+      "desc": "Trimite participarea la adresa de mai jos. Trebuie să ajungă înainte de data extragerii concursului."
+    },
+    "requiredFields": "Informații necesare",
+    "fields": {
+      "fullName": "Numele tău complet",
+      "address": "Adresa ta",
+      "email": "Adresa ta de email",
+      "dateOfBirth": "Data ta de naștere",
+      "competitionName": "Numele concursului la care participi",
+      "answer": "Răspunsul tău la întrebare (A, B, C sau D)"
+    },
+    "mailingAddress": "Adresă poștală",
+    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, Regatul Unit",
+    "deadline": "Important",
+    "deadlineText": "Participarea ta poștală trebuie să ajungă înainte de data extragerii concursului. Participările primite după extragere nu vor fi valide.",
+    "equalChance": "Șanse egale",
+    "equalChanceText": "Participările poștale au exact aceleași șanse de câștig ca și cele plătite. Nu există niciun dezavantaj în a participa gratuit.",
+    "cta": "Vezi concursurile"
   }
 }

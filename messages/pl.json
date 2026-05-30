@@ -1,7 +1,19 @@
 {
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Coś poszło nie tak",
+    "retry": "Spróbuj ponownie",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "search": "Szukaj",
+    "noResults": "Brak wyników",
+    "back": "Wstecz",
+    "close": "Zamknij"
+  },
   "nav": {
-    "trending": "Najlepsze Nagrody",
-    "howItWorks": "Jak to Działa",
+    "trending": "Popularne nagrody",
+    "howItWorks": "Jak to działa",
     "winners": "Zwycięzcy",
     "faq": "FAQ",
     "competitions": "Konkursy",
@@ -12,157 +24,246 @@
   },
   "footer": {
     "competitions": "Konkursy",
-    "allPrizes": "Wszystkie Nagrody",
+    "allPrizes": "Wszystkie nagrody",
     "electronics": "Elektronika",
     "jewellery": "Biżuteria",
     "fashion": "Moda",
-    "cashAwards": "Nagrody Pieniężne",
+    "cashAwards": "Nagrody pieniężne",
     "company": "Firma",
-    "aboutUs": "O Nas",
-    "ourWinners": "Nasi Zwycięzcy",
-    "liveDraws": "Losowania na Żywo",
+    "aboutUs": "O nas",
+    "ourWinners": "Nasi zwycięzcy",
+    "liveDraws": "Losowania na żywo",
     "contact": "Kontakt",
     "careers": "Kariera",
     "support": "Pomoc",
     "faq": "FAQ",
-    "freePostalEntry": "Darmowy Wpis Pocztowy",
+    "freePostalEntry": "Darmowy udział pocztowy",
     "terms": "Regulamin",
-    "privacy": "Polityka Prywatności",
-    "responsiblePlay": "Odpowiedzialna Gra",
-    "copyright": "© 2026 Golden Dream Draw Ltd. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard.",
-    "sslEncrypted": "SSL Szyfrowane",
-    "skillCompetition": "Konkurs Umiejętności",
-    "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy."
+    "privacy": "Polityka prywatności",
+    "responsiblePlay": "Odpowiedzialna gra",
+    "copyright": "© 2026 Golden Dream Draw Ltd. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard. Licencjonowane i regulowane w Wielkiej Brytanii.",
+    "sslEncrypted": "Szyfrowane SSL",
+    "skillCompetition": "Konkurs umiejętności",
+    "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy — za każdym razem."
   },
   "hero": {
-    "titleLine1": "Ekskluzywne Nagrody. Prawdziwi Zwycięzcy. Każdego Tygodnia.",
-    "titleLine2": "one ticket away",
-    "subtitle": "Odpowiedz na proste pytanie i wygraj luksusowe nagrody już od 1,99 £. Losowania na żywo na YouTube.",
-    "cta": "Zobacz Konkursy"
+    "titleLine1": "Twoja wymarzona nagroda jest",
+    "titleLine2": "na wyciągnięcie ręki",
+    "subtitle": "Odpowiedz na pytanie, kup bilet już od 1,99 £ i oglądaj losowanie na żywo. Ekskluzywne nagrody. Prawdziwi zwycięzcy. Co tydzień.",
+    "cta": "Przeglądaj nagrody",
+    "howItWorks": "Jak to działa",
+    "trustedBadge": "Zaufanie ponad 48 000 graczy w całej Wielkiej Brytanii",
+    "trendingBadge": "Popularne",
+    "perTicket": "/ bilet",
+    "ticketsSold": "sprzedanych biletów",
+    "ticketsLeft": "Tylko {left} pozostało",
+    "draw": "Losowanie:",
+    "prizesAwarded": "wypłaconych nagród",
+    "happyWinners": "zadowolonych zwycięzców",
+    "trustpilot": "na Trustpilot"
   },
   "stats": {
-    "activeCompetitions": "Aktywne Konkursy",
-    "totalWinners": "Łączna Liczba Zwycięzców",
-    "prizesGiven": "Przyznane Nagrody",
-    "totalEntries": "Łączna Liczba Wpisów",
-    "thisWeek": "w tym tygodniu"
+    "activeCompetitions": "Aktywne konkursy",
+    "totalWinners": "Łącznie zwycięzców",
+    "prizesGiven": "Wydane nagrody",
+    "totalEntries": "Łącznie zgłoszeń",
+    "thisWeek": "w tym tygodniu",
+    "since2023": "od 2023"
   },
   "howItWorks": {
-    "title": "Jak to Działa",
+    "badge": "Prosto i przejrzyście",
+    "title": "Jak to działa",
+    "subtitle": "Trzy proste kroki do wygranej. Bez ukrytych opłat. Bez hazardu — każdy konkurs opiera się na umiejętnościach i jest w pełni zgodny z prawem brytyjskim.",
     "step1": {
-      "title": "Wybierz Nagrodę",
-      "desc": "Przeglądaj luksusowe nagrody — od Rolexów po najnowsze gadżety Apple."
+      "title": "Wybierz nagrodę",
+      "desc": "Przeglądaj naszą wyselekcjonowaną kolekcję ekskluzywnych nagród — elektronika, biżuteria, moda i nagrody pieniężne. Znajdź tę, której pragniesz i kliknij, aby wziąć udział."
     },
     "step2": {
-      "title": "Odpowiedz na Pytanie",
-      "desc": "Każde zgłoszenie wymaga poprawnej odpowiedzi na pytanie umiejętnościowe."
+      "title": "Odpowiedz i kup bilety",
+      "desc": "Odpowiedz na proste pytanie sprawdzające umiejętności, a następnie bezpiecznie kup bilety. Każdy bilet kosztuje tylko 1,99 £. Możesz też wziąć udział za darmo pocztą."
     },
     "step3": {
-      "title": "Obserwuj Losowanie",
-      "desc": "Losujemy zwycięski bilet na żywo na YouTube."
+      "title": "Oglądaj losowanie na żywo",
+      "desc": "Włącz transmisję w dniu losowania — pokazujemy każdy wynik na żywo, abyś mógł zobaczyć ogłoszenie zwycięzcy w czasie rzeczywistym."
+    },
+    "youtubeLive": "YouTube Live",
+    "facebookLive": "Facebook Live"
+  },
+  "trending": {
+    "badge": "Teraz popularne",
+    "title": "Wybierz swoją nagrodę",
+    "viewAll": "Zobacz wszystkie konkursy →",
+    "empty": "Brak aktywnych konkursów — zajrzyj wkrótce",
+    "onlyLeft": "Tylko {left} pozostało",
+    "sold": "sprzedanych",
+    "left": "pozostało",
+    "category": {
+      "electronics": "Elektronika",
+      "jewellery": "Biżuteria",
+      "fashion": "Moda",
+      "cash": "Gotówka",
+      "prize": "Nagroda"
     }
   },
   "winners": {
-    "title": "Nasi Zwycięzcy",
-    "subtitle": "Prawdziwi ludzie wygrywają prawdziwe nagrody.",
-    "viewAll": "Zobacz Wszystkich Zwycięzców",
-    "noWinners": "Jeszcze nikt nie wygrał — bądź pierwszy!"
+    "badge": "Prawdziwi ludzie, prawdziwe nagrody",
+    "title": "Nasi ostatni zwycięzcy",
+    "subtitle": "Prawdziwi ludzie wygrywają prawdziwe nagrody. Może następny będziesz Ty.",
+    "viewAll": "Zobacz wszystkich zwycięzców →",
+    "noWinners": "Jeszcze nikt nie wygrał — bądź pierwszy!",
+    "unknownName": "Zwycięzca"
   },
   "faq": {
-    "title": "Często Zadawane Pytania",
+    "title": "Często zadawane pytania",
     "items": [
       {
         "q": "Czym jest Golden Dream Draw?",
-        "a": "Golden Dream Draw to platforma konkursów umiejętnościowych. W przeciwieństwie do loterii, musisz poprawnie odpowiedzieć na pytanie."
+        "a": "Golden Dream Draw to platforma konkursów umiejętnościowych. W przeciwieństwie do loterii, musisz poprawnie odpowiedzieć na pytanie, aby wziąć udział — to konkurs umiejętności, a nie przypadku."
       },
       {
         "q": "Czy to loteria?",
-        "a": "Nie. To konkurs umiejętności. Prawo brytyjskie wymaga, aby zwycięzcy byli wyłaniani na podstawie umiejętności."
+        "a": "Nie. Golden Dream Draw to konkurs umiejętności. Prawo brytyjskie wymaga, aby zwycięzcy byli wyłaniani na podstawie umiejętności, a nie czystego przypadku. Nasze pytanie zapewnia zgodność z przepisami."
       },
       {
         "q": "Jak wziąć udział?",
-        "a": "Przeglądaj konkursy, wybierz nagrodę, odpowiedz poprawnie na pytanie i kup bilet."
+        "a": "Przeglądaj konkursy, wybierz nagrodę, odpowiedz poprawnie na pytanie i kup bilet. Możesz też wziąć udział za darmo pocztą — zobacz stronę Darmowego Udziału Pocztowego."
       },
       {
         "q": "Jak wybierani są zwycięzcy?",
-        "a": "Zwycięskie zgłoszenia są losowane na żywo na YouTube."
+        "a": "Wszystkie zwycięskie zgłoszenia są losowane na żywo na YouTube. Losowy numer biletu jest wybierany spośród wszystkich ważnych zgłoszeń. Całe losowanie jest nagrywane i publikowane."
       },
       {
         "q": "Czy mogę wziąć udział za darmo?",
-        "a": "Tak. Wysyłając zgłoszenie pocztą — szczegóły na stronie Darmowy Wpis Pocztowy."
+        "a": "Tak. Przepisy brytyjskie wymagają darmowej ścieżki udziału pocztą. Wyślij zgłoszenie pocztówką — pełne informacje na stronie Darmowego Udziału Pocztowego."
       },
       {
         "q": "Jaki jest limit wieku?",
-        "a": "Musisz mieć ukończone 18 lat."
+        "a": "Musisz mieć ukończone 18 lat, aby wziąć udział w jakimkolwiek konkursie na Golden Dream Draw."
       },
       {
         "q": "Kiedy otrzymam nagrodę?",
-        "a": "Zwycięzcy są powiadamiani w ciągu 24 godzin. Nagrody wysyłamy w ciągu 5 dni roboczych."
+        "a": "Zwycięzcy są powiadamiani w ciągu 24 godzin od losowania. Nagrody wysyłamy w ciągu 5 dni roboczych po weryfikacji zwycięzcy."
       }
     ]
   },
   "ctaBanner": {
-    "title": "Gotowy na Wygraną?",
-    "subtitle": "Przeglądaj nasze najnowsze konkursy.",
-    "cta": "Przeglądaj Konkursy"
+    "title": "Nie przegap żadnego losowania",
+    "subtitle": "Otrzymuj powiadomienia o nowych nagrodach. Wyślemy Ci szybkiego maila — bez spamu, tylko to, co najlepsze.",
+    "placeholder": "Twój adres email",
+    "button": "Powiadom mnie",
+    "disabled": "formularz wyłączony w wersji demo"
   },
   "login": {
     "title": "Zaloguj się",
     "emailPlaceholder": "Wpisz swój adres email",
-    "sendCode": "Wyślij Kod",
-    "checkEmail": "Sprawdź swoją skrzynkę email",
+    "sendCode": "Wyślij kod",
+    "checkEmail": "Sprawdź email — wysłaliśmy 6-cyfrowy kod",
     "codePlaceholder": "Wpisz 6-cyfrowy kod",
     "verify": "Zweryfikuj",
     "invalidCode": "Nieprawidłowy lub wygasły kod",
     "ageConfirm": "Potwierdzam, że mam ukończone 18 lat",
-    "ageConfirmRequired": "Musisz mieć ukończone 18 lat"
+    "ageConfirmRequired": "Musisz mieć ukończone 18 lat, aby korzystać z tej strony",
+    "loggedIn": "Jesteś już zalogowany"
   },
   "register": {
-    "title": "Uzupełnij Profil",
-    "fullName": "Imię i Nazwisko",
+    "title": "Uzupełnij profil",
+    "subtitle": "Wypełnij swoje dane, aby kontynuować",
+    "fullName": "Imię i nazwisko",
     "address": "Adres",
-    "phone": "Numer Telefonu",
-    "dateOfBirth": "Data Urodzenia",
+    "phone": "Numer telefonu",
+    "dateOfBirth": "Data urodzenia",
     "ageConfirm": "Potwierdzam, że mam ukończone 18 lat",
-    "submit": "Utwórz Konto"
+    "submit": "Utwórz konto",
+    "namePlaceholder": "Jan Kowalski",
+    "addressPlaceholder": "ul. Główna 123, Warszawa, 00-001",
+    "phonePlaceholder": "+48 600 700 800"
   },
   "competition": {
     "soldOut": "Wyprzedane",
-    "expiringSoon": "Kończy się Wkrótce",
-    "timeRemaining": "Pozostało Czasu",
+    "expiringSoon": "Kończy się wkrótce",
+    "timeRemaining": "Pozostały czas",
     "ticketsSold": "sprzedanych biletów",
     "price": "Cena",
-    "buyTickets": "Kup Bilety",
+    "buyTickets": "Kup bilety",
     "quantity": "Ilość",
     "total": "Razem",
     "answerQuestion": "Odpowiedz na pytanie, aby kontynuować",
     "correct": "Poprawnie!",
-    "incorrect": "Niepoprawnie. Spróbuj inne pytanie.",
+    "incorrect": "Niepoprawnie. Spróbuj innego pytania.",
     "noMoreQuestions": "Brak więcej pytań",
     "days": "dni",
-    "hours": "godzin",
-    "minutes": "minut",
-    "seconds": "sekund",
-    "drawDate": "Data Losowania",
-    "prizeValue": "Wartość Nagrody"
+    "hours": "godz.",
+    "minutes": "min.",
+    "seconds": "sek.",
+    "drawDate": "Data losowania",
+    "prizeValue": "Wartość nagrody",
+    "perTicket": "/ bilet",
+    "onlyLeft": "Tylko {left} pozostało",
+    "allSoldOut": "Wszystkie bilety wyprzedane",
+    "drawPassed": "Losowanie już się odbyło",
+    "enterNow": "Weź udział",
+    "freePostalOption": "Lub weź udział za darmo pocztą",
+    "viewDetails": "Szczegóły",
+    "sold": "sprzedanych",
+    "left": "pozostało"
   },
   "profile": {
-    "title": "Mój Profil",
-    "tickets": "Moje Bilety",
-    "entries": "Historia Zgłoszeń",
-    "noTickets": "Jeszcze nie wziąłeś udziału w żadnym konkursie",
-    "settings": "Ustawienia"
+    "title": "Mój profil",
+    "tickets": "Moje bilety",
+    "entries": "Historia zgłoszeń",
+    "noTickets": "Nie wziąłeś jeszcze udziału w żadnym konkursie",
+    "noEntries": "Brak historii zgłoszeń",
+    "settings": "Ustawienia",
+    "settingsTitle": "Ustawienia profilu",
+    "settingsDesc": "Zaktualizuj swoje dane osobowe",
+    "email": "Email",
+    "name": "Imię i nazwisko",
+    "address": "Adres",
+    "phone": "Telefon",
+    "ticketNumber": "Bilet nr",
+    "competition": "Konkurs",
+    "type": "Typ",
+    "date": "Data",
+    "paid": "Płatny",
+    "postal": "Pocztowy",
+    "notProvided": "Nie podano",
+    "updatedSuccess": "Profil zaktualizowany pomyślnie",
+    "browseCompetitions": "Przeglądaj konkursy",
+    "signInPrompt": "Zaloguj się, aby zobaczyć swoje bilety i zgłoszenia",
+    "signIn": "Zaloguj się"
   },
-  "common": {
-    "loading": "Ładowanie...",
-    "error": "Coś poszło nie tak",
-    "retry": "Spróbuj Ponownie",
-    "save": "Zapisz",
-    "cancel": "Anuluj",
-    "delete": "Usuń",
-    "search": "Szukaj",
-    "noResults": "Brak wyników",
-    "back": "Wstecz",
-    "close": "Zamknij"
+  "freePostalEntry": {
+    "title": "Darmowy udział pocztowy",
+    "subtitle": "Weź udział w dowolnym konkursie za darmo — bez konieczności zakupu",
+    "intro": "Zgodnie z prawem brytyjskim, każdy konkurs oparty na umiejętnościach musi oferować darmową ścieżkę udziału. Możesz wziąć udział w dowolnym z naszych konkursów pocztą.",
+    "howTo": "Jak wziąć udział pocztą",
+    "step1": {
+      "title": "Wybierz konkurs",
+      "desc": "Wybierz dowolny aktywny konkurs ze strony Konkursy."
+    },
+    "step2": {
+      "title": "Napisz zgłoszenie",
+      "desc": "Na pocztówce lub kartce papieru napisz wyraźnie następujące informacje:"
+    },
+    "step3": {
+      "title": "Wyślij do nas",
+      "desc": "Wyślij zgłoszenie na poniższy adres. Musi dotrzeć przed datą losowania konkursu."
+    },
+    "requiredFields": "Wymagane dane",
+    "fields": {
+      "fullName": "Imię i nazwisko",
+      "address": "Twój adres",
+      "email": "Twój adres email",
+      "dateOfBirth": "Twoja data urodzenia",
+      "competitionName": "Nazwa konkursu, do którego się zgłaszasz",
+      "answer": "Twoja odpowiedź na pytanie (A, B, C lub D)"
+    },
+    "mailingAddress": "Adres korespondencyjny",
+    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, Wielka Brytania",
+    "deadline": "Ważne",
+    "deadlineText": "Twoje zgłoszenie pocztowe musi dotrzeć przed datą losowania konkursu. Zgłoszenia otrzymane po losowaniu nie będą ważne.",
+    "equalChance": "Równe szanse",
+    "equalChanceText": "Zgłoszenia pocztowe mają dokładnie taką samą szansę na wygraną jak zgłoszenia płatne. Darmowy udział nie stawia Cię w gorszej pozycji.",
+    "cta": "Przeglądaj konkursy"
   }
 }

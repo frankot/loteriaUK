@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import ProgressBar from "@/components/public/progress-bar";
@@ -20,6 +20,7 @@ const categoryLabels: Record<string, string> = {
 export default async function CompetitionDetailPage({ params }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("competition");
 
   const competition = await prisma.competition.findUnique({
     where: { slug },
@@ -75,12 +76,12 @@ export default async function CompetitionDetailPage({ params }: Props) {
               {/* Status badge */}
               {soldOut && (
                 <span className="absolute top-3 left-5 z-10 rounded-full bg-urgent px-2.5 py-1 text-xs font-semibold tracking-wide text-white">
-                  Sold Out
+                  {t("soldOut")}
                 </span>
               )}
               {!soldOut && left < 20 && (
                 <span className="absolute top-3 left-5 z-10 rounded-full bg-gold px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
-                  🔥 Only {left} left
+                  🔥 {t("onlyLeft", { left })}
                 </span>
               )}
 
@@ -155,7 +156,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
                 locale={locale}
               />
             ) : (
-              <SoldOutBanner soldOut={soldOut} />
+              <SoldOutBanner soldOut={soldOut} allSoldOut={t("allSoldOut")} drawPassed={t("drawPassed")} />
             )}
           </div>
         </div>
@@ -164,14 +165,22 @@ export default async function CompetitionDetailPage({ params }: Props) {
   );
 }
 
-function SoldOutBanner({ soldOut }: { soldOut: boolean }) {
+function SoldOutBanner({
+  soldOut,
+  allSoldOut,
+  drawPassed,
+}: {
+  soldOut: boolean;
+  allSoldOut: string;
+  drawPassed: string;
+}) {
   return (
     <div className="rounded-2xl border border-border bg-white p-8 text-center shadow-card">
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-urgent/10">
         <span className="text-2xl">{soldOut ? "😢" : "⏰"}</span>
       </div>
       <p className="text-xl font-semibold text-ink">
-        {soldOut ? "All tickets sold out" : "Draw has passed"}
+        {soldOut ? allSoldOut : drawPassed}
       </p>
       <p className="mt-2 text-sm text-ink-muted">
         {soldOut

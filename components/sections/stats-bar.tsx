@@ -1,13 +1,15 @@
+import { getTranslations } from "next-intl/server";
 import { getHomepageStats } from "@/lib/queries";
 
 export default async function StatsBar() {
+  const t = await getTranslations("stats");
   const stats = await getHomepageStats();
 
   const items = [
-    { value: stats.activeCompetitions.toLocaleString(), label: "Active Competitions", sub: "this week" },
-    { value: stats.totalWinners.toLocaleString(), label: "Total Winners", sub: "since 2023" },
-    { value: stats.prizesGiven.toLocaleString(), label: "Prizes Given", sub: "" },
-    { value: stats.totalEntries.toLocaleString(), label: "Total Entries", sub: "" },
+    { value: stats.activeCompetitions.toLocaleString(), label: t("activeCompetitions"), sub: t("thisWeek") },
+    { value: stats.totalWinners.toLocaleString(), label: t("totalWinners"), sub: t("since2023") },
+    { value: stats.prizesGiven.toLocaleString(), label: t("prizesGiven"), sub: "" },
+    { value: stats.totalEntries.toLocaleString(), label: t("totalEntries"), sub: "" },
   ];
 
   return (

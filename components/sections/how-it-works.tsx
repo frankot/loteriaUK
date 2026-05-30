@@ -1,37 +1,40 @@
-const steps = [
-  {
-    num: "01",
-    title: "Pick Your Prize",
-    desc: "Browse our curated selection of premium prizes — electronics, jewellery, fashion, and cash awards. Find the one you want and click to enter.",
-    badges: null,
-  },
-  {
-    num: "02",
-    title: "Answer & Buy Tickets",
-    desc: "Answer a simple skill-based question to qualify, then purchase your tickets securely. Each ticket costs just £1.99. Enter free by post, too.",
-    badges: null,
-  },
-  {
-    num: "03",
-    title: "Watch the Live Draw",
-    desc: "Tune in on draw day — we stream every result live so you can watch the winner announcement in real time.",
-    badges: ["▶ YouTube Live", "📘 Facebook Live"],
-  },
-];
+import { getTranslations } from "next-intl/server";
 
-export default function HowItWorks() {
+export default async function HowItWorks() {
+  const t = await getTranslations("howItWorks");
+
+  const steps = [
+    {
+      num: "01",
+      title: t("step1.title"),
+      desc: t("step1.desc"),
+      badges: null,
+    },
+    {
+      num: "02",
+      title: t("step2.title"),
+      desc: t("step2.desc"),
+      badges: null,
+    },
+    {
+      num: "03",
+      title: t("step3.title"),
+      desc: t("step3.desc"),
+      badges: [`▶ ${t("youtubeLive")}`, `📘 ${t("facebookLive")}`],
+    },
+  ];
+
   return (
     <section id="how-it-works" className="bg-cream-warm">
       <div className="mx-auto max-w-7xl px-12 lg:py-20">
         {/* Section header */}
         <div className="mb-16 text-center">
           <div className="mb-3 text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-            Simple &amp; Transparent
+            {t("badge")}
           </div>
-          <h2 className="font-serif mb-4 text-[42px] leading-[1.15] font-semibold">How It Works</h2>
+          <h2 className="font-serif mb-4 text-[42px] leading-[1.15] font-semibold">{t("title")}</h2>
           <p className="mx-auto max-w-[480px] text-base text-ink-muted">
-            Three simple steps to win. No hidden fees. No gambling — every competition is skill-based and
-            fully compliant with UK law.
+            {t("subtitle")}
           </p>
         </div>
 

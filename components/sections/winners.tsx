@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { getRecentWinners } from "@/lib/queries";
 
 export default async function Winners() {
+  const t = await getTranslations("winners");
   const winners = await getRecentWinners(6);
 
   // Generate deterministic avatar colors from name
@@ -32,21 +34,21 @@ export default async function Winners() {
         <div className="mb-12 flex items-end justify-between">
           <div>
             <div className="mb-3 text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-              Real People, Real Prizes
+              {t("badge")}
             </div>
-            <h2 className="font-serif text-[36px] leading-[1.15] font-semibold">Our Recent Winners</h2>
+            <h2 className="font-serif text-[36px] leading-[1.15] font-semibold">{t("title")}</h2>
           </div>
           <Link
             href="/en/winners"
             className="flex items-center gap-1.5 text-sm font-semibold text-gold-dark transition-[gap] hover:gap-3"
           >
-            View all winners →
+            {t("viewAll")}
           </Link>
         </div>
 
         {winners.length === 0 ? (
           <div className="rounded-xl border border-border bg-white py-16 text-center text-ink-muted">
-            <p className="text-lg">No winners yet — be the first!</p>
+            <p className="text-lg">{t("noWinners")}</p>
           </div>
         ) : (
           <div className="grid grid-cols-5 gap-5">
@@ -61,7 +63,7 @@ export default async function Winners() {
                     className="flex h-[72px] w-[72px] items-center justify-center rounded-full text-xl font-bold text-white"
                     style={{ backgroundColor: avatarColor(w.user.name || "?") }}
                   >
-                    {initials(w.user.name || "?")}
+                    {initials(w.user.name || t("unknownName"))}
                   </div>
                   <span className="absolute right-0.5 bottom-0.5 block h-3.5 w-3.5 rounded-full border-2 border-white bg-success" />
                 </div>
