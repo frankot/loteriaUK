@@ -16,7 +16,7 @@ interface Question {
 interface SkillQuestionProps {
   competitionId: string;
   initialQuestion: Question | null;
-  onPass: () => void;
+  onPass: (questionId: string, answer: string) => void;
 }
 
 export default function SkillQuestion({
@@ -86,7 +86,7 @@ export default function SkillQuestion({
     if (selected === question.correctOption) {
       setResult("correct");
       setPassed(true);
-      onPass();
+      onPass(question.id, selected);
     } else {
       setResult("incorrect");
       setTimeout(() => {

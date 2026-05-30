@@ -29,7 +29,6 @@ export async function POST(request: NextRequest) {
         break;
       }
       case "checkout.session.expired": {
-        // No-op — user can retry, tickets not reserved until payment
         console.log("Checkout session expired:", event.data.object.id);
         break;
       }
@@ -50,76 +49,101 @@ export async function POST(request: NextRequest) {
 async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const { competitionId, userId, quantity: quantityStr } = session.metadata || {};
   const quantity = parseInt(quantityStr || "0", 10);
+  const stripeSessionId = session.id;
 
   if (!competitionId || !userId || quantity < 1) {
-    console.error("Missing metadata in checkout session:", session.id);
+    console.error("Missing metadata in checkout session:", stripeSessionId);
     return;
   }
 
-  // Use a transaction to ensure atomicity
-  await prisma.$transaction(async (tx: any) => {
-    // 1. Get competition and lock row (via update)
-    const competition = await tx.competition.findUnique({
+  // ── Idempotency: skip if this Stripe session was already processed ──
+  const existingEntry = await prisma.entry.findFirst({
+    where: { stripeSessionId },
+    select: { id: true },
+  });
+  if (existingEntry) {
+    console.log(`Stripe session ${stripeSessionId} already processed — skipping`);
+    return;
+  }
+
+  // ── Atomic ticket allocation + counter ──────────────────────────
+  // Use a raw SQL UPDATE that atomically checks capacity AND increments.
+  // This eliminates the TOCTOU race: only one transaction can succeed
+  // when the capacity check passes, because PostgreSQL locks the row.
+  const result = await prisma.$queryRaw<{ tickets_sold: number }[]>`
+    UPDATE competitions
+    SET "ticketsSold" = "ticketsSold" + ${quantity}
+    WHERE id = ${competitionId}
+      AND status = 'ACTIVE'
+      AND ("ticketsSold" + ${quantity}) <= "maxTickets"
+    RETURNING "ticketsSold" AS tickets_sold
+  `;
+
+  if (result.length === 0) {
+    // Either competition not active, or capacity exceeded
+    // Check which case by re-reading
+    const comp = await prisma.competition.findUnique({
       where: { id: competitionId },
-      select: { ticketsSold: true, maxTickets: true, status: true },
+      select: { status: true, ticketsSold: true, maxTickets: true },
     });
 
-    if (!competition || competition.status !== "ACTIVE") {
-      throw new Error(`Competition ${competitionId} is not active`);
-    }
-
-    const left = competition.maxTickets - competition.ticketsSold;
-    if (left < quantity) {
-      throw new Error(
-        `Not enough tickets: ${left} left, requested ${quantity}`
+    if (!comp || comp.status !== "ACTIVE") {
+      console.error(`Competition ${competitionId} not active — session ${stripeSessionId}`);
+    } else {
+      console.error(
+        `Oversell prevented: ${quantity} requested, only ${comp.maxTickets - comp.ticketsSold} left — session ${stripeSessionId}`
       );
+      // Refund logic could go here — for now, log and alert admins
     }
+    return;
+  }
 
-    // 2. Get the next sequential ticket number
-    const lastTicket = await tx.ticket.findFirst({
-      where: { competitionId },
-      orderBy: { number: "desc" },
-      select: { number: true },
-    });
-    const startNumber = (lastTicket?.number ?? 0) + 1;
+  // New total after increment — old total was newTotal - quantity
+  const newTicketsSold = Number(result[0].tickets_sold);
+  const startNumber = newTicketsSold - quantity + 1;
 
-    // 3. Create tickets + entries
-    const ticketIds: number[] = [];
-    for (let i = 0; i < quantity; i++) {
-      const ticketNumber = startNumber + i;
-      const ticket = await tx.ticket.create({
-        data: {
-          competitionId,
-          userId,
-          number: ticketNumber,
-          status: "SOLD",
-        },
-      });
-      ticketIds.push(ticketNumber);
+  // ── Create tickets + entries ────────────────────────────────────
+  // Ticket numbers are computed from the atomic counter — no race possible
+  // The @@unique([competitionId, number]) constraint is a safety net
+  try {
+    await prisma.$transaction(async (tx: any) => {
+      for (let i = 0; i < quantity; i++) {
+        const ticketNumber = startNumber + i;
 
-      await tx.entry.create({
-        data: {
-          competitionId,
-          userId,
-          ticketId: ticket.id,
-          type: "PAID",
-          answerCorrect: true,
-        },
-      });
-    }
+        const ticket = await tx.ticket.create({
+          data: {
+            competitionId,
+            userId,
+            number: ticketNumber,
+            status: "SOLD",
+          },
+        });
 
-    // 4. Update ticketsSold
-    await tx.competition.update({
-      where: { id: competitionId },
-      data: {
-        ticketsSold: { increment: quantity },
-      },
+        await tx.entry.create({
+          data: {
+            competitionId,
+            userId,
+            ticketId: ticket.id,
+            type: "PAID",
+            answerCorrect: true, // verified server-side before checkout
+            stripeSessionId,
+          },
+        });
+      }
     });
 
     console.log(
-      `✅ Purchase complete: user=${userId} comp=${competitionId} tickets=${ticketIds.join(", ")}`
+      `Purchase complete: user=${userId} comp=${competitionId} tickets=${startNumber}-${startNumber + quantity - 1} session=${stripeSessionId}`
     );
-
-    // TODO: Send confirmation email via Resend
-  });
+  } catch (error) {
+    console.error(`Ticket creation failed for session ${stripeSessionId}:`, error);
+    // ticketsSold was already incremented — we need to roll it back
+    // to avoid permanently losing capacity
+    await prisma.competition.update({
+      where: { id: competitionId },
+      data: { ticketsSold: { decrement: quantity } },
+    });
+    console.log(`Rolled back ticketsSold for failed session ${stripeSessionId}`);
+    throw error;
+  }
 }

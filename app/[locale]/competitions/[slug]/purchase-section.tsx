@@ -25,11 +25,11 @@ export default function PurchaseSection({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5 md:space-y-6">
       {/* Section label */}
       <div className="flex items-center gap-3">
         <span className="h-px flex-1 bg-border" />
-        <span className="text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
+        <span className="text-[11px] md:text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
           Select Tickets
         </span>
         <span className="h-px flex-1 bg-border" />
@@ -46,7 +46,7 @@ export default function PurchaseSection({
       {/* Buy Button */}
       <button
         onClick={handleBuy}
-        className="w-full rounded-3xl bg-gold px-6 py-4 text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)]"
+        className="w-full rounded-3xl bg-gold px-5 md:px-6 py-3.5 md:py-4 text-[14px] md:text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)]"
       >
         Buy {quantity} Ticket{quantity > 1 ? "s" : ""} — £{(price * quantity).toFixed(2)}
       </button>

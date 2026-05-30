@@ -17,11 +17,11 @@ export function VerifyClient({ competitionId, slug, quantity, locale }: VerifyCl
   const [checkedOut, setCheckedOut] = useState(false);
   const [error, setError] = useState("");
 
-  const handlePass = async () => {
+  const handlePass = async (questionId: string, answer: string) => {
     if (checkedOut) return;
     setCheckedOut(true);
 
-    const result = await createCheckoutSession(competitionId, slug, quantity);
+    const result = await createCheckoutSession(competitionId, slug, quantity, questionId, answer);
 
     if (result.error) {
       if (result.status === 401) {

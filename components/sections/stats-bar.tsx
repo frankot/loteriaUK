@@ -13,12 +13,19 @@ export default async function StatsBar() {
   ];
 
   return (
-    <section className="px-12">
+    <section className="px-4 md:px-8 lg:px-12">
       <div className="mx-auto max-w-6xl">
-        <div className="grid grid-cols-4 overflow-hidden rounded-2xl bg-white shadow-card">
-          {items.map(({ value, label, sub }) => (
-            <div key={label} className="stat-divider px-10 py-8 text-center">
-              <div className="mb-2 font-serif text-[36px] leading-none font-semibold text-gold-dark">
+        <div className="grid grid-cols-2 lg:grid-cols-4 overflow-hidden rounded-xl md:rounded-2xl bg-white shadow-card divide-x-0 divide-y lg:divide-y-0 lg:divide-x divide-border-light">
+          {items.map(({ value, label, sub }, i) => (
+            <div
+              key={label}
+              className={`px-5 py-6 md:px-10 md:py-8 text-center ${
+                i < 2 ? "border-b border-border-light lg:border-b-0" : ""
+              } ${i % 2 === 0 ? "border-r border-border-light lg:border-r" : "lg:border-r-0"} ${
+                i === 2 ? "border-r border-border-light lg:border-r" : ""
+              } ${i === 3 ? "border-r-0" : ""}`}
+            >
+              <div className="mb-2 font-serif text-[28px] md:text-[36px] leading-none font-semibold text-gold-dark">
                 {value}
               </div>
               <div className="text-sm text-ink-muted">

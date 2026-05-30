@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface FaqItem {
   q: string;
@@ -13,6 +14,7 @@ interface FAQProps {
 }
 
 export default function FAQ({ items, title }: FAQProps) {
+  const t = useTranslations("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggle = (idx: number) => {
@@ -21,13 +23,13 @@ export default function FAQ({ items, title }: FAQProps) {
 
   return (
     <section id="faq" className="bg-white">
-      <div className="mx-auto max-w-7xl px-12 lg:py-20">
+      <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-12 py-14 md:py-16 lg:py-20">
         {/* Header */}
-        <div className="mb-16 text-center">
+        <div className="mb-10 md:mb-16 text-center">
           <div className="mb-3 text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-            Common Questions
+            {t("badge")}
           </div>
-          <h2 className="font-serif mb-4 text-[42px] leading-[1.15] font-semibold">{title}</h2>
+          <h2 className="font-serif mb-4 text-[28px] sm:text-[32px] md:text-[42px] leading-[1.15] font-semibold">{title}</h2>
         </div>
 
         {/* FAQ list */}
@@ -41,11 +43,11 @@ export default function FAQ({ items, title }: FAQProps) {
               >
                 <button
                   onClick={() => toggle(idx)}
-                  className="flex w-full cursor-pointer items-center justify-between gap-4 border-0 bg-transparent py-6 text-left font-serif text-lg font-medium text-ink transition-colors hover:text-gold-dark"
+                  className="flex w-full cursor-pointer items-center justify-between gap-3 border-0 bg-transparent py-5 md:py-6 text-left font-serif text-base md:text-lg font-medium text-ink transition-colors hover:text-gold-dark"
                 >
-                  {faq.q}
+                  <span className="pr-2">{faq.q}</span>
                   <span
-                    className={`flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border text-base transition-all duration-300 ${
+                    className={`flex h-6 w-6 md:h-7 md:w-7 flex-shrink-0 items-center justify-center rounded-full border text-sm md:text-base transition-all duration-300 ${
                       isOpen
                         ? "rotate-45 border-gold bg-gold text-white"
                         : "border-border text-ink-muted"
@@ -55,8 +57,8 @@ export default function FAQ({ items, title }: FAQProps) {
                   </span>
                 </button>
                 <div
-                  className={`text-[15px] leading-relaxed text-ink-soft ${
-                    isOpen ? "faq-answer-open pb-6" : "faq-answer-closed"
+                  className={`text-[14px] md:text-[15px] leading-relaxed text-ink-soft ${
+                    isOpen ? "faq-answer-open pb-5 md:pb-6" : "faq-answer-closed"
                   }`}
                 >
                   {faq.a}

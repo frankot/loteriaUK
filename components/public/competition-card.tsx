@@ -64,14 +64,14 @@ export default function CompetitionCard({
       className="relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-card transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover block"
     >
       {/* Image */}
-      <div className="relative flex h-[200px] items-center justify-center overflow-hidden">
+      <div className="relative flex h-[180px] sm:h-[200px] md:h-[220px] items-center justify-center overflow-hidden">
         <span
           className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeColor}`}
         >
           {catLabel}
         </span>
         {urgent && (
-          <span className="absolute top-3 left-5 z-10 rounded-full bg-gold px-2.5 py-1 text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
+          <span className="absolute top-3 left-3 md:left-5 z-10 rounded-full bg-gold px-2 md:px-2.5 py-1 text-[10px] md:text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
             🔥 {t("onlyLeft", { left })}
           </span>
         )}
@@ -79,21 +79,21 @@ export default function CompetitionCard({
           src={imageUrl || "/images/rolex.png"}
           alt={title}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-contain p-4"
         />
       </div>
 
       {/* Body */}
-      <div className="p-5">
-        <h3 className="font-serif mb-1.5 text-lg leading-tight font-semibold">{title}</h3>
-        <p className="mb-3.5 text-[13px] text-ink-muted line-clamp-2">
+      <div className="p-4 md:p-5">
+        <h3 className="font-serif mb-1.5 text-base md:text-lg leading-tight font-semibold">{title}</h3>
+        <p className="mb-3 md:mb-3.5 text-[12px] md:text-[13px] text-ink-muted line-clamp-2">
           {description || title}
         </p>
 
-        {/* Progress (hidden when under 60% — per design ref) */}
+        {/* Progress (hidden when under 60%) */}
         <div className="mb-3">
-          <div className="mb-1.5 flex justify-between text-xs">
+          <div className="mb-1.5 flex justify-between text-[11px] md:text-xs">
             <span className="font-semibold text-gold-dark">
               {ticketsSold.toLocaleString()} / {maxTickets.toLocaleString()} {t("sold")}
             </span>
@@ -113,10 +113,10 @@ export default function CompetitionCard({
 
         {/* Footer */}
         <div className="flex items-center justify-between">
-          <span className="flex items-center gap-1 text-xs text-ink-muted">
+          <span className="flex items-center gap-1 text-[11px] md:text-xs text-ink-muted">
             <CalendarIcon /> {formatDrawDate(drawDate)}
           </span>
-          <span className="text-base font-bold text-ink">
+          <span className="text-sm md:text-base font-bold text-ink">
             £{pricePounds.toFixed(2)}
           </span>
         </div>

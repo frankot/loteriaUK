@@ -124,12 +124,14 @@ model Entry {
   ticket         Ticket?    @relation(fields: [ticketId], references: [id])
   type           EntryType  @default(PAID)
   answerCorrect  Boolean?
+  stripeSessionId String?  // idempotency key for Stripe webhook replays
   createdAt      DateTime   @default(now())
 
   winner         Winner?
 
   @@index([competitionId])
   @@index([userId])
+  @@index([stripeSessionId])
   @@map("entries")
 }
 

@@ -29,7 +29,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      <Hero />
+      <Hero locale={locale} />
       <StatsBar />
       <TrendingPrizes />
       <HowItWorks />

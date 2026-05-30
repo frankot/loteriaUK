@@ -13,7 +13,9 @@ interface CreateCheckoutResult {
 export async function createCheckoutSession(
   competitionId: string,
   competitionSlug: string,
-  quantity: number
+  quantity: number,
+  questionId?: string,
+  answer?: string
 ): Promise<CreateCheckoutResult> {
   try {
     // 1. Auth check
@@ -31,9 +33,10 @@ export async function createCheckoutSession(
       return { error: "Stripe is not configured", status: 500 };
     }
 
-    // 2. Validate competition
+    // 2. Validate competition and question
     const competition = await prisma.competition.findUnique({
       where: { id: competitionId, status: "ACTIVE" },
+      include: { question: { select: { id: true, correctOption: true } } },
     });
 
     if (!competition) {
@@ -53,7 +56,20 @@ export async function createCheckoutSession(
       return { error: "Quantity must be between 1 and 10", status: 400 };
     }
 
-    // 3. Find user's locale for success URL
+    // 3. Verify skill question answer (server-side)
+    if (questionId && answer && competition.question) {
+      if (competition.question.id !== questionId) {
+        return { error: "Question mismatch — please answer the current question", status: 400 };
+      }
+      if (answer !== competition.question.correctOption) {
+        return { error: "Incorrect answer — you must answer correctly to purchase tickets", status: 400 };
+      }
+    } else if (competition.question) {
+      // Question exists but wasn't answered — possible client bypass attempt
+      return { error: "You must answer the skill question correctly", status: 400 };
+    }
+
+    // 5. Build checkout session
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
       select: { email: true },
@@ -61,7 +77,7 @@ export async function createCheckoutSession(
 
     const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/+$/, "");
 
-    // 4. Create Stripe Checkout Session
+    // 6. Create Stripe Checkout Session
     const lineItemPrice = Math.round(Number(competition.pricePounds) * 100); // cents
 
     // Build image URL: if prizeImageUrl is already absolute, use as-is; otherwise prefix with appUrl
