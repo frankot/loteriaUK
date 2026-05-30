@@ -253,10 +253,8 @@ export default async function CompetitionDetailPage({ params, searchParams }: Pr
             <div className="text-xs text-ink-muted">Open in new tab</div>
           </div>
         </Link>
-      </div>
 
-      {/* Featured Toggle */}
-      <div className="mb-8">
+        {/* Featured Toggle card */}
         <FeaturedToggle
           competitionId={id}
           currentlyFeatured={competition.featured}
