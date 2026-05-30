@@ -69,6 +69,223 @@ function NoCompetitionsCard({
   );
 }
 
+/** Hero card that adapts to competition status: ACTIVE / CLOSED / DRAWN */
+async function FeaturedCard({
+  featured,
+  t,
+  locale,
+  fallbackImage,
+}: {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  featured: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t: any;
+  locale: string;
+  fallbackImage: string;
+}) {
+  const isActive = featured.status === "ACTIVE";
+  const isClosed = featured.status === "CLOSED";
+  const isDrawn = featured.status === "DRAWN";
+  const winner = featured.winners?.[0] ?? null;
+
+  const sharedClasses = "animate-fade-in-up order-0 lg:order-1 overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured [animation-delay:200ms]";
+
+  return isActive ? (
+    <Link
+      href={`/${locale}/competitions/${featured.slug}`}
+      className={`${sharedClasses} transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover`}
+    >
+      <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden">
+        {/* Status badge — varies by status */}
+        {isActive && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-gold px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            🔥 {t("trendingBadge")}
+          </span>
+        )}
+        {isClosed && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-ink-soft px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            📋 {t("closedBadge")}
+          </span>
+        )}
+        {isDrawn && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-success px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            🏆 {t("winnerDrawnBadge")}
+          </span>
+        )}
+        <Image
+          src={featured.prizeImageUrl || fallbackImage}
+          alt={featured.titleEn || "Featured Prize"}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+          className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
+        />
+      </div>
+      <div className="p-5 md:p-7">
+        <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
+          {featured.prizeCategory || t("trendingBadge")}
+        </div>
+        <h3 className="font-serif mb-4 md:mb-5 text-xl md:text-2xl leading-tight font-semibold">
+          {featured.titleEn || "Featured Prize"}
+        </h3>
+
+        {isActive && (
+          <>
+            {/* Progress bar */}
+            <div className="mb-4">
+              <div className="mb-2 flex justify-between text-[12px] md:text-[13px]">
+                <span className="font-semibold text-gold-dark">
+                  {featured.ticketsSold.toLocaleString()} / {featured.maxTickets.toLocaleString()} {t("ticketsSold")}
+                </span>
+                <span className="text-ink-muted">
+                  {t("ticketsLeft", { left: featured.maxTickets - featured.ticketsSold })}
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-[3px] bg-border-light">
+                <div
+                  className="h-full rounded-[3px] bg-gold transition-[width] duration-800 ease-out"
+                  style={{ width: `${Math.round((featured.ticketsSold / featured.maxTickets) * 100)}%` }}
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <div className="text-lg md:text-[22px] font-bold text-ink">
+                £{Number(featured.pricePounds).toFixed(2)}{" "}
+                <span className="text-[12px] md:text-[13px] font-normal text-ink-muted">{t("perTicket")}</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-ink-muted">
+                <CalendarIcon />
+                {t("draw")} {formatDrawDate(featured.drawDate)}
+              </div>
+            </div>
+          </>
+        )}
+
+        {isClosed && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <CalendarIcon />
+                <div className="text-sm text-ink-muted">
+                  {t("closedLabel")} {formatDrawDate(featured.drawDate)}
+                </div>
+              </div>
+            </div>
+            <div className="text-xs text-ink-muted">
+              {t("closedDesc")}
+            </div>
+          </div>
+        )}
+
+        {isDrawn && (
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <CalendarIcon />
+                <div className="text-sm text-ink-muted">
+                  {t("drawnOnLabel")} {formatDrawDate(featured.drawDate)}
+                </div>
+              </div>
+            </div>
+            {winner && (
+              <div className="flex items-center gap-2 text-sm text-ink">
+                <span className="font-medium text-success">Winner:</span>
+                <span>{winner.user?.name || "Announced"}</span>
+                {winner.claimed && <span className="text-xs text-success">• Claimed</span>}
+              </div>
+            )}
+            <div className="text-xs text-ink-muted">
+              {t("drawnDesc")}
+            </div>
+          </div>
+        )}
+      </div>
+    </Link>
+  ) : (
+    <div className={sharedClasses}>
+      <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden">
+        {isActive && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-gold px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            🔥 {t("trendingBadge")}
+          </span>
+        )}
+        {isClosed && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-ink-soft px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            📋 {t("closedBadge")}
+          </span>
+        )}
+        {isDrawn && (
+          <span className="absolute top-4 left-4 md:top-5 md:left-5 z-10 rounded-full bg-success px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
+            🏆 {t("winnerDrawnBadge")}
+          </span>
+        )}
+        <Image
+          src={featured.prizeImageUrl || fallbackImage}
+          alt={featured.titleEn || "Featured Prize"}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+          className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
+        />
+      </div>
+      <div className="p-5 md:p-7">
+        <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
+          {featured.prizeCategory || t("trendingBadge")}
+        </div>
+        <h3 className="font-serif mb-4 md:mb-5 text-xl md:text-2xl leading-tight font-semibold">
+          {featured.titleEn || "Featured Prize"}
+        </h3>
+
+        {isActive && (
+          <>
+            <div className="mb-4">
+              <div className="mb-2 flex justify-between text-[12px] md:text-[13px]">
+                <span className="font-semibold text-gold-dark">
+                  {featured.ticketsSold.toLocaleString()} / {featured.maxTickets.toLocaleString()}
+                </span>
+                <span className="text-ink-muted">
+                  {t("ticketsLeft", { left: featured.maxTickets - featured.ticketsSold })}
+                </span>
+              </div>
+              <div className="h-1.5 overflow-hidden rounded-[3px] bg-border-light">
+                <div className="h-full rounded-[3px] bg-gold" style={{ width: `${Math.round((featured.ticketsSold / featured.maxTickets) * 100)}%` }} />
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="text-lg font-bold text-ink">
+                £{Number(featured.pricePounds).toFixed(2)}{t("perTicket")}
+              </div>
+              <div className="flex items-center gap-1.5 text-sm text-ink-muted">
+                <CalendarIcon />{t("draw")} {formatDrawDate(featured.drawDate)}
+              </div>
+            </div>
+          </>
+        )}
+
+        {isClosed && (
+          <div className="text-sm text-ink-muted space-y-2">
+            <span><CalendarIcon /> {t("closedLabel")}: {formatDrawDate(featured.drawDate)}</span>
+            <div className="text-xs">{t("closedDesc")}</div>
+          </div>
+        )}
+
+        {isDrawn && (
+          <div className="space-y-2 text-sm text-ink-muted">
+            <span><CalendarIcon /> {t("drawnOnLabel")}: {formatDrawDate(featured.drawDate)}</span>
+            {winner && (
+              <div className="text-ink">
+                <span className="font-medium text-success">Winner:</span>
+                <span className="ml-1">{winner.user?.name || "Announced"}</span>
+                {winner.claimed && <span className="ml-1 text-xs text-success">• Claimed</span>}
+              </div>
+            )}
+            <div className="text-xs">{t("drawnDesc")}</div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const featured = await getHeroCompetition();
@@ -127,60 +344,7 @@ export default async function Hero({ locale }: { locale: string }) {
 
           {/* Right column — Featured Prize Card — appears above text on mobile */}
           {featured ? (
-            <Link
-              href={`/${locale}/competitions/${featured.slug}`}
-              className="block animate-fade-in-up order-0 lg:order-1 overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover [animation-delay:200ms]"
-            >
-            <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden">
-              <span className="absolute top-4 left-4 md:top-5 md:left-5 rounded-full bg-gold px-3 md:px-3.5 py-1.5 text-xs font-semibold tracking-wide text-white">
-                🔥 {t("trendingBadge")}
-              </span>
-              <Image
-                src={featured?.prizeImageUrl || fallbackImage}
-                alt={featured?.titleEn || "Featured Prize"}
-                fill
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-                className="object-contain p-4"
-              />
-            </div>
-            <div className="p-5 md:p-7">
-              <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
-                {featured?.prizeCategory || t("trendingBadge")}
-              </div>
-              <h3 className="font-serif mb-4 md:mb-5 text-xl md:text-2xl leading-tight font-semibold">
-                {featured?.titleEn || "Featured Prize"}
-              </h3>
-
-              {/* Progress */}
-              <div className="mb-4">
-                <div className="mb-2 flex justify-between text-[12px] md:text-[13px]">
-                  <span className="font-semibold text-gold-dark">
-                    {featured ? `${featured.ticketsSold.toLocaleString()} / ${featured.maxTickets.toLocaleString()} ${t("ticketsSold")}` : "—"}
-                  </span>
-                  <span className="text-ink-muted">
-                    {featured ? t("ticketsLeft", { left: featured.maxTickets - featured.ticketsSold }) : ""}
-                  </span>
-                </div>
-                <div className="h-1.5 overflow-hidden rounded-[3px] bg-border-light">
-                  <div
-                    className="h-full rounded-[3px] bg-gold transition-[width] duration-800 ease-out"
-                    style={{ width: featured ? `${Math.round((featured.ticketsSold / featured.maxTickets) * 100)}%` : "0%" }}
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="text-lg md:text-[22px] font-bold text-ink">
-                  £{featured ? Number(featured.pricePounds).toFixed(2) : "1.99"}{" "}
-                  <span className="text-[12px] md:text-[13px] font-normal text-ink-muted">{t("perTicket")}</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-[12px] md:text-[13px] text-ink-muted">
-                  <CalendarIcon />
-                  {t("draw")} {featured ? formatDrawDate(featured.drawDate) : "—"}
-                </div>
-              </div>
-            </div>
-          </Link>
+            <FeaturedCard featured={featured} t={t} locale={locale} fallbackImage={fallbackImage} />
           ) : (
             <div className="animate-fade-in-up order-0 lg:order-1 [animation-delay:200ms]">
               <NoCompetitionsCard t={t} fallbackImage={fallbackImage} />

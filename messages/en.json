@@ -67,7 +67,13 @@
     "comingSoonBadge": "Coming Soon",
     "comingSoonTitle": "New prizes arriving soon",
     "comingSoonSubtitle": "We're preparing the next draw. Check back shortly.",
-    "comingSoonCheckBack": "Check back soon"
+    "comingSoonCheckBack": "Check back soon",
+    "closedBadge": "Closed",
+    "winnerDrawnBadge": "Winner Drawn",
+    "closedLabel": "Draw ended",
+    "closedDesc": "This competition has ended. The winner will be announced shortly.",
+    "drawnOnLabel": "Drawn on",
+    "drawnDesc": "A winner has been drawn for this competition."
   },
   "stats": {
     "activeCompetitions": "Active Competitions",

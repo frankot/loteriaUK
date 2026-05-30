@@ -51,14 +51,13 @@ export async function getFeaturedCompetition() {
   });
 }
 
-// ── Hero competition — featured first, else most urgent ACTIVE ──
+// ── Hero competition — featured first (any status), else most urgent ACTIVE ──
 export async function getHeroCompetition() {
-  // Try admin-picked featured first
+  // Try admin-picked featured first — allows ACTIVE, CLOSED, and DRAWN
   const featured = await prisma.competition.findFirst({
     where: {
       featured: true,
-      status: "ACTIVE",
-      drawDate: { gte: new Date() },
+      status: { in: ["ACTIVE", "CLOSED", "DRAWN"] },
     },
     select: {
       id: true,
@@ -71,6 +70,15 @@ export async function getHeroCompetition() {
       prizeImageUrl: true,
       prizeCategory: true,
       prizeValue: true,
+      status: true,
+      winners: {
+        select: {
+          user: { select: { name: true } },
+          claimed: true,
+        },
+        take: 1,
+        orderBy: { createdAt: "desc" },
+      },
     },
   });
 
@@ -94,6 +102,15 @@ export async function getHeroCompetition() {
       prizeImageUrl: true,
       prizeCategory: true,
       prizeValue: true,
+      status: true,
+      winners: {
+        select: {
+          user: { select: { name: true } },
+          claimed: true,
+        },
+        take: 1,
+        orderBy: { createdAt: "desc" },
+      },
     },
   });
 }
