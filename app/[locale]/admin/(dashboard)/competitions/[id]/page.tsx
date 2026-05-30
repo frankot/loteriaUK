@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { Ticket, Trophy, Edit, Users } from "lucide-react";
 import { AddPostalEntryButton } from "./entries/add-postal-button";
 import { EntriesTable } from "./entries/entries-table";
+import FeaturedToggle from "@/components/admin/featured-toggle";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -45,6 +46,14 @@ export default async function CompetitionDetailPage({ params, searchParams }: Pr
   if (!competition) notFound();
 
   const winner = competition.winners[0] ?? null;
+
+  // ── Featured competition info ────────────────────────────────
+  const otherFeatured = competition.featured
+    ? null
+    : await prisma.competition.findFirst({
+        where: { featured: true, id: { not: id } },
+        select: { id: true, titleEn: true },
+      });
 
   // ── Entries data ──────────────────────────────────────────────
   const entryWhere: Record<string, unknown> = { competitionId: id };
@@ -244,6 +253,16 @@ export default async function CompetitionDetailPage({ params, searchParams }: Pr
             <div className="text-xs text-ink-muted">Open in new tab</div>
           </div>
         </Link>
+      </div>
+
+      {/* Featured Toggle */}
+      <div className="mb-8">
+        <FeaturedToggle
+          competitionId={id}
+          currentlyFeatured={competition.featured}
+          otherFeatured={otherFeatured}
+          locale={locale}
+        />
       </div>
 
       {/* ── Entries Section ─────────────────────────────────────── */}
