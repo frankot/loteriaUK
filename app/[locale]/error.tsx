@@ -10,6 +10,6 @@ type Props = {
 };
 
 export default function LocaleError({ error, reset, params }: Props) {
-  const { locale } = use(params);
+  const locale = params ? use(params).locale : "en";
   return <ErrorFallback error={error} reset={reset} variant="public" locale={locale} />;
 }

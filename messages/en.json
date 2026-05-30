@@ -230,7 +230,13 @@
     "incorrectAnswer": "Incorrect. Loading a different question...",
     "noQuestions": "No questions available. Try again later.",
     "loadingQuestion": "Loading question...",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "winnerDrawn": "Winner Drawn",
+    "weHaveWinner": "We have a winner!",
+    "prizeClaimed": "Prize Claimed",
+    "pendingClaim": "Pending Claim",
+    "ticketsTotal": "Tickets",
+    "drawnLabel": "Drawn"
   },
   "profile": {
     "title": "My Profile",
@@ -333,5 +339,11 @@
     "loading": "Generating your tickets...",
     "webhookTimeout": "Still waiting for confirmation. Refresh or check your profile.",
     "refresh": "Refresh page"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "subtitle": "The page you're looking for doesn't exist or has been moved.",
+    "goHome": "Back to Home",
+    "browseCompetitions": "Browse Competitions"
   }
 }

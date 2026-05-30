@@ -90,7 +90,9 @@ async function FeaturedCard({
 
   const sharedClasses = "animate-fade-in-up order-0 lg:order-1 overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured [animation-delay:200ms]";
 
-  return isActive ? (
+  const isLink = isActive || isDrawn;
+
+  return isLink ? (
     <Link
       href={`/${locale}/competitions/${featured.slug}`}
       className={`${sharedClasses} transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover`}

@@ -65,7 +65,13 @@
     "comingSoonBadge": "În curând",
     "comingSoonTitle": "Premii noi în curând",
     "comingSoonSubtitle": "Pregătim următoarea extragere. Reveniți în curând.",
-    "comingSoonCheckBack": "Reveniți în curând"
+    "comingSoonCheckBack": "Reveniți în curând",
+    "winnerDrawnBadge": "Câștigător desemnat",
+    "closedBadge": "Închis",
+    "closedLabel": "Tragerea s-a încheiat",
+    "closedDesc": "Competiția s-a încheiat. Câștigătorul va fi anunțat în curând.",
+    "drawnOnLabel": "Extras pe",
+    "drawnDesc": "Un câștigător a fost desemnat."
   },
   "stats": {
     "activeCompetitions": "Concursuri active",
@@ -210,7 +216,13 @@
     "freePostalOption": "Sau participă gratuit prin poștă",
     "viewDetails": "Detalii",
     "sold": "vândute",
-    "left": "rămase"
+    "left": "rămase",
+    "winnerDrawn": "Câștigător desemnat",
+    "weHaveWinner": "Avem un câștigător!",
+    "prizeClaimed": "Premiu revendicat",
+    "pendingClaim": "În așteptare",
+    "ticketsTotal": "Bilete",
+    "drawnLabel": "Extras"
   },
   "profile": {
     "title": "Profilul meu",
@@ -270,5 +282,11 @@
     "equalChance": "Șanse egale",
     "equalChanceText": "Participările poștale au exact aceleași șanse de câștig ca și cele plătite. Nu există niciun dezavantaj în a participa gratuit.",
     "cta": "Vezi concursurile"
+  },
+  "notFound": {
+    "title": "Pagină negăsită",
+    "subtitle": "Pagina pe care o căutați nu există sau a fost mutată.",
+    "goHome": "Înapoi la pagina principală",
+    "browseCompetitions": "Vedeți competițiile"
   }
 }

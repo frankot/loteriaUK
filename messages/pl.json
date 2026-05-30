@@ -67,7 +67,13 @@
     "comingSoonBadge": "Wkrótce",
     "comingSoonTitle": "Nowe nagrody już wkrótce",
     "comingSoonSubtitle": "Przygotowujemy kolejne losowanie. Sprawdź ponownie niedługo.",
-    "comingSoonCheckBack": "Sprawdź wkrótce"
+    "comingSoonCheckBack": "Sprawdź wkrótce",
+    "winnerDrawnBadge": "Wyłoniono zwycięzcę",
+    "closedBadge": "Zamknięte",
+    "closedLabel": "Losowanie zakończone",
+    "closedDesc": "Konkurs zakończony. Zwycięzca zostanie ogłoszony wkrótce.",
+    "drawnOnLabel": "Wylosowano",
+    "drawnDesc": "Zwycięzca został wylosowany."
   },
   "stats": {
     "activeCompetitions": "Aktywne konkursy",
@@ -224,7 +230,13 @@
     "incorrectAnswer": "Niepoprawnie. Ładuję inne pytanie...",
     "noQuestions": "Brak dostępnych pytań. Spróbuj później.",
     "loadingQuestion": "Ładowanie pytania...",
-    "tryAgain": "Spróbuj ponownie"
+    "tryAgain": "Spróbuj ponownie",
+    "winnerDrawn": "Wyłoniono zwycięzcę",
+    "weHaveWinner": "Mamy zwycięzcę!",
+    "prizeClaimed": "Nagroda odebrana",
+    "pendingClaim": "Oczekuje na odbiór",
+    "ticketsTotal": "Bilety",
+    "drawnLabel": "Wylosowano"
   },
   "profile": {
     "title": "Mój profil",
@@ -327,5 +339,11 @@
     "loading": "Generowanie biletów...",
     "webhookTimeout": "Wciąż czekamy na potwierdzenie. Odśwież lub sprawdź profil.",
     "refresh": "Odśwież stronę"
+  },
+  "notFound": {
+    "title": "Strona nie znaleziona",
+    "subtitle": "Strona, której szukasz, nie istnieje lub została przeniesiona.",
+    "goHome": "Powrót do strony głównej",
+    "browseCompetitions": "Przeglądaj konkursy"
   }
 }

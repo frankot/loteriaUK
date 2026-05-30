@@ -3,7 +3,6 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import ProgressBar from "@/components/public/progress-bar";
-import CountdownTimer from "@/components/public/countdown-timer";
 import PurchaseSection from "./purchase-section";
 
 type Props = {
@@ -36,17 +35,32 @@ export default async function CompetitionDetailPage({ params }: Props) {
           correctOption: true,
         },
       },
+      winners: {
+        include: {
+          user: {
+            select: { name: true },
+          },
+        },
+        take: 1,
+      },
     },
   });
 
-  if (!competition || competition.status !== "ACTIVE") {
+  if (!competition || (competition.status !== "ACTIVE" && competition.status !== "DRAWN")) {
     notFound();
   }
 
+  const isDrawn = competition.status === "DRAWN";
+  const winner = competition.winners?.[0] ?? null;
   const price = Number(competition.pricePounds);
   const left = competition.maxTickets - competition.ticketsSold;
   const soldOut = left <= 0;
   const drawPast = competition.drawDate < new Date();
+  const drawDateFormatted = competition.drawDate.toLocaleDateString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
   const category = categoryLabels[competition.prizeCategory || ""] || competition.prizeCategory || "Prize";
 
   const categoryBadgeColors: Record<string, string> = {
@@ -74,12 +88,17 @@ export default async function CompetitionDetailPage({ params }: Props) {
           <div>
             <div className="relative flex h-[280px] sm:h-[340px] md:h-[400px] lg:h-[480px] lg:sticky lg:top-24 items-center justify-center overflow-hidden rounded-xl md:rounded-2xl bg-white shadow-featured">
               {/* Status badge */}
-              {soldOut && (
+              {isDrawn && (
+                <span className="absolute top-3 left-3 md:left-5 z-10 rounded-full bg-success px-3 md:px-3.5 py-1.5 text-[11px] md:text-xs font-semibold tracking-wide text-white">
+                  🏆 {t("winnerDrawn")}
+                </span>
+              )}
+              {!isDrawn && soldOut && (
                 <span className="absolute top-3 left-3 md:left-5 z-10 rounded-full bg-urgent px-2 md:px-2.5 py-1 text-[11px] md:text-xs font-semibold tracking-wide text-white">
                   {t("soldOut")}
                 </span>
               )}
-              {!soldOut && left < 20 && (
+              {!isDrawn && !soldOut && left < 20 && (
                 <span className="absolute top-3 left-3 md:left-5 z-10 rounded-full bg-gold px-2 md:px-2.5 py-1 text-[11px] md:text-xs font-semibold tracking-wide text-white shadow-[0_2px_6px_rgba(184,148,58,0.3)]">
                   🔥 {t("onlyLeft", { left })}
                 </span>
@@ -103,60 +122,126 @@ export default async function CompetitionDetailPage({ params }: Props) {
 
           {/* ── Right — Details + Purchase ── */}
           <div>
-            {/* Prize value badge */}
-            <div className="mb-3 md:mb-4 flex items-center gap-3">
-              {competition.prizeValue && (
-                <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
-                  RRP £{Number(competition.prizeValue).toLocaleString()}
-                </span>
-              )}
-            </div>
-
-            <h1 className="font-serif mb-3 md:mb-4 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[1.1] font-semibold tracking-tight">
-              {competition.titleEn}
-            </h1>
-
-            <p className="mb-5 md:mb-7 text-[14px] md:text-[15px] leading-relaxed text-ink-soft">
-              {competition.descEn}
-            </p>
-
-            {/* Quick info chips */}
-            <div className="mb-5 md:mb-7 grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
-              <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
-                <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("price")}</div>
-                <div className="text-base md:text-lg font-bold text-ink">£{price.toFixed(2)}</div>
-              </div>
-              <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
-                <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("maxPerPerson")}</div>
-                <div className="text-base md:text-lg font-bold text-ink">10</div>
-              </div>
-              <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5 col-span-2 sm:col-span-1">
-                <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("draw")}</div>
-                <div className="text-sm md:text-base font-bold text-ink whitespace-nowrap">
-                  {competition.drawDate.toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  })}
+            {isDrawn ? (
+              <>
+                {/* Winner announcement */}
+                <div className="mb-4 md:mb-6 rounded-2xl bg-gradient-to-br from-success/10 via-success/5 to-white border border-success/20 px-5 md:px-7 py-5 md:py-7">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-3xl md:text-4xl">🏆</span>
+                    <div>
+                      <p className="text-xs font-bold tracking-[2px] text-success uppercase">{t("winnerDrawn")}</p>
+                      <p className="text-sm text-ink-muted">{t("weHaveWinner")}</p>
+                    </div>
+                  </div>
+                  <p className="text-2xl md:text-3xl font-bold text-ink">
+                    {winner?.user?.name || "Winner Announced"}
+                  </p>
+                  {winner?.claimed ? (
+                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-success px-3 py-1 text-xs font-semibold text-white">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                      {t("prizeClaimed")}
+                    </span>
+                  ) : (
+                    <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-ink-soft/10 px-3 py-1 text-xs font-semibold text-ink-muted">
+                      {t("pendingClaim")}
+                    </span>
+                  )}
                 </div>
-              </div>
-            </div>
 
-            {/* Progress */}
-            <div className="mb-5 md:mb-6">
-              <ProgressBar sold={competition.ticketsSold} max={competition.maxTickets} />
-            </div>
+                {/* Prize value badge */}
+                <div className="mb-3 md:mb-4 flex items-center gap-3">
+                  {competition.prizeValue && (
+                    <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
+                      RRP £{Number(competition.prizeValue).toLocaleString()}
+                    </span>
+                  )}
+                </div>
 
-            {/* Purchase Section */}
-            {!soldOut && !drawPast ? (
-              <PurchaseSection
-                slug={slug}
-                price={price}
-                maxAvailable={left}
-                locale={locale}
-              />
+                <h1 className="font-serif mb-3 md:mb-4 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[1.1] font-semibold tracking-tight">
+                  {competition.titleEn}
+                </h1>
+
+                {/* Quick info chips */}
+                <div className="mb-5 md:mb-7 grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("price")}</div>
+                    <div className="text-base md:text-lg font-bold text-ink">£{price.toFixed(2)}</div>
+                  </div>
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("ticketsTotal")}</div>
+                    <div className="text-base md:text-lg font-bold text-ink">{competition.maxTickets.toLocaleString()}</div>
+                  </div>
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5 col-span-2 sm:col-span-1">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("drawnLabel")}</div>
+                    <div className="text-sm md:text-base font-bold text-ink whitespace-nowrap">
+                      {drawDateFormatted}
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href={`/${locale}/competitions`}
+                  className="inline-flex items-center justify-center gap-2 rounded-3xl bg-gold px-6 md:px-8 py-3 md:py-3.5 text-sm md:text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)]"
+                >
+                  {t("competitions")} →
+                </a>
+              </>
             ) : (
-              <SoldOutBanner soldOut={soldOut} allSoldOut={t("allSoldOut")} drawPassed={t("drawPassed")} />
+              <>
+                {/* Prize value badge */}
+                <div className="mb-3 md:mb-4 flex items-center gap-3">
+                  {competition.prizeValue && (
+                    <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
+                      RRP £{Number(competition.prizeValue).toLocaleString()}
+                    </span>
+                  )}
+                </div>
+
+                <h1 className="font-serif mb-3 md:mb-4 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[1.1] font-semibold tracking-tight">
+                  {competition.titleEn}
+                </h1>
+
+                <p className="mb-5 md:mb-7 text-[14px] md:text-[15px] leading-relaxed text-ink-soft">
+                  {competition.descEn}
+                </p>
+
+                {/* Quick info chips */}
+                <div className="mb-5 md:mb-7 grid grid-cols-2 sm:grid-cols-3 gap-2 md:gap-3">
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("price")}</div>
+                    <div className="text-base md:text-lg font-bold text-ink">£{price.toFixed(2)}</div>
+                  </div>
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("maxPerPerson")}</div>
+                    <div className="text-base md:text-lg font-bold text-ink">10</div>
+                  </div>
+                  <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5 col-span-2 sm:col-span-1">
+                    <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("draw")}</div>
+                    <div className="text-sm md:text-base font-bold text-ink whitespace-nowrap">
+                      {drawDateFormatted}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Progress */}
+                <div className="mb-5 md:mb-6">
+                  <ProgressBar sold={competition.ticketsSold} max={competition.maxTickets} />
+                </div>
+
+                {/* Purchase Section */}
+                {!soldOut && !drawPast ? (
+                  <PurchaseSection
+                    slug={slug}
+                    price={price}
+                    maxAvailable={left}
+                    locale={locale}
+                  />
+                ) : (
+                  <SoldOutBanner soldOut={soldOut} allSoldOut={t("allSoldOut")} drawPassed={t("drawPassed")} />
+                )}
+              </>
             )}
           </div>
         </div>
