@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, getWebhookSecret } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
+import resend from "@/lib/resend";
+import { purchaseConfirmationHtml } from "@/lib/email-templates";
 import type Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
@@ -135,6 +137,55 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     console.log(
       `Purchase complete: user=${userId} comp=${competitionId} tickets=${startNumber}-${startNumber + quantity - 1} session=${stripeSessionId}`
     );
+
+    // ── Send confirmation email (non-blocking) ────────────────
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const [user, comp] = await Promise.all([
+          prisma.user.findUnique({
+            where: { id: userId },
+            select: { email: true, name: true },
+          }),
+          prisma.competition.findUnique({
+            where: { id: competitionId },
+            select: { titleEn: true, slug: true, drawDate: true },
+          }),
+        ]);
+
+        if (user?.email && comp) {
+          const ticketNumbers = Array.from(
+            { length: quantity },
+            (_, i) => startNumber + i,
+          );
+          const totalPaid =
+            session.amount_total != null
+              ? (session.amount_total / 100).toFixed(2)
+              : "0.00";
+
+          await resend.emails.send({
+            from: "Golden Dream Draw <auth@goldendreandraw.com>",
+            to: user.email,
+            subject: `🎟️ Tickets confirmed — ${comp.titleEn}`,
+            html: purchaseConfirmationHtml({
+              userName: user.name || "Player",
+              ticketNumbers,
+              competitionTitle: comp.titleEn,
+              competitionSlug: comp.slug,
+              drawDate: comp.drawDate.toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+              }),
+              totalPaid,
+            }),
+          });
+
+          console.log(`📧 Purchase confirmation sent to ${user.email}`);
+        }
+      } catch (emailError) {
+        console.error("Failed to send purchase confirmation email:", emailError);
+      }
+    }
   } catch (error) {
     console.error(`Ticket creation failed for session ${stripeSessionId}:`, error);
     // ticketsSold was already incremented — we need to roll it back
