@@ -1,6 +1,7 @@
 "use server";
 
 import { getSession } from "@/lib/session";
+import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 
@@ -53,7 +54,7 @@ export async function createCheckoutSession(
       return { error: `Only ${left} ticket${left !== 1 ? "s" : ""} remaining`, status: 400 };
     }
 
-    if (quantity < 1 || quantity > 10) {
+    if (quantity < 1 || quantity > MAX_TICKETS_PER_TRANSACTION) {
       return { error: "Quantity must be between 1 and 10", status: 400 };
     }
 

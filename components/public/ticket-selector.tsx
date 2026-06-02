@@ -1,6 +1,7 @@
 "use client";
 
 import { Minus, Plus } from "lucide-react";
+import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 
 interface TicketSelectorProps {
   price: number;
@@ -17,7 +18,9 @@ export default function TicketSelector({
   onChange,
   disabled = false,
 }: TicketSelectorProps) {
-  const maxSelectable = Math.min(maxAvailable, 10);
+  const maxSelectable = Math.min(maxAvailable, MAX_TICKETS_PER_TRANSACTION);
+
+  const presets = [5, 10, 20, 50];
 
   const decrement = () => {
     if (quantity > 1) onChange(quantity - 1);
@@ -39,6 +42,45 @@ export default function TicketSelector({
         <div className="text-right">
           <div className="font-serif text-xl md:text-2xl font-bold text-gold-dark">£{total.toFixed(2)}</div>
           <div className="text-xs text-ink-muted">{quantity} ticket{quantity > 1 ? "s" : ""}</div>
+        </div>
+      </div>
+
+      {/* Quick-add presets */}
+      <div className="mb-5">
+        <div className="grid grid-cols-4 gap-2">
+          {presets.map((n) => {
+            const presetTotal = price * n;
+            const isActive = quantity === n;
+            const isDisabled = disabled || n > maxSelectable;
+            return (
+              <button
+                key={n}
+                onClick={() => onChange(n)}
+                disabled={isDisabled}
+                className={
+                  isActive
+                    ? "relative flex flex-col items-center rounded-xl bg-gold px-2 py-3 transition-all ring-2 ring-gold/30 disabled:cursor-not-allowed disabled:opacity-40"
+                    : "relative flex flex-col items-center rounded-xl border border-border bg-white px-2 py-3 transition-all hover:border-gold/50 hover:bg-gold-pale/40 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-30"
+                }
+              >
+                <span className={
+                  isActive
+                    ? "font-serif text-xl font-bold leading-none text-white"
+                    : "font-serif text-xl font-bold leading-none text-ink"
+                }>{n}</span>
+                <span className={
+                  isActive
+                    ? "mt-0.5 text-[10px] font-medium text-white/70"
+                    : "mt-0.5 text-[10px] font-medium text-ink-muted"
+                }>tickets</span>
+                <span className={
+                  isActive
+                    ? "mt-1 text-[11px] font-semibold text-white/90"
+                    : "mt-1 text-[11px] font-semibold text-gold-dark/80"
+                }>£{presetTotal.toFixed(2)}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -67,7 +109,7 @@ export default function TicketSelector({
         </button>
       </div>
 
-      {maxAvailable < 10 && (
+      {maxAvailable < MAX_TICKETS_PER_TRANSACTION && (
         <p className="mt-3 md:mt-4 text-center text-[11px] md:text-xs text-ink-muted">
           Only {maxAvailable} ticket{maxAvailable !== 1 ? "s" : ""} remaining
         </p>

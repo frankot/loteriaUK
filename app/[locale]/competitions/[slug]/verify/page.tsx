@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 import Link from "next/link";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
@@ -14,7 +15,7 @@ export default async function VerifyPage({ params, searchParams }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("verify");
   const { quantity: qtyStr } = await searchParams;
-  const quantity = Math.min(Math.max(parseInt(qtyStr || "1", 10) || 1, 1), 10);
+  const quantity = Math.min(Math.max(parseInt(qtyStr || "1", 10) || 1, 1), MAX_TICKETS_PER_TRANSACTION);
 
   const competition = await prisma.competition.findUnique({
     where: { slug, status: "ACTIVE" },
