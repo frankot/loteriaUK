@@ -204,8 +204,8 @@ function baseWrapper(bodyHtml: string, previewText?: string): string {
 export function loginCodeEmailHtml(code: string): string {
   const body = `
     <div class="header">
-      <h1>Sign in to Golden Dream Draw</h1>
-      <div class="subtitle">Your one-time login code</div>
+      <h1 style="color: #1C1C1C;">Sign in to Golden Dream Draw</h1>
+      <div class="subtitle" style="color: #8B6914;">Your one-time login code</div>
     </div>
     <div class="body">
       <p>Use the code below to sign in to your account. This code expires in <strong>15 minutes</strong>.</p>
