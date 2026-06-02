@@ -108,10 +108,13 @@ export default function VerifyPage() {
 
       if (data.needsRegistration) {
         router.push(`/${locale}/register?email=${encodeURIComponent(email)}`);
+        router.refresh();
       } else if (data.role === "admin") {
         router.push(`/${locale}/admin`);
+        router.refresh();
       } else {
         router.push(`/${locale}`);
+        router.refresh();
       }
     } catch {
       setError(commonT("error"));
