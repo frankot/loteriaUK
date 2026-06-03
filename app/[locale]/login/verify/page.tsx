@@ -12,6 +12,7 @@ export default function VerifyPage() {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const email = searchParams.get("email") || "";
+  const redirect = searchParams.get("redirect") || "";
 
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
@@ -113,7 +114,7 @@ export default function VerifyPage() {
         router.push(`/${locale}/admin`);
         router.refresh();
       } else {
-        router.push(`/${locale}`);
+        router.push(redirect || `/${locale}`);
         router.refresh();
       }
     } catch {

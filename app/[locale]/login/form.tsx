@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
@@ -10,7 +10,9 @@ export function LoginForm() {
   const tc = useTranslations("common");
   const router = useRouter();
   const params = useParams();
+  const searchParams = useSearchParams();
   const locale = (params.locale as string) || "en";
+  const redirect = searchParams.get("redirect") || "";
 
   const [email, setEmail] = useState("");
   const [ageConfirmed, setAgeConfirmed] = useState(false);
@@ -47,7 +49,10 @@ export function LoginForm() {
         return;
       }
 
-      router.push(`/${locale}/login/verify?email=${encodeURIComponent(email.trim())}`);
+      const dest = redirect
+        ? `/${locale}/login/verify?email=${encodeURIComponent(email.trim())}&redirect=${encodeURIComponent(redirect)}`
+        : `/${locale}/login/verify?email=${encodeURIComponent(email.trim())}`;
+      router.push(dest);
     } catch {
       setError(tc("error"));
     } finally {
