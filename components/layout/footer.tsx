@@ -14,7 +14,7 @@ export default function Footer() {
   const footerLinks: Record<string, string[]> = {
     competitions: ["allPrizes", "electronics", "jewellery", "fashion", "cashAwards"],
     company: ["aboutUs", "ourWinners", "liveDraws", "contact", "careers"],
-    support: ["faq", "freePostalEntry", "terms", "privacy", "responsiblePlay"],
+    support: ["faq", "terms", "privacy", "responsiblePlay"],
   };
 
   return (
@@ -50,7 +50,7 @@ export default function Footer() {
                 {links.map((key) => (
                   <li key={key}>
                     <Link
-                      href={`/${locale}/${key === "faq" ? "faq" : key === "freePostalEntry" ? "free-postal-entry" : key === "terms" ? "terms" : key === "privacy" ? "privacy" : "#"}`}
+                      href={`/${locale}/${key === "faq" ? "faq" : key === "terms" ? "terms" : key === "privacy" ? "privacy" : "#"}`}
                       className="text-sm text-ink-soft transition-colors hover:text-gold-dark"
                     >
                       {t(key)}

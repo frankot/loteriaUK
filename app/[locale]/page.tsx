@@ -24,7 +24,6 @@ export default async function HomePage({ params }: Props) {
     { q: t("items.3.q"), a: t("items.3.a") },
     { q: t("items.4.q"), a: t("items.4.a") },
     { q: t("items.5.q"), a: t("items.5.a") },
-    { q: t("items.6.q"), a: t("items.6.a") },
   ];
 
   return (

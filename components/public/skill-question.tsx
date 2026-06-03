@@ -1,16 +1,32 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useParams } from "next/navigation";
 import { CheckCircle, XCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 interface Question {
   id: string;
   questionEn: string;
+  questionPl: string | null;
+  questionRo: string | null;
+  questionBg: string | null;
   optionAEn: string;
+  optionAPl: string | null;
+  optionARo: string | null;
+  optionABg: string | null;
   optionBEn: string;
+  optionBPl: string | null;
+  optionBRo: string | null;
+  optionBBg: string | null;
   optionCEn: string | null;
+  optionCPl: string | null;
+  optionCRo: string | null;
+  optionCBg: string | null;
   optionDEn: string | null;
+  optionDPl: string | null;
+  optionDRo: string | null;
+  optionDBg: string | null;
   correctOption: string;
 }
 
@@ -35,6 +51,19 @@ export default function SkillQuestion({
   const [passed, setPassed] = useState(false);
   const fetchingRef = useRef(false);
   const t = useTranslations("competition");
+  const params = useParams();
+  const locale = (params.locale as string) || "en";
+  const langKey = locale.charAt(0).toUpperCase() + locale.slice(1);
+
+  // Pick the right language field based on locale, fallback to English
+  const questionText = question
+    ? (question as any)[`question${langKey}`] || question.questionEn
+    : "";
+
+  const opt = (base: string) =>
+    question
+      ? (question as any)[`${base}${langKey}`] || (question as any)[`${base}En`]
+      : "";
 
   // Auto-fetch first question on mount if none assigned
   useEffect(() => {
@@ -99,10 +128,10 @@ export default function SkillQuestion({
 
   const options = question
     ? [
-        { key: "A", text: question.optionAEn },
-        { key: "B", text: question.optionBEn },
-        ...(question.optionCEn ? [{ key: "C", text: question.optionCEn }] : []),
-        ...(question.optionDEn ? [{ key: "D", text: question.optionDEn }] : []),
+        { key: "A", text: opt("optionA") },
+        { key: "B", text: opt("optionB") },
+        ...(opt("optionC") ? [{ key: "C", text: opt("optionC") }] : []),
+        ...(opt("optionD") ? [{ key: "D", text: opt("optionD") }] : []),
       ]
     : [];
 
@@ -149,7 +178,7 @@ export default function SkillQuestion({
         {t("skillBadge")}
       </div>
       <p className="mb-4 text-[15px] font-medium leading-relaxed text-ink">
-        {question?.questionEn}
+        {questionText}
       </p>
 
       <div className="mb-4 space-y-2.5">
