@@ -100,18 +100,48 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     return;
   }
 
-  // New total after increment — old total was newTotal - quantity
-  const newTicketsSold = Number(result[0].tickets_sold);
-  const startNumber = newTicketsSold - quantity + 1;
+  // ── Pick random ticket numbers from the available pool ──────────
+  const comp = await prisma.competition.findUnique({
+    where: { id: competitionId },
+    select: { maxTickets: true },
+  });
+  const maxTickets = comp?.maxTickets ?? 0;
+
+  // Fetch already-taken numbers for this competition
+  const takenRows = await prisma.ticket.findMany({
+    where: { competitionId },
+    select: { number: true },
+  });
+  const taken = new Set(takenRows.map((t) => t.number));
+
+  // Build available pool: 1..maxTickets minus taken numbers
+  const available: number[] = [];
+  for (let n = 1; n <= maxTickets; n++) {
+    if (!taken.has(n)) available.push(n);
+  }
+
+  if (available.length < quantity) {
+    console.error(
+      `Not enough free numbers: need ${quantity}, only ${available.length} available — session ${stripeSessionId}`
+    );
+    await prisma.competition.update({
+      where: { id: competitionId },
+      data: { ticketsSold: { decrement: quantity } },
+    });
+    return;
+  }
+
+  // Shuffle and pick
+  for (let i = available.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [available[i], available[j]] = [available[j], available[i]];
+  }
+  const ticketNumbers = available.slice(0, quantity);
 
   // ── Create tickets + entries ────────────────────────────────────
-  // Ticket numbers are computed from the atomic counter — no race possible
-  // The @@unique([competitionId, number]) constraint is a safety net
   try {
     await prisma.$transaction(async (tx: any) => {
-      for (let i = 0; i < quantity; i++) {
-        const ticketNumber = startNumber + i;
-
+      for (const ticketNumber of ticketNumbers) {
         const ticket = await tx.ticket.create({
           data: {
             competitionId,
@@ -135,7 +165,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     });
 
     console.log(
-      `Purchase complete: user=${userId} comp=${competitionId} tickets=${startNumber}-${startNumber + quantity - 1} session=${stripeSessionId}`
+      `Purchase complete: user=${userId} comp=${competitionId} tickets=[${ticketNumbers.join(",")}] session=${stripeSessionId}`
     );
 
     // ── Send confirmation email (non-blocking) ────────────────
@@ -153,10 +183,6 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         ]);
 
         if (user?.email && comp) {
-          const ticketNumbers = Array.from(
-            { length: quantity },
-            (_, i) => startNumber + i,
-          );
           const totalPaid =
             session.amount_total != null
               ? (session.amount_total / 100).toFixed(2)
