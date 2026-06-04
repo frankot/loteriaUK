@@ -55,7 +55,7 @@ export async function createCheckoutSession(
     }
 
     if (quantity < 1 || quantity > MAX_TICKETS_PER_TRANSACTION) {
-      return { error: "Quantity must be between 1 and 10", status: 400 };
+      return { error: `Quantity must be between 1 and ${MAX_TICKETS_PER_TRANSACTION}`, status: 400 };
     }
 
     // 3. Verify skill question answer (server-side)

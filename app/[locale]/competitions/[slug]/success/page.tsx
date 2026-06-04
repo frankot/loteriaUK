@@ -54,7 +54,7 @@ export default async function SuccessPage({ params, searchParams }: Props) {
       where: { competitionId, userId },
       orderBy: { number: "asc" },
       select: { number: true },
-      take: 20,
+      take: 100,
     });
   }
 
