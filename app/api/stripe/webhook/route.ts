@@ -138,30 +138,41 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   }
   const ticketNumbers = available.slice(0, quantity);
 
-  // ── Create tickets + entries ────────────────────────────────────
+  // ── Create tickets + entries (batch) ──────────────────────────
+  // Use createMany to avoid transaction timeout on large quantities
   try {
-    await prisma.$transaction(async (tx: any) => {
-      for (const ticketNumber of ticketNumbers) {
-        const ticket = await tx.ticket.create({
-          data: {
-            competitionId,
-            userId,
-            number: ticketNumber,
-            status: "SOLD",
-          },
-        });
+    await prisma.$transaction(async (tx) => {
+      // Step 1: bulk-insert all tickets
+      await tx.ticket.createMany({
+        data: ticketNumbers.map((num) => ({
+          competitionId,
+          userId,
+          number: num,
+          status: "SOLD",
+        })),
+        skipDuplicates: true,
+      });
 
-        await tx.entry.create({
-          data: {
-            competitionId,
-            userId,
-            ticketId: ticket.id,
-            type: "PAID",
-            answerCorrect: true, // verified server-side before checkout
-            stripeSessionId,
-          },
-        });
-      }
+      // Step 2: fetch the created ticket IDs
+      const createdTickets = await tx.ticket.findMany({
+        where: {
+          competitionId,
+          number: { in: ticketNumbers },
+        },
+        select: { id: true },
+      });
+
+      // Step 3: bulk-insert all entries
+      await tx.entry.createMany({
+        data: createdTickets.map((ticket) => ({
+          competitionId,
+          userId,
+          ticketId: ticket.id,
+          type: "PAID",
+          answerCorrect: true,
+          stripeSessionId,
+        })),
+      });
     });
 
     console.log(
