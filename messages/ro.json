@@ -284,5 +284,113 @@
     "subtitle": "Pagina pe care o căutați nu există sau a fost mutată.",
     "goHome": "Înapoi la pagina principală",
     "browseCompetitions": "Vedeți competițiile"
+  },
+  "terms": {
+    "title": "GOLDEN DREAM DRAW",
+    "subtitle": "TERMENI ȘI CONDIȚII",
+    "description": "Reguli ale concursului și orientări de participare",
+    "sections": [
+      {
+        "number": "1.",
+        "title": "INFORMAȚII DESPRE COMPANIE",
+        "body": "Golden Dream Draw este operată de:\n\nGolden Dream Draw Ltd.\nPO Box 483, Green Lanes\nLondra, N13 4FG\nRegatul Unit\n\nEmail: info@goldendreamdraw.com"
+      },
+      {
+        "number": "2.",
+        "title": "DEFINIȚII",
+        "body": "În prezentul Termeni și Condiții, se aplică următoarele definiții:\n\n\"Compania\", \"Noi\", \"Ne\", \"Nostru\" – se referă la Golden Dream Draw, cu sediul în PO Box 483, Green Lanes, Londra, N13 4FG.\n\n\"Concurs\" – se referă la orice concurs cu premii bazat pe abilități, organizat și operat de Companie.\n\n\"Participare\" sau \"Bilet\" – se referă la o participare plătită la concurs achiziționată prin site-ul nostru sau alte canale autorizate.\n\n\"Participare poștală gratuită\" – se referă la o metodă gratuită de participare disponibilă participanților eligibili, sub rezerva condițiilor specifice din Secțiunea 13 a prezentilor Termeni.\n\n\"Participant\" sau \"Tu\" – se referă la orice persoană care participă la un Concurs operat de Companie.\n\n\"Premiu\" – se referă la obiectul sau suma de bani descrise în fiecare listare individuală de Concurs.\n\n\"Întrebare de abilități\" – se referă la întrebarea de competență la care fiecare solicitant trebuie să răspundă corect în timpul înregistrării contului pentru a se califica să participe la Concursurile operate de Companie.\n\n\"Extragere\" – se referă la procesul prin care un câștigător este selectat dintre toate participările valide.\n\n\"Data de închidere\" – se referă la data și ora până la care toate participările trebuie primite, conform mențiunilor de pe pagina fiecărui Concurs."
+      },
+      {
+        "number": "3.",
+        "title": "BAZA LEGALĂ ȘI CADRUL DE REGLEMENTARE",
+        "body": "3.1 Golden Dream Draw organizează concursuri ca și concursuri cu premii bazate pe abilități. Aceste concursuri NU sunt loterii sau produse de jocuri de noroc și, prin urmare, NU sunt reglementate de Comisia pentru Jocuri de Noroc a Marii Britanii.\n\n3.2 Concursurile noastre sunt structurate în conformitate cu:\nLegea privind jocurile de noroc din 2005 (cu modificările ulterioare)\nLegea privind drepturile consumatorilor din 2015\nRegulamentul privind contractele de consum (informații, anulare și taxe suplimentare) din 2013\nRegulamentul UK GDPR și Legea privind protecția datelor din 2018\nLegea concurenței din 1998\nOrientările Autorității pentru Standarde în Publicitate (ASA)\n\n3.3 Concursurile bazate pe abilități sunt legale conform legii britanice, cu condiția ca: (a) participarea să necesite răspunsul corect la o întrebare de abilități, (b) să existe o rută gratuită de participare disponibilă în condiții egale, și (c) concursul să nu fie desfășurat ca o loterie. Golden Dream Draw respectă pe deplin toate cerințele aplicabile."
+      },
+      {
+        "number": "4.",
+        "title": "CONDIȚII DE PARTICIPARE",
+        "body": "4.1 Concursurile sunt deschise exclusiv rezidenților legali ai Regatului Unit, care au vârsta de 18 ani sau peste la momentul participării.\n\n4.2 Următoarele persoane NU sunt eligibile să participe la niciun Concurs:\nAngajații, directorii, ofițerii, agenții sau contractorii Golden Dream Draw;\nMembrii familiei imediate (soț/soție, părinte, copil, frate/soră) sau ai gospodăriei oricărei persoane descrise mai sus;\nOrice persoană care a fost descalificată de la concursuri anterioare operate de Companie;\nOrice persoană sub 18 ani;\nOrice persoană care locuiește în afara Regatului Unit.\n\n4.3 Prin participarea la un Concurs, confirmați că îndepliniți toate cerințele de eligibilitate. Compania își rezervă dreptul de a verifica eligibilitatea în orice etapă și de a descalifica orice participare care nu îndeplinește aceste cerințe."
+      },
+      {
+        "number": "5.",
+        "title": "CUM SĂ PARTICIPI — PARTICIPARE PLĂTITĂ",
+        "body": "5.1 Pentru a participa la un Concurs printr-un bilet plătit, participanții trebuie să dețină mai întâi un cont înregistrat la Golden Dream Draw. Înregistrarea contului necesită finalizarea cu succes a Întrebării de abilități, conform Secțiunii 6. Odată deținut un cont valid, participanții pot achiziționa bilete astfel:\nVizitați site-ul oficial Golden Dream Draw;\nSelectați Concursul la care doresc să participe;\nAlegeți numărul de bilete pe care doresc să le achiziționeze (sub rezerva limitelor per Concurs);\nConfirmați detaliile contului înregistrat la finalizarea comenzii;\nFinalizați procesul de checkout și efectuați plata integrală.\n\n5.2 O participare la Concurs (bilet) este validă doar la primirea plății integrale de la un participant care deține un cont înregistrat valid. Înregistrarea contului este condiționată de finalizarea corectă a Întrebării de abilități (vezi Secțiunea 6). Participările făcute de persoane neînregistrate sau conturi create cu un răspuns incorect la Întrebarea de abilități vor fi considerate invalide și nu vor fi incluse în Extragere.\n\n5.3 Participările sunt netransferabile. Biletele nu pot fi revândute, dăruite sau transferate altei persoane după achiziționare.\n\n5.4 Nu există nicio limită a numărului de bilete pe care un participant le poate achiziționa per Concurs, cu excepția cazului în care se specifică altfel pe pagina Concursului. Limitele maxime de bilete, acolo unde se aplică, vor fi afișate clar.\n\n5.5 Toate participările trebuie primite până la Data de închidere anunțată. Participările primite după Data de închidere vor fi nule, iar orice plată efectuată va fi rambursată conform Secțiunii 10 a prezentilor Termeni."
+      },
+      {
+        "number": "6.",
+        "title": "ÎNTREBAREA DE ABILITĂȚI ȘI ÎNREGISTRAREA CONTULUI",
+        "body": "6.1 Pentru a participa la orice Concurs operat de Golden Dream Draw, toți participanții trebuie să creeze un cont înregistrat. Ca parte a procesului de înregistrare a contului, fiecare solicitant trebuie să răspundă corect la o Întrebare de abilități. Doar solicitanții care oferă un răspuns corect la Întrebarea de abilități vor primi un cont înregistrat valid și, prin urmare, se vor califica să participe la Concursuri.\n\n6.2 Întrebarea de abilități este concepută pentru a necesita cunoștințe reale sau capacitate de raționament pentru a răspunde corect. Întrebarea este prezentată în timpul procesului de înregistrare a contului, iar solicitanții trebuie să răspundă fără asistența unor instrumente automatizate sau terțe părți. Întrebarea de abilități specifică utilizată la un moment dat va fi afișată pe pagina de înregistrare a site-ului Companiei. Compania își rezervă dreptul de a schimba Întrebarea de abilități în orice moment, cu condiția ca noua întrebare să continue să necesite abilități sau cunoștințe reale pentru a răspunde corect.\n\n6.3 Solicitanții care oferă un răspuns incorect la Întrebarea de abilități în timpul înregistrării nu vor primi un cont valid și nu vor putea achiziționa bilete până când nu finalizează cu succes o nouă înregistrare cu un răspuns corect. Înregistrarea contului este gratuită.\n\n6.4 Întrebarea de abilități trebuie rezolvată independent și personal de către solicitant. Utilizarea instrumentelor automatizate, sistemelor AI, scripturilor sau asistenței terților pentru a determina sau trimite răspunsul corect este strict interzisă și va duce la suspendarea contului și descalificarea de la toate Concursurile.\n\n6.5 Compania își rezervă dreptul de a actualiza periodic Întrebarea de abilități. Deținătorii existenți de conturi vor fi notificați cu privire la orice astfel de modificare și pot fi obligați să reconfirme răspunsul la Întrebarea de abilități pentru a menține valabilitatea contului."
+      },
+      {
+        "number": "7.",
+        "title": "PREȚUL BILETELOR ȘI PLATA",
+        "body": "7.1 Prețul fiecărui bilet este afișat clar pe pagina Concursului înainte de achiziționare. Prețurile includ TVA acolo unde este cazul.\n\n7.2 Metodele de plată acceptate includ carduri de credit și debit majore și alte metode afișate la checkout. Toate tranzacțiile sunt procesate în siguranță.\n\n7.3 Golden Dream Draw nu stochează detaliile cardurilor de plată. Toate plățile sunt procesate de un procesator de plăți autorizat.\n\n7.4 Chitanțele vor fi emise prin email la adresa furnizată în momentul achiziției. Este responsabilitatea participantului să furnizeze o adresă de email validă."
+      },
+      {
+        "number": "8.",
+        "title": "PROCESUL DE EXTRAGERE",
+        "body": "8.1 Odată ce un Concurs se închide, toate participările valide (adică participările făcute de deținători de conturi înregistrate valide, cu plată confirmată) vor fi introduse în Extragere.\n\n8.2 Extragerea va fi efectuată folosind un proces de selecție aleatoriu verificabil. Acolo unde este posibil, extragerile vor fi efectuate live, iar procesul înregistrat pentru transparență.\n\n8.3 Extragerea va avea loc la data anunțată pe pagina Concursului sau cât mai curând posibil după aceasta.\n\n8.4 Compania își rezervă dreptul de a prelungi Data de închidere a unui Concurs dacă nu sunt vândute suficiente bilete pentru a acoperi costul Premiului. În astfel de circumstanțe, participanții vor fi informați și pot solicita o rambursare.\n\n8.5 Dacă un Concurs este anulat din cauza participărilor insuficiente, toți participanții vor primi o rambursare completă a prețului de achiziție a biletului în termen de 14 zile lucrătoare."
+      },
+      {
+        "number": "9.",
+        "title": "NOTIFICAREA CÂȘTIGĂTORULUI ȘI LIVRAREA PREMIULUI",
+        "body": "9.1 Câștigătorul va fi contactat în termen de 48 de ore de la Extragere prin adresa de email sau numărul de telefon furnizat la momentul participării.\n\n9.2 Câștigătorul poate fi, de asemenea, anunțat public pe site-ul nostru și pe canalele de social media. Prin participarea la Concurs, participanții consimt la un astfel de anunț, care poate include prenumele lor și comitatul de reședință.\n\n9.3 Premiul va fi livrat în termen de paisprezece (14) zile calendaristice de la confirmarea și verificarea câștigătorului. Aceasta include finalizarea cu succes a oricărei verificări de identitate necesare.\n\n9.4 Dacă câștigătorul nu poate fi contactat în termen de 14 zile de la Extragere, sau nu răspunde comunicărilor, sau nu finalizează verificarea necesară, Compania își rezervă dreptul de a efectua o re-extragere și de a acorda Premiul unui câștigător alternativ.\n\n9.5 Premiile sunt netransferabile și nu pot fi schimbate pe bani sau articole alternative, cu excepția cazului în care se specifică altfel pe pagina Concursului. Compania își rezervă dreptul de a substitui premiile cu altele de valoare egală sau mai mare în circumstanțe excepționale.\n\n9.6 Premiile fizice vor fi livrate prin serviciu poștal sau curier cu urmărire și asigurare, doar la adrese din Regatul Unit. Compania nu este responsabilă pentru întârzierile cauzate de furnizorii terți de livrare odată ce expedierea a fost confirmată."
+      },
+      {
+        "number": "10.",
+        "title": "POLITICA DE RAMBURSARE ȘI ANULARE",
+        "body": "10.1 Conform Regulamentului privind contractele de consum din 2013, aveți dreptul de anulare în ceea ce privește achizițiile online. Cu toate acestea, deoarece participările la concursuri sunt limitate în timp, dreptul dumneavoastră de anulare expiră la cea mai apropiată dintre: (a) 14 zile de la achiziționare, sau (b) Data de închidere a Concursului.\n\n10.2 Pentru a solicita o rambursare înainte de Data de închidere, contactați-ne la info@goldendreamdraw.com cu numărul de referință al comenzii. Solicitările de rambursare vor fi procesate în termen de 5 zile lucrătoare.\n\n10.3 Rambursările NU vor fi emise în următoarele circumstanțe:\nDupă trecerea Datei de închidere a Concursului;\nCând contul participantului a fost creat folosind un răspuns incorect la Întrebarea de abilități și biletele au fost achiziționate în ciuda acestui fapt (de exemplu, prin denaturare frauduloasă a eligibilității);\nCând participantul a fost deja anunțat ca câștigător;\nCând solicitarea de rambursare este făcută la mai mult de 14 zile după achiziționare.\n\n10.4 Dacă un Concurs este anulat sau invalidat de Companie din orice motiv, toate participările plătite valide vor fi rambursate integral în termen de 14 zile calendaristice.\n\n10.5 Rambursările vor fi făcute către metoda de plată originală utilizată la momentul achiziției."
+      },
+      {
+        "number": "11.",
+        "title": "LIVRAREA BILETELOR POȘTALE",
+        "body": "11.1 După achiziționarea cu succes a unui bilet, un email de confirmare va fi trimis la adresa de email înregistrată, conținând numărul(rle) unic(e) de bilet ale participantului.\n\n11.2 Participanții pot solicita, de asemenea, o scrisoare fizică de confirmare trimisă la adresa poștală înregistrată în Regatul Unit. Acest serviciu este furnizat gratuit și trebuie solicitat în termen de 7 zile de la achiziționare.\n\n11.3 Scrisorile fizice de confirmare sunt trimise prin poșta Royal Mail clasa a doua. Compania nu își asumă responsabilitatea pentru scrisorile pierdute, întârziate sau deteriorate în poștă. Numărul de referință al biletului conținut în emailul de confirmare rămâne dovada definitivă a participării.\n\n11.4 În cazul oricărei discrepanțe între o scrisoare fizică și înregistrarea electronică a biletului, înregistrarea electronică deținută de Golden Dream Draw va fi considerată autoritară."
+      },
+      {
+        "number": "12.",
+        "title": "CONDUITA ȘI DESCALIFICAREA",
+        "body": "12.1 Compania își rezervă dreptul de a descalifica orice participant care:\nFurnizează informații false, inexacte sau înșelătoare la momentul participării;\nEste găsit că a participat în numele altei persoane fără autorizație;\nÎncearcă să manipuleze Extragerea, procesul de selecție sau operarea oricărui Concurs;\nFolosește metode de participare automatizate sau mecanice;\nSe comportă într-un mod abuziv, amenințător sau ofensator față de personalul Companiei sau alți participanți;\nÎncălcă orice prevedere a prezentilor Termeni și Condiții.\n\n12.2 În caz de descalificare, nu se va emite nicio rambursare."
+      },
+      {
+        "number": "13.",
+        "title": "PARTICIPAREA POȘTALĂ GRATUITĂ",
+        "body": "13.1 Pentru a asigura că concursurile Golden Dream Draw rămân conforme cu legislația britanică aplicabilă, o metodă gratuită de participare este disponibilă pentru fiecare Concurs, după cum urmează.\n\n13.2 Pentru a trimite o participare gratuită prin poștă, participantul trebuie:\nSă scrie numele complet, data nașterii, adresa de domiciliu (doar adrese din Regatul Unit), adresa de email, numărul de telefon și numele sau numărul de referință al Concursului la care dorește să participe, pe o foaie simplă de hârtie (dimensiune minimă A5);\nSă furnizeze un răspuns scris corect la Întrebarea de abilități pentru acel Concurs;\nSă includă o declarație scrisă scurtă (minimum 25 de cuvinte) care explică de ce ar dori să câștige premiul (aceasta constituie elementul suplimentar de abilitate necesar pentru o participare gratuită validă);\nSă expedieze participarea completată într-un plic timbrat la: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nSă se asigure că participarea este primită la adresa de mai sus înainte sau la Data de închidere a Concursului relevant.\n\n13.3 Pentru ca o participare poștală gratuită să fie considerată validă, TOATE următoarele condiții trebuie îndeplinite:\nParticiparea trebuie să fie scrisă de mână. Participările imprimate, dactilografiate sau generate pe calculator nu vor fi acceptate;\nEste permisă o singură participare poștală gratuită per persoană, per Concurs;\nPlicul trebuie să fie timbrat cu un timbru poștal Royal Mail valid. Trimiterile franco și plicurile freepost nu vor fi acceptate;\nParticiparea trebuie primită (nu doar ștampilată) până la Data de închidere;\nRăspunsul corect la Întrebarea de abilități trebuie furnizat și trebuie să corespundă răspunsului publicat de Companie;\nDeclarația scrisă (condiția 13.2.3) trebuie să aibă minimum 25 de cuvinte și să fie originală și scrisă de participant însuși;\nParticipantul trebuie să îndeplinească toate cerințele generale de eligibilitate stabilite în Secțiunea 4 a prezentilor Termeni.\n\n13.4 Participările poștale gratuite care nu îndeplinesc oricare dintre condițiile de mai sus vor fi considerate invalide și nu vor fi introduse în Extragere.\n\n13.5 Participările poștale gratuite au aceeași pondere și șanse de câștig ca și participările plătite și vor fi introduse în aceeași Extragere.\n\n13.6 Compania nu își asumă responsabilitatea pentru participările poștale pierdute, întârziate sau deteriorate în poștă. Se recomandă insistent participanților să păstreze dovada expedierii.\n\n13.7 Costul poștal pentru participările poștale gratuite este responsabilitatea exclusivă a participantului."
+      },
+      {
+        "number": "14.",
+        "title": "PROTECȚIA DATELOR ȘI CONFIDENȚIALITATEA",
+        "body": "14.1 Golden Dream Draw se angajează să protejeze datele dumneavoastră personale. Procesăm datele personale în conformitate cu Regulamentul General privind Protecția Datelor (UK GDPR) și Legea privind protecția datelor din 2018.\n\n14.2 Datele personale colectate la momentul participării vor fi utilizate în următoarele scopuri:\nPentru a procesa participarea dumneavoastră și, după caz, pentru a vă contacta dacă sunteți selectat ca câștigător;\nPentru a vă trimite corespondență legată de concurs;\nPentru a ne conforma obligațiilor legale;\nPentru a preveni frauda și a asigura integritatea concursurilor noastre.\n\n14.3 Nu vom vinde, închiria sau partaja datele dumneavoastră personale cu nicio terță parte în scopuri de marketing fără consimțământul dumneavoastră explicit.\n\n14.4 Aveți dreptul de a accesa, corecta sau solicita ștergerea datelor dumneavoastră personale în orice moment. Pentru a exercita aceste drepturi, contactați-ne la info@goldendreamdraw.com.\n\n14.5 Detalii complete despre modul în care gestionăm datele dumneavoastră personale sunt stabilite în Politica noastră de confidențialitate, disponibilă pe site-ul nostru."
+      },
+      {
+        "number": "15.",
+        "title": "PROPRIETATEA INTELECTUALĂ",
+        "body": "15.1 Tot conținutul de pe site-ul Golden Dream Draw, inclusiv text, imagini, sigle și materiale de concurs, este proprietatea Golden Dream Draw și este protejat de legile aplicabile privind proprietatea intelectuală.\n\n15.2 Participanții nu pot reproduce, distribui sau face uz comercial de orice conținut de pe site-ul nostru fără consimțământul scris prealabil."
+      },
+      {
+        "number": "16.",
+        "title": "LIMITAREA RĂSPUNDERII",
+        "body": "16.1 Compania nu va fi răspunzătoare pentru nicio pierdere sau daună suferită de un participant ca urmare a:\nDefecțiunilor tehnice, erorilor de server sau întreruperilor site-ului sau sistemelor noastre;\nParticipărilor pierdute, întârziate sau corupte în tranzit (electronice sau poștale);\nEșecurilor de livrare ale terților după ce un premiu a fost expediat;\nOrice circumstanțe aflate în afara controlului rezonabil al Companiei.\n\n16.2 Nimic în prezenții Termeni nu va limita sau exclude răspunderea noastră pentru deces sau vătămare corporală cauzată de neglijența noastră, sau pentru fraudă sau declarații false frauduloase.\n\n16.3 În cea mai mare măsură permisă de lege, răspunderea totală a Companiei față de orice participant nu va depăși prețul plătit de acel participant pentru biletul(ele) său(sale) în Concursul relevant."
+      },
+      {
+        "number": "17.",
+        "title": "MODIFICĂRI ALE TERMENILOR ȘI CONDIȚIILOR",
+        "body": "17.1 Compania își rezervă dreptul de a modifica prezenții Termeni și Condiții în orice moment. Orice modificări vor fi publicate pe site-ul nostru cu o dată revizuită de intrare în vigoare.\n\n17.2 Participarea continuă la un Concurs după publicarea modificărilor constituie acceptarea Termenilor revizuiți.\n\n17.3 În cazul unui conflict între prezenții Termeni generali și orice reguli specifice ale Concursului, regulile specifice ale Concursului vor prevala."
+      },
+      {
+        "number": "18.",
+        "title": "PROCEDURA DE RECLAMAȚII",
+        "body": "18.1 Dacă aveți o reclamație privind orice aspect al unui Concurs sau al serviciilor noastre, vă rugăm să ne contactați mai întâi la: info@goldendreamdraw.com.\n\n18.2 Ne propunem să confirmăm toate reclamațiile în termen de 5 zile lucrătoare și să oferim un răspuns complet în termen de 21 de zile lucrătoare.\n\n18.3 Dacă nu sunteți mulțumit de răspunsul nostru, puteți solicita o rezolvare suplimentară prin Citizens Advice (www.citizensadvice.org.uk) sau, după caz, prin instanțele din Anglia și Țara Galilor."
+      },
+      {
+        "number": "19.",
+        "title": "LEGEA APLICABILĂ ȘI JURISDICȚIA",
+        "body": "19.1 Prezenții Termeni și Condiții sunt guvernați și interpretați în conformitate cu legile Angliei și Țării Galilor.\n\n19.2 Orice dispută care decurge din sau în legătură cu prezenții Termeni va fi supusă jurisdicției exclusive a instanțelor din Anglia și Țara Galilor."
+      },
+      {
+        "number": "20.",
+        "title": "DISPOZIȚII DIVERSE",
+        "body": "20.1 Decizia Companiei cu privire la toate chestiunile legate de un Concurs, inclusiv interpretarea prezentilor Termeni, este finală și obligatorie.\n\n20.2 Dacă orice prevedere a prezentilor Termeni este considerată ilegală, nulă sau neexecutabilă, acea prevedere va fi considerată separabilă și nu va afecta valabilitatea și aplicabilitatea prevederilor rămase.\n\n20.3 Neaplicarea de către Companie a oricărei prevederi a prezentilor Termeni nu va fi interpretată ca o renunțare la acea prevedere.\n\n20.4 Prezenții Termeni constituie întregul acord între participant și Companie în legătură cu fiecare Concurs."
+      }
+    ],
+    "footer": "Golden Dream Draw nu este reglementată de Comisia pentru Jocuri de Noroc. Concursurile noastre sunt bazate pe abilități și nu sunt loterii."
   }
 }

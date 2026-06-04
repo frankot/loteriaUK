@@ -341,5 +341,113 @@
     "subtitle": "The page you're looking for doesn't exist or has been moved.",
     "goHome": "Back to Home",
     "browseCompetitions": "Browse Competitions"
+  },
+  "terms": {
+    "title": "GOLDEN DREAM DRAW",
+    "subtitle": "TERMS AND CONDITIONS",
+    "description": "Competition Rules & Participation Guidelines",
+    "sections": [
+      {
+        "number": "1.",
+        "title": "COMPANY INFORMATION",
+        "body": "Golden Dream Draw is operated by:\n\nGolden Dream Draw Ltd.\nPO Box 483, Green Lanes\nLondon, N13 4FG\nUnited Kingdom\n\nEmail: info@goldendreamdraw.com"
+      },
+      {
+        "number": "2.",
+        "title": "DEFINITIONS",
+        "body": "In these Terms and Conditions, the following definitions apply:\n\n\"Company\", \"We\", \"Us\", \"Our\" – refers to Golden Dream Draw, operating from PO Box 483, Green Lanes, London, N13 4FG.\n\n\"Competition\" – refers to any skill-based prize competition organised and operated by the Company.\n\n\"Entry\" or \"Ticket\" – refers to a paid competition entry purchased via our website or other authorised channels.\n\n\"Free Postal Entry\" – refers to a free method of entry available to eligible participants, subject to the specific conditions set out in Section 13 of these Terms.\n\n\"Participant\" or \"You\" – refers to any individual who enters a Competition operated by the Company.\n\n\"Prize\" – refers to the item or sum of money described in each individual Competition listing.\n\n\"Skill Question\" – refers to the question of skill that each applicant must answer correctly during account registration in order to qualify to enter Competitions operated by the Company.\n\n\"Draw\" – refers to the process by which a winner is selected from all valid entries.\n\n\"Closing Date\" – refers to the date and time by which all entries must be received, as stated on each Competition page."
+      },
+      {
+        "number": "3.",
+        "title": "LEGAL BASIS AND REGULATORY FRAMEWORK",
+        "body": "3.1 Golden Dream Draw operates competitions as skill-based prize competitions. These competitions are NOT lotteries or gambling products and are therefore NOT regulated by the Gambling Commission of Great Britain.\n\n3.2 Our competitions are structured in accordance with:\nThe Gambling Act 2005 (as amended)\nThe Consumer Rights Act 2015\nThe Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013\nThe UK GDPR and Data Protection Act 2018\nThe Competition Act 1998\nThe Advertising Standards Authority (ASA) guidelines\n\n3.3 Skill-based competitions are lawful under UK law provided that: (a) entry requires the correct answer to a skill question, (b) a free entry route is genuinely available on equal terms, and (c) the competition is not conducted as a lottery. Golden Dream Draw complies fully with all applicable requirements."
+      },
+      {
+        "number": "4.",
+        "title": "ELIGIBILITY TO ENTER",
+        "body": "4.1 Competitions are open to legal residents of the United Kingdom only, who are aged 18 years or over at the time of entry.\n\n4.2 The following individuals are NOT eligible to enter any Competition:\nEmployees, directors, officers, agents, or contractors of Golden Dream Draw;\nMembers of the immediate family (spouse, parent, child, sibling) or household of any person described above;\nAny person who has been disqualified from previous competitions operated by the Company;\nAny person who is under 18 years of age;\nAny person residing outside of the United Kingdom.\n\n4.3 By entering a Competition, you confirm that you satisfy all eligibility requirements. The Company reserves the right to verify eligibility at any stage and to disqualify any entry that does not meet these requirements."
+      },
+      {
+        "number": "5.",
+        "title": "HOW TO ENTER — PAID ENTRY",
+        "body": "5.1 To enter a Competition via a paid ticket, participants must first hold a registered account with Golden Dream Draw. Account registration requires the successful completion of the Skill Question, as set out in Section 6. Once a valid account is held, participants may purchase tickets as follows:\nVisit the official Golden Dream Draw website;\nSelect the Competition they wish to enter;\nChoose the number of tickets they wish to purchase (subject to per-Competition limits);\nConfirm their registered account details at checkout;\nComplete the checkout process and make payment in full.\n\n5.2 A Competition entry (ticket) is only valid upon receipt of full payment by a participant who holds a valid registered account. Account registration is contingent upon the correct completion of the Skill Question (see Section 6). Entries made by unregistered individuals or accounts created with an incorrect Skill Question answer will be deemed invalid and will not be entered into the Draw.\n\n5.3 Entries are non-transferable. Tickets may not be resold, gifted, or transferred to another person once purchased.\n\n5.4 There is no limit to the number of tickets a participant may purchase per Competition unless stated otherwise on the Competition page. Maximum ticket limits, where applied, will be clearly displayed.\n\n5.5 All entries must be received by the Closing Date as advertised. Entries received after the Closing Date will be void and any payment made will be refunded in accordance with Section 10 of these Terms."
+      },
+      {
+        "number": "6.",
+        "title": "THE SKILL QUESTION AND ACCOUNT REGISTRATION",
+        "body": "6.1 In order to participate in any Competition operated by Golden Dream Draw, all participants are required to create a registered account. As part of the account registration process, each applicant must correctly answer a Skill Question. Only applicants who provide a correct answer to the Skill Question will be granted a valid registered account and thereby qualify to enter Competitions.\n\n6.2 The Skill Question is designed to require genuine knowledge or reasoning ability to answer correctly. The question is presented during the account registration process, and applicants must answer it without assistance from automated tools or third parties. The specific Skill Question in use at any given time will be displayed on the registration page of the Company's website. The Company reserves the right to change the Skill Question at any time in accordance with clause 6.5, provided that any new question continues to require genuine skill or knowledge to answer correctly.\n\n6.3 Applicants who provide an incorrect answer to the Skill Question during registration will not be granted a valid account and will not be permitted to purchase Competition tickets until they successfully complete a new registration with a correct answer. No charge is made for account registration.\n\n6.4 The Skill Question must be answered independently and personally by the applicant. Use of automated tools, AI systems, scripts, or third-party assistance to determine or submit the correct answer is strictly prohibited and will result in account suspension and disqualification from all Competitions.\n\n6.5 The Company reserves the right to update the Skill Question periodically. Existing account holders will be notified of any such change and may be required to re-confirm their Skill Question answer in order to maintain account validity. This measure is taken to ensure ongoing compliance with applicable UK competition law."
+      },
+      {
+        "number": "7.",
+        "title": "TICKET PRICING AND PAYMENT",
+        "body": "7.1 The price of each ticket is displayed clearly on the Competition page prior to purchase. Prices include VAT where applicable.\n\n7.2 Accepted methods of payment include major credit and debit cards and other methods as displayed at checkout. All transactions are processed securely.\n\n7.3 Golden Dream Draw does not store payment card details. All payments are processed by an authorised payment processor.\n\n7.4 Receipts will be issued by email to the address provided at the time of purchase. It is the participant's responsibility to ensure that a valid email address is provided."
+      },
+      {
+        "number": "8.",
+        "title": "THE DRAW PROCESS",
+        "body": "8.1 Once a Competition closes, all valid entries (i.e. entries made by holders of valid registered accounts, with confirmed payment) will be entered into the Draw.\n\n8.2 The Draw will be conducted using a verifiably random selection process. Where possible, draws will be conducted live and the process recorded for transparency.\n\n8.3 The Draw will take place on the date announced on the Competition page, or as soon as practicable thereafter.\n\n8.4 The Company reserves the right to extend a Competition's Closing Date if insufficient tickets are sold to cover the cost of the Prize. In such circumstances, participants will be informed and may request a refund.\n\n8.5 If a Competition is cancelled due to insufficient entries, all participants will receive a full refund of their ticket purchase price within 14 working days."
+      },
+      {
+        "number": "9.",
+        "title": "WINNER NOTIFICATION AND PRIZE FULFILMENT",
+        "body": "9.1 The winner will be contacted within 48 hours of the Draw via the email address or telephone number provided at the time of entry.\n\n9.2 The winner may also be announced publicly on our website and social media channels. By entering the Competition, participants consent to such announcement, which may include their first name and county of residence.\n\n9.3 The prize will be fulfilled within fourteen (14) calendar days of the winner being confirmed and verified. This includes successful completion of any required identity verification.\n\n9.4 If the winner cannot be contacted within 14 days of the Draw, or fails to respond to communications, or fails to complete required verification, the Company reserves the right to conduct a re-draw and award the Prize to an alternative winner.\n\n9.5 Prizes are non-transferable and cannot be exchanged for cash or alternative items, unless stated otherwise on the Competition page. The Company reserves the right to substitute prizes of equal or greater value in exceptional circumstances.\n\n9.6 Physical prizes will be delivered by tracked and insured postal or courier service to UK addresses only. The Company is not responsible for delays caused by third-party delivery providers once dispatch has been confirmed."
+      },
+      {
+        "number": "10.",
+        "title": "REFUNDS AND CANCELLATION POLICY",
+        "body": "10.1 Under the Consumer Contracts Regulations 2013, you have a right of cancellation in respect of online purchases. However, because Competition entries are time-limited, your right to cancel expires at the earlier of: (a) 14 days from purchase, or (b) the Closing Date of the Competition.\n\n10.2 To request a refund before the Closing Date, contact us at info@goldendreamdraw.com with your order reference number. Refund requests will be processed within 5 working days.\n\n10.3 Refunds will NOT be issued in the following circumstances:\nAfter the Closing Date of the Competition has passed;\nWhere the participant's account was created using an incorrect Skill Question answer and tickets were purchased despite this (e.g. through fraudulent misrepresentation of eligibility);\nWhere the participant has already been announced as a winner;\nWhere the refund request is made more than 14 days after purchase.\n\n10.4 If a Competition is cancelled or voided by the Company for any reason, all valid paid entries will be refunded in full within 14 calendar days.\n\n10.5 Refunds will be made to the original payment method used at the time of purchase."
+      },
+      {
+        "number": "11.",
+        "title": "POSTAL TICKET DELIVERY",
+        "body": "11.1 Upon successful purchase of a ticket, a confirmation email will be sent to the registered email address containing the participant's unique ticket number(s).\n\n11.2 Participants may also request a physical confirmation letter to be sent to their registered UK postal address. This service is provided free of charge and must be requested within 7 days of purchase.\n\n11.3 Physical confirmation letters are sent via Royal Mail Second Class post. The Company accepts no responsibility for letters that are lost, delayed, or damaged in the post. The ticket reference number contained in the confirmation email remains the definitive proof of entry.\n\n11.4 In the event of any discrepancy between a physical letter and the electronic ticket record, the electronic record held by Golden Dream Draw shall be deemed authoritative."
+      },
+      {
+        "number": "12.",
+        "title": "CONDUCT AND DISQUALIFICATION",
+        "body": "12.1 The Company reserves the right to disqualify any participant who:\nProvides false, inaccurate, or misleading information at the point of entry;\nIs found to have entered on behalf of another person without authorisation;\nAttempts to manipulate the Draw, the selection process, or the operation of any Competition;\nUses automated or mechanical entry methods;\nActs in a manner that is abusive, threatening, or offensive towards Company staff or other participants;\nBreaches any provision of these Terms and Conditions.\n\n12.2 In the event of disqualification, no refund will be issued."
+      },
+      {
+        "number": "13.",
+        "title": "FREE POSTAL ENTRY",
+        "body": "13.1 In order to ensure that Golden Dream Draw competitions remain compliant with applicable UK law, a free method of entry is available for every Competition, as follows.\n\n13.2 To submit a free entry by post, the participant must:\nWrite their full name, date of birth, home address (UK addresses only), email address, telephone number, and the name or reference number of the Competition they wish to enter, on a plain piece of paper (minimum A5 size);\nProvide a correct written answer to the Skill Question for that Competition;\nInclude a brief written statement (minimum 25 words) explaining why they would like to win the prize (this constitutes the additional skill element required for a valid free entry);\nPost the completed entry in a stamped envelope to: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nEnsure the entry is received at the above address on or before the Closing Date of the relevant Competition.\n\n13.3 In order for a free postal entry to be deemed valid, ALL of the following conditions must be satisfied:\nThe entry must be handwritten. Printed, typed, or computer-generated entries will not be accepted;\nOnly one free postal entry is permitted per person, per Competition;\nThe envelope must be stamped with a valid Royal Mail postage stamp. Franked mail and freepost envelopes will not be accepted;\nThe entry must be received (not merely postmarked) by the Closing Date;\nThe correct answer to the Skill Question must be provided and must match the answer published by the Company;\nThe written statement (condition 13.2.3) must be a minimum of 25 words and must be original and written by the participant themselves;\nThe participant must satisfy all general eligibility requirements set out in Section 4 of these Terms.\n\n13.4 Free postal entries that fail to meet any of the above conditions will be deemed invalid and will not be entered into the Draw.\n\n13.5 Free postal entries carry the same weight and chance of winning as paid entries and will be entered into the same Draw.\n\n13.6 The Company does not accept responsibility for postal entries lost, delayed, or damaged in the mail. It is strongly recommended that participants retain proof of postage.\n\n13.7 The cost of postage for free postal entries is the sole responsibility of the participant."
+      },
+      {
+        "number": "14.",
+        "title": "DATA PROTECTION AND PRIVACY",
+        "body": "14.1 Golden Dream Draw is committed to protecting your personal data. We process personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.\n\n14.2 Personal data collected at the point of entry will be used for the following purposes:\nTo process your entry and, if applicable, to contact you if you are selected as a winner;\nTo send you competition-related correspondence;\nTo comply with our legal obligations;\nTo prevent fraud and ensure the integrity of our competitions.\n\n14.3 We will not sell, rent, or share your personal data with any third party for marketing purposes without your explicit consent.\n\n14.4 You have the right to access, correct, or request deletion of your personal data at any time. To exercise these rights, contact us at info@goldendreamdraw.com.\n\n14.5 Full details of how we handle your personal data are set out in our Privacy Policy, available on our website."
+      },
+      {
+        "number": "15.",
+        "title": "INTELLECTUAL PROPERTY",
+        "body": "15.1 All content on the Golden Dream Draw website, including text, images, logos, and competition materials, is the property of Golden Dream Draw and is protected by applicable intellectual property laws.\n\n15.2 Participants may not reproduce, distribute, or make commercial use of any content from our website without prior written consent."
+      },
+      {
+        "number": "16.",
+        "title": "LIMITATION OF LIABILITY",
+        "body": "16.1 The Company shall not be liable for any loss or damage suffered by a participant arising from:\nTechnical failures, server errors, or interruptions to our website or systems;\nEntries that are lost, delayed, or corrupted in transit (whether electronic or postal);\nThird-party delivery failures once a prize has been dispatched;\nAny circumstances outside the Company's reasonable control.\n\n16.2 Nothing in these Terms shall limit or exclude our liability for death or personal injury caused by our negligence, or for fraud or fraudulent misrepresentation.\n\n16.3 To the fullest extent permitted by law, the Company's total liability to any participant shall not exceed the price paid by that participant for their ticket(s) in the relevant Competition."
+      },
+      {
+        "number": "17.",
+        "title": "AMENDMENTS TO TERMS AND CONDITIONS",
+        "body": "17.1 The Company reserves the right to amend these Terms and Conditions at any time. Any changes will be published on our website with a revised effective date.\n\n17.2 Continued participation in a Competition after changes have been published constitutes acceptance of the revised Terms.\n\n17.3 In the event of a conflict between these general Terms and any specific Competition rules, the specific Competition rules shall prevail."
+      },
+      {
+        "number": "18.",
+        "title": "COMPLAINTS PROCEDURE",
+        "body": "18.1 If you have a complaint regarding any aspect of a Competition or our services, please contact us in the first instance at: info@goldendreamdraw.com.\n\n18.2 We aim to acknowledge all complaints within 5 working days and to provide a full response within 21 working days.\n\n18.3 If you are not satisfied with our response, you may seek further resolution through Citizens Advice (www.citizensadvice.org.uk) or, where appropriate, through the courts of England and Wales."
+      },
+      {
+        "number": "19.",
+        "title": "GOVERNING LAW AND JURISDICTION",
+        "body": "19.1 These Terms and Conditions are governed by and construed in accordance with the laws of England and Wales.\n\n19.2 Any dispute arising from or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of England and Wales."
+      },
+      {
+        "number": "20.",
+        "title": "MISCELLANEOUS",
+        "body": "20.1 The Company's decision on all matters relating to a Competition, including the interpretation of these Terms, is final and binding.\n\n20.2 If any provision of these Terms is found to be unlawful, void, or unenforceable, that provision shall be deemed severable and shall not affect the validity and enforceability of the remaining provisions.\n\n20.3 Failure by the Company to enforce any provision of these Terms shall not be construed as a waiver of that provision.\n\n20.4 These Terms constitute the entire agreement between the participant and the Company in relation to each Competition."
+      }
+    ],
+    "footer": "Golden Dream Draw is not regulated by the Gambling Commission. Our competitions are skill-based and are not lotteries."
   }
 }

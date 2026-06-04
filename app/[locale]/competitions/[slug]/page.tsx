@@ -203,7 +203,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
                   {competition.titleEn}
                 </h1>
 
-                <p className="mb-5 md:mb-7 text-[14px] md:text-[15px] leading-relaxed text-ink-soft">
+                <p className="mb-5 md:mb-7 max-w-full text-[14px] md:text-[15px] leading-relaxed text-ink-soft break-words">
                   {competition.descEn}
                 </p>
 
