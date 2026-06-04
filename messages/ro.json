@@ -45,7 +45,8 @@
     "copyright": "© 2026 Golden Dream Draw Ltd. Toate drepturile rezervate. Golden Dream Draw este o platformă de concursuri bazate pe abilități. Nu este joc de noroc. Licențiat și reglementat în Regatul Unit.",
     "sslEncrypted": "Criptat SSL",
     "skillCompetition": "Concurs de abilități",
-    "tagline": "Concursuri bazate pe abilități pentru Marea Britanie. Premii premium, extrageri transparente și câștigători reali — de fiecare dată."
+    "tagline": "Concursuri bazate pe abilități pentru Marea Britanie. Premii premium, extrageri transparente și câștigători reali — de fiecare dată.",
+    "securePayments": "Plăți sigure prin Stripe"
   },
   "hero": {
     "titleLine1": "Premiul tău de vis este",

@@ -47,7 +47,8 @@
     "copyright": "© 2026 Golden Dream Draw Ltd. All rights reserved. Golden Dream Draw is a skill-based competition platform. Not gambling. Licensed and regulated in the United Kingdom.",
     "sslEncrypted": "SSL Encrypted",
     "skillCompetition": "Skill Competition",
-    "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time."
+    "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time.",
+    "securePayments": "Secure payments by Stripe"
   },
   "hero": {
     "titleLine1": "Your dream prize is",

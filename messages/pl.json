@@ -47,7 +47,8 @@
     "copyright": "© 2026 Golden Dream Draw Ltd. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard. Licencjonowane i regulowane w Wielkiej Brytanii.",
     "sslEncrypted": "Szyfrowane SSL",
     "skillCompetition": "Konkurs umiejętności",
-    "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy — za każdym razem."
+    "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy — za każdym razem.",
+    "securePayments": "Bezpieczne płatności przez Stripe"
   },
   "hero": {
     "titleLine1": "Twoja wymarzona nagroda jest",
