@@ -205,13 +205,28 @@ async function main() {
   }
   console.log(`  ✓ ${compsData.length} ACTIVE competitions`);
 
-  // ── Tickets + Entries + Winners (5 sample winners) ──────────
+  // ── Tickets + Entries + Winners (2 male winners with photos) ──
   const winnerData = [
-    { email: "sarah.m@example.com", slug: "iphone-16-pro-max", ticketNumber: 127, date: new Date("2026-05-12") },
-    { email: "james.k@example.com", slug: "5000-cash-prize", ticketNumber: 385, date: new Date("2026-05-08") },
-    { email: "amina.r@example.com", slug: "cartier-love-bracelet", ticketNumber: 42, date: new Date("2026-05-05") },
-    { email: "thomas.p@example.com", slug: "rolex-datejust-36", ticketNumber: 201, date: new Date("2026-05-01") },
-    { email: "emma.l@example.com", slug: "gucci-gg-marmont-bag", ticketNumber: 55, date: new Date("2026-04-28") },
+    {
+      email: "thomas.p@example.com",
+      name: "Thomas Price",
+      slug: "iphone-16-pro-max",
+      ticketNumber: 127,
+      date: new Date("2026-05-28"),
+      claimed: true,
+      claimedAt: new Date("2026-05-29"),
+      photoUrl: "/winnerG.jpeg",
+    },
+    {
+      email: "james.k@example.com",
+      name: "James Kowalski",
+      slug: "5000-cash-prize",
+      ticketNumber: 385,
+      date: new Date("2026-05-25"),
+      claimed: true,
+      claimedAt: new Date("2026-05-26"),
+      photoUrl: "/winnerc.png",
+    },
   ];
 
   for (const w of winnerData) {
@@ -244,6 +259,9 @@ async function main() {
         entryId: entry.id,
         notified: true,
         notifiedAt: w.date,
+        claimed: w.claimed,
+        claimedAt: w.claimedAt,
+        photoUrl: w.photoUrl,
         createdAt: w.date,
       },
     });

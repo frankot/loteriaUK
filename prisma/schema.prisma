@@ -148,6 +148,7 @@ model Winner {
   claimed        Boolean    @default(false)
   notifiedAt     DateTime?
   claimedAt      DateTime?
+  photoUrl       String?
   createdAt      DateTime   @default(now())
 
   @@index([competitionId])

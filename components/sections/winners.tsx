@@ -58,12 +58,20 @@ export default async function Winners() {
               >
                 {/* Avatar with green dot */}
                 <div className="relative mx-auto mb-3 md:mb-4 inline-block">
-                  <div
-                    className="flex h-[56px] w-[56px] md:h-[72px] md:w-[72px] items-center justify-center rounded-full text-lg md:text-xl font-bold text-white"
-                    style={{ backgroundColor: avatarColor(w.user.name || "?") }}
-                  >
-                    {initials(w.user.name || t("unknownName"))}
-                  </div>
+                  {w.photoUrl ? (
+                    <img
+                      src={w.photoUrl}
+                      alt={w.user.name || ""}
+                      className="h-[56px] w-[56px] md:h-[72px] md:w-[72px] rounded-full object-cover"
+                    />
+                  ) : (
+                    <div
+                      className="flex h-[56px] w-[56px] md:h-[72px] md:w-[72px] items-center justify-center rounded-full text-lg md:text-xl font-bold text-white"
+                      style={{ backgroundColor: avatarColor(w.user.name || "?") }}
+                    >
+                      {initials(w.user.name || t("unknownName"))}
+                    </div>
+                  )}
                   <span className="absolute right-0.5 bottom-0.5 block h-3 w-3 md:h-3.5 md:w-3.5 rounded-full border-2 border-white bg-success" />
                 </div>
 

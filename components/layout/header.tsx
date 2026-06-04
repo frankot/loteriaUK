@@ -48,9 +48,9 @@ export default function Header({ isLoggedIn, userEmail }: HeaderProps) {
             <Image
               src="/logo2.png"
               alt="Golden Dream Draw"
-              width={140}
-              height={32}
-              className="h-auto w-[130px] md:w-[180px]"
+              width={300}
+              height={200}
+              className="h-auto pt-5 w-[80px] lg:w-[130px]"
               priority
             />
           </Link>
