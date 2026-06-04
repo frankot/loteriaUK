@@ -329,16 +329,16 @@ export default async function Hero({ locale }: { locale: string }) {
               </Link>
             </div>
 
-            {/* Stats row */}
+            {/* Benefits row */}
             <div className="flex gap-6 sm:gap-8 border-t border-border pt-6 md:pt-8">
               {[
-                ["£2.4M+", t("prizesAwarded")],
-                ["48,000+", t("happyWinners")],
-                ["4.9 ★", t("trustpilot")],
-              ].map(([num, label]) => (
+                { label: t("premiumPrizes"), sub: t("premiumPrizesSub") },
+                { label: t("secureEntries"), sub: t("secureEntriesSub") },
+                { label: t("fairDraws"), sub: t("fairDrawsSub") },
+              ].map(({ label, sub }) => (
                 <div key={label} className="flex flex-col gap-1">
-                  <span className="font-serif text-[22px] sm:text-[24px] md:text-[28px] leading-none font-semibold text-gold-dark">{num}</span>
-                  <span className="text-[11px] md:text-[13px] text-ink-muted">{label}</span>
+                  <span className="font-serif text-[18px] sm:text-[20px] md:text-[22px] leading-none font-semibold text-gold-dark">{label}</span>
+                  <span className="text-[11px] md:text-[13px] text-ink-muted">{sub}</span>
                 </div>
               ))}
             </div>

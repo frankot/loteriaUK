@@ -33,8 +33,8 @@ async function main() {
     { name: "Sarah Mitchell", email: "sarah.m@example.com", address: "12 Oak Lane, London SW1A 1AA", phone: "+447700900001" },
     { name: "James Kowalski", email: "james.k@example.com", address: "45 Park Rd, Manchester M1 2AB", phone: "+447700900002" },
     { name: "Amina Rahman", email: "amina.r@example.com", address: "78 High St, Birmingham B1 1AA", phone: "+447700900003" },
-    { name: "Thomas Price", email: "thomas.p@example.com", address: "3 Queen St, Glasgow G1 1AA", phone: "+447700900004" },
-    { name: "Emma Lewis", email: "emma.l@example.com", address: "22 King Ave, Bristol BS1 1AA", phone: "+447700900005" },
+    { name: "Piotr Gramza", email: "piotr.g@example.com", address: "15 Kościuszki St, London E1 6AN", phone: "+447700900004" },
+    { name: "Tapiwa Tgunda", email: "tapiwa.t@example.com", address: "8 Zimbabwe Rd, London N4 3HQ", phone: "+447700900005" },
   ];
 
   const users: Record<string, string> = {};
@@ -128,27 +128,27 @@ async function main() {
     {
       slug: "iphone-16-pro-max",
       status: CompetitionStatus.ACTIVE,
-      titleEn: "iPhone 16 Pro Max",
-      descEn: "The latest iPhone 16 Pro Max in Desert Titanium with 256GB storage. Features the A18 Pro chip, 48MP camera system, and stunning 6.9-inch Super Retina XDR display with ProMotion.",
+      titleEn: "iPhone 17 Pro Max",
+      descEn: "The all-new iPhone 17 Pro Max in Desert Titanium with 256GB storage. Powered by the A19 Pro chip, 48MP camera system, and a stunning 6.9-inch Super Retina XDR display with ProMotion.",
       pricePounds: "1.99",
       maxTickets: 500,
       drawDate: new Date("2026-06-03T20:00:00Z"),
       prizeImageUrl: "/images/iphone.jpg",
       prizeCategory: "electronics",
-      prizeValue: "1199",
+      prizeValue: "1299",
       ticketsSold: 234,
     },
     {
       slug: "5000-cash-prize",
       status: CompetitionStatus.ACTIVE,
-      titleEn: "£5,000 Cash Prize",
-      descEn: "A straight £5,000 cash prize paid directly to your bank account within 24 hours of winning. No strings attached — spend it however you like.",
+      titleEn: "£500 Cash Prize",
+      descEn: "A straight £500 cash prize paid directly to your bank account within 24 hours of winning. No strings attached — spend it however you like.",
       pricePounds: "1.99",
       maxTickets: 1000,
       drawDate: new Date("2026-06-01T20:00:00Z"),
       prizeImageUrl: "/images/money.jpg",
       prizeCategory: "cash",
-      prizeValue: "5000",
+      prizeValue: "500",
       ticketsSold: 712,
     },
     {
@@ -208,8 +208,8 @@ async function main() {
   // ── Tickets + Entries + Winners (2 male winners with photos) ──
   const winnerData = [
     {
-      email: "thomas.p@example.com",
-      name: "Thomas Price",
+      email: "piotr.g@example.com",
+      name: "Piotr Gramza",
       slug: "iphone-16-pro-max",
       ticketNumber: 127,
       date: new Date("2026-05-28"),
@@ -218,8 +218,8 @@ async function main() {
       photoUrl: "/winnerG.jpeg",
     },
     {
-      email: "james.k@example.com",
-      name: "James Kowalski",
+      email: "tapiwa.t@example.com",
+      name: "Tapiwa Tgunda",
       slug: "5000-cash-prize",
       ticketNumber: 385,
       date: new Date("2026-05-25"),

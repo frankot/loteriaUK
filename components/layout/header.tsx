@@ -42,7 +42,7 @@ export default function Header({ isLoggedIn, userEmail }: HeaderProps) {
   return (
     <>
       <header className="sticky top-0 z-40 bg-cream/90 backdrop-blur-[12px] border-b border-border/50 lg:static lg:z-auto lg:bg-transparent lg:backdrop-blur-none lg:border-0">
-        <div className="mx-auto flex h-[60px] md:h-[72px] max-w-7xl items-center justify-between px-4 md:px-8 lg:px-12">
+        <div className="mx-auto flex z-50 h-[60px] md:h-[72px] max-w-7xl items-center justify-between px-4 md:px-8 lg:px-12">
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center shrink-0">
             <Image
