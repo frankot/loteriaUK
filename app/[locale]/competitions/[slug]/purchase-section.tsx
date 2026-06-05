@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import TicketSelector from "@/components/public/ticket-selector";
 
 interface PurchaseSectionProps {
@@ -18,6 +19,7 @@ export default function PurchaseSection({
   locale,
 }: PurchaseSectionProps) {
   const router = useRouter();
+  const t = useTranslations("competition");
   const [quantity, setQuantity] = useState(1);
 
   const handleBuy = () => {
@@ -30,7 +32,7 @@ export default function PurchaseSection({
       <div className="flex items-center gap-3">
         <span className="h-px flex-1 bg-border" />
         <span className="text-[11px] md:text-xs font-semibold tracking-[2px] text-gold-dark uppercase">
-          Select Tickets
+          {t("selectTickets")}
         </span>
         <span className="h-px flex-1 bg-border" />
       </div>
@@ -48,7 +50,7 @@ export default function PurchaseSection({
         onClick={handleBuy}
         className="w-full rounded-3xl bg-gold px-5 md:px-6 py-3.5 md:py-4 text-[14px] md:text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:translate-y-[-1px] hover:bg-gold-dark hover:shadow-[0_4px_16px_rgba(184,148,58,0.4)]"
       >
-        Buy {quantity} Ticket{quantity > 1 ? "s" : ""} — £{(price * quantity).toFixed(2)}
+        {t("buyTickets")} {quantity} {quantity > 1 ? t("tickets") : t("ticket")} — £{(price * quantity).toFixed(2)}
       </button>
     </div>
   );

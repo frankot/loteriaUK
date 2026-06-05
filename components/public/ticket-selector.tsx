@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Minus, Plus } from "lucide-react";
 import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 
@@ -18,6 +19,7 @@ export default function TicketSelector({
   onChange,
   disabled = false,
 }: TicketSelectorProps) {
+  const t = useTranslations("competition");
   const maxSelectable = Math.min(maxAvailable, MAX_TICKETS_PER_TRANSACTION);
 
   const presets = [5, 10, 20, 50];
@@ -36,12 +38,12 @@ export default function TicketSelector({
     <div className="rounded-xl border border-border bg-white p-4 md:p-5 shadow-card">
       <div className="mb-4 md:mb-5 flex items-center justify-between">
         <div>
-          <div className="text-sm font-medium text-ink">Choose your tickets</div>
-          <div className="text-xs text-ink-muted">£{price.toFixed(2)} each</div>
+          <div className="text-sm font-medium text-ink">{t("chooseTickets")}</div>
+          <div className="text-xs text-ink-muted">£{price.toFixed(2)} {t("each")}</div>
         </div>
         <div className="text-right">
           <div className="font-serif text-xl md:text-2xl font-bold text-gold-dark">£{total.toFixed(2)}</div>
-          <div className="text-xs text-ink-muted">{quantity} ticket{quantity > 1 ? "s" : ""}</div>
+          <div className="text-xs text-ink-muted">{quantity} {quantity > 1 ? t("tickets") : t("ticket")}</div>
         </div>
       </div>
 
@@ -72,7 +74,7 @@ export default function TicketSelector({
                   isActive
                     ? "mt-0.5 text-[10px] font-medium text-white/70"
                     : "mt-0.5 text-[10px] font-medium text-ink-muted"
-                }>tickets</span>
+                }>{n > 1 ? t("tickets") : t("ticket")}</span>
                 <span className={
                   isActive
                     ? "mt-1 text-[11px] font-semibold text-white/90"
@@ -96,7 +98,7 @@ export default function TicketSelector({
         <div className="flex min-w-[72px] md:min-w-[80px] items-center justify-center gap-1">
           <span className="font-serif text-3xl md:text-4xl font-bold text-ink tabular-nums">{quantity}</span>
           <span className="text-[11px] md:text-xs text-ink-muted pt-2">
-            ticket{quantity > 1 ? "s" : ""}
+            {quantity > 1 ? t("tickets") : t("ticket")}
           </span>
         </div>
 
@@ -111,7 +113,7 @@ export default function TicketSelector({
 
       {maxAvailable < MAX_TICKETS_PER_TRANSACTION && (
         <p className="mt-3 md:mt-4 text-center text-[11px] md:text-xs text-ink-muted">
-          Only {maxAvailable} ticket{maxAvailable !== 1 ? "s" : ""} remaining
+          {t("remaining", { count: maxAvailable })}
         </p>
       )}
     </div>

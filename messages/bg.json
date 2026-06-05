@@ -222,7 +222,20 @@
     "prizeClaimed": "Наградата е получена",
     "pendingClaim": "Предстои получаване",
     "ticketsTotal": "Билети",
-    "drawnLabel": "Изтеглен"
+    "drawnLabel": "Изтеглен",
+    "rrp": "Цена",
+    "soldOutDesc": "Този конкурс приключи. Проверете новите награди.",
+    "drawPassedDesc": "Този конкурс вече не приема участия.",
+    "catElectronics": "Електроника",
+    "catJewellery": "Бижута",
+    "catFashion": "Мода",
+    "catCash": "Пари",
+    "chooseTickets": "Изберете билети",
+    "ticket": "билет",
+    "tickets": "билета",
+    "each": "бр.",
+    "remaining": "Остават само {count}",
+    "selectTickets": "Изберете билети"
   },
   "profile": {
     "title": "Моят профил",

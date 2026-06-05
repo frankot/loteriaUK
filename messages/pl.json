@@ -236,7 +236,20 @@
     "prizeClaimed": "Nagroda odebrana",
     "pendingClaim": "Oczekuje na odbiór",
     "ticketsTotal": "Bilety",
-    "drawnLabel": "Wylosowano"
+    "drawnLabel": "Wylosowano",
+    "rrp": "Cena",
+    "soldOutDesc": "Ten konkurs się zakończył. Sprawdź nowe nagrody.",
+    "drawPassedDesc": "Ten konkurs nie przyjmuje już zgłoszeń.",
+    "catElectronics": "Elektronika",
+    "catJewellery": "Biżuteria",
+    "catFashion": "Moda",
+    "catCash": "Gotówka",
+    "chooseTickets": "Wybierz bilety",
+    "ticket": "bilet",
+    "tickets": "biletów",
+    "each": "szt.",
+    "remaining": "Pozostało tylko {count}",
+    "selectTickets": "Wybierz bilety"
   },
   "profile": {
     "title": "Mój profil",

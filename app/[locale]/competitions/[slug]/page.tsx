@@ -10,12 +10,25 @@ type Props = {
   params: Promise<{ locale: string; slug: string }>;
 };
 
-const categoryLabels: Record<string, string> = {
-  electronics: "Electronics",
-  jewellery: "Jewellery",
-  fashion: "Fashion",
-  cash: "Cash",
-};
+/** Pick the locale-specific field from a competition record */
+function localeField<T extends string | null>(
+  en: T,
+  pl: T | null,
+  ro: T | null,
+  bg: T | null,
+  locale: string
+): T {
+  switch (locale) {
+    case "pl":
+      return (pl ?? en) as T;
+    case "ro":
+      return (ro ?? en) as T;
+    case "bg":
+      return (bg ?? en) as T;
+    default:
+      return en;
+  }
+}
 
 export default async function CompetitionDetailPage({ params }: Props) {
   const { locale, slug } = await params;
@@ -25,17 +38,6 @@ export default async function CompetitionDetailPage({ params }: Props) {
   const competition = await prisma.competition.findUnique({
     where: { slug },
     include: {
-      question: {
-        select: {
-          id: true,
-          questionEn: true,
-          optionAEn: true,
-          optionBEn: true,
-          optionCEn: true,
-          optionDEn: true,
-          correctOption: true,
-        },
-      },
       winners: {
         include: {
           user: {
@@ -57,12 +59,24 @@ export default async function CompetitionDetailPage({ params }: Props) {
   const left = competition.maxTickets - competition.ticketsSold;
   const soldOut = left <= 0;
   const drawPast = competition.drawDate < new Date();
-  const drawDateFormatted = competition.drawDate.toLocaleDateString("en-GB", {
+
+  // Locale-aware fields
+  const title = localeField(competition.titleEn, competition.titlePl, competition.titleRo, competition.titleBg, locale);
+  const desc = localeField(competition.descEn, competition.descPl, competition.descRo, competition.descBg, locale);
+
+  const drawDateFormatted = competition.drawDate.toLocaleDateString(locale === "pl" ? "pl-PL" : locale === "bg" ? "bg-BG" : locale === "ro" ? "ro-RO" : "en-GB", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
-  const category = categoryLabels[competition.prizeCategory || ""] || competition.prizeCategory || "Prize";
+
+  const categoryLabelMap: Record<string, string> = {
+    electronics: t("catElectronics"),
+    jewellery: t("catJewellery"),
+    fashion: t("catFashion"),
+    cash: t("catCash"),
+  };
+  const category = categoryLabelMap[competition.prizeCategory || ""] || competition.prizeCategory || t("prizeValue");
 
   const categoryBadgeColors: Record<string, string> = {
     electronics: "bg-badge-electronics",
@@ -81,7 +95,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
             {t("competitions")}
           </a>
           <span className="mx-2">/</span>
-          <span className="text-ink">{competition.titleEn}</span>
+          <span className="text-ink">{title}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-14">
@@ -107,7 +121,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
 
               <Image
                 src={competition.prizeImageUrl || "/images/rolex.png"}
-                alt={competition.titleEn}
+                alt={title}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
                 className="object-contain p-6 md:p-8 lg:p-10"
@@ -155,13 +169,13 @@ export default async function CompetitionDetailPage({ params }: Props) {
                 <div className="mb-3 md:mb-4 flex items-center gap-3">
                   {competition.prizeValue && (
                     <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
-                      RRP £{Number(competition.prizeValue).toLocaleString()}
+                      {t("rrp")} £{Number(competition.prizeValue).toLocaleString()}
                     </span>
                   )}
                 </div>
 
                 <h1 className="font-serif mb-3 md:mb-4 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[1.1] font-semibold tracking-tight">
-                  {competition.titleEn}
+                  {title}
                 </h1>
 
                 {/* Quick info chips */}
@@ -195,17 +209,17 @@ export default async function CompetitionDetailPage({ params }: Props) {
                 <div className="mb-3 md:mb-4 flex items-center gap-3">
                   {competition.prizeValue && (
                     <span className="inline-flex items-center rounded-full bg-gold-pale px-3 py-1 text-xs font-semibold text-gold-dark">
-                      RRP £{Number(competition.prizeValue).toLocaleString()}
+                      {t("rrp")} £{Number(competition.prizeValue).toLocaleString()}
                     </span>
                   )}
                 </div>
 
                 <h1 className="font-serif mb-3 md:mb-4 text-[28px] sm:text-[32px] md:text-[36px] lg:text-[40px] leading-[1.1] font-semibold tracking-tight">
-                  {competition.titleEn}
+                  {title}
                 </h1>
 
                 <p className="mb-5 md:mb-7 max-w-full text-[14px] md:text-[15px] leading-relaxed text-ink-soft break-words">
-                  {competition.descEn}
+                  {desc}
                 </p>
 
                 {/* Quick info chips */}
@@ -240,39 +254,23 @@ export default async function CompetitionDetailPage({ params }: Props) {
                     locale={locale}
                   />
                 ) : (
-                  <SoldOutBanner soldOut={soldOut} allSoldOut={t("allSoldOut")} drawPassed={t("drawPassed")} />
+                  <div className="rounded-2xl border border-border bg-white p-6 md:p-8 text-center shadow-card">
+                    <div className="mx-auto mb-4 flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-urgent/10">
+                      <span className="text-xl md:text-2xl">{soldOut ? "😢" : "⏰"}</span>
+                    </div>
+                    <p className="text-lg md:text-xl font-semibold text-ink">
+                      {soldOut ? t("allSoldOut") : t("drawPassed")}
+                    </p>
+                    <p className="mt-2 text-sm text-ink-muted">
+                      {soldOut ? t("soldOutDesc") : t("drawPassedDesc")}
+                    </p>
+                  </div>
                 )}
               </>
             )}
           </div>
         </div>
       </div>
-    </div>
-  );
-}
-
-function SoldOutBanner({
-  soldOut,
-  allSoldOut,
-  drawPassed,
-}: {
-  soldOut: boolean;
-  allSoldOut: string;
-  drawPassed: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-border bg-white p-6 md:p-8 text-center shadow-card">
-      <div className="mx-auto mb-4 flex h-14 w-14 md:h-16 md:w-16 items-center justify-center rounded-full bg-urgent/10">
-        <span className="text-xl md:text-2xl">{soldOut ? "😢" : "⏰"}</span>
-      </div>
-      <p className="text-lg md:text-xl font-semibold text-ink">
-        {soldOut ? allSoldOut : drawPassed}
-      </p>
-      <p className="mt-2 text-sm text-ink-muted">
-        {soldOut
-          ? "This competition has ended. Check back for new prizes."
-          : "This competition is no longer accepting entries."}
-      </p>
     </div>
   );
 }

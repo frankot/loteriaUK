@@ -236,7 +236,20 @@
     "prizeClaimed": "Prize Claimed",
     "pendingClaim": "Pending Claim",
     "ticketsTotal": "Tickets",
-    "drawnLabel": "Drawn"
+    "drawnLabel": "Drawn",
+    "rrp": "RRP",
+    "soldOutDesc": "This competition has ended. Check back for new prizes.",
+    "drawPassedDesc": "This competition is no longer accepting entries.",
+    "catElectronics": "Electronics",
+    "catJewellery": "Jewellery",
+    "catFashion": "Fashion",
+    "catCash": "Cash",
+    "chooseTickets": "Choose your tickets",
+    "ticket": "ticket",
+    "tickets": "tickets",
+    "each": "each",
+    "remaining": "Only {count} remaining",
+    "selectTickets": "Select Tickets"
   },
   "profile": {
     "title": "My Profile",

@@ -222,7 +222,20 @@
     "prizeClaimed": "Premiu revendicat",
     "pendingClaim": "În așteptare",
     "ticketsTotal": "Bilete",
-    "drawnLabel": "Extras"
+    "drawnLabel": "Extras",
+    "rrp": "Preț",
+    "soldOutDesc": "Acest concurs s-a încheiat. Verifică noile premii.",
+    "drawPassedDesc": "Acest concurs nu mai acceptă participări.",
+    "catElectronics": "Electronice",
+    "catJewellery": "Bijuterii",
+    "catFashion": "Modă",
+    "catCash": "Bani",
+    "chooseTickets": "Alege biletele",
+    "ticket": "bilet",
+    "tickets": "bilete",
+    "each": "buc.",
+    "remaining": "Au mai rămas doar {count}",
+    "selectTickets": "Selectează bilete"
   },
   "profile": {
     "title": "Profilul meu",
