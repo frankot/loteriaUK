@@ -18,4 +18,11 @@ export const FROM_AUTH =
 export const FROM_WINNERS =
   process.env.RESEND_FROM_WINNERS || "Golden Dream Draw <onboarding@resend.dev>";
 
+/**
+ * Admin notification email address.
+ * Set ADMIN_NOTIFICATION_EMAIL in .env.local (e.g. info@goldendreamdraw.com).
+ */
+export const ADMIN_NOTIFICATION_EMAIL =
+  process.env.ADMIN_NOTIFICATION_EMAIL || "";
+
 export default resend;

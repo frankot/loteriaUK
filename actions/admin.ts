@@ -215,6 +215,51 @@ export async function deleteCompetition(id: string): Promise<AdminResult> {
   }
 }
 
+/**
+ * Permanently delete a cancelled competition and all related data
+ * (entries, tickets, winners). Only allowed for CANCELLED status.
+ */
+export async function hardDeleteCompetition(id: string): Promise<AdminResult> {
+  try {
+    await requireAdmin();
+
+    // Verify it's cancelled
+    const comp = await prisma.competition.findUnique({
+      where: { id },
+      select: { status: true },
+    });
+
+    if (!comp) {
+      return { error: "Competition not found" };
+    }
+
+    if (comp.status !== "CANCELLED") {
+      return { error: "Only cancelled competitions can be permanently deleted" };
+    }
+
+    // Cascade delete: winners → entries → tickets → competition
+    await prisma.$transaction(async (tx) => {
+      // Delete winners
+      await tx.winner.deleteMany({ where: { competitionId: id } });
+      // Delete entries
+      await tx.entry.deleteMany({ where: { competitionId: id } });
+      // Delete tickets
+      await tx.ticket.deleteMany({ where: { competitionId: id } });
+      // Delete competition
+      await tx.competition.delete({ where: { id } });
+    });
+
+    revalidatePath("/[locale]/admin/competitions", "page");
+    return { success: true };
+  } catch (error) {
+    if (error instanceof Error && error.message === "Unauthorized") {
+      return { error: "Unauthorized" };
+    }
+    console.error("hardDeleteCompetition error:", error);
+    return { error: "Failed to permanently delete competition" };
+  }
+}
+
 // ═══════════════════════════════════════════════════════════════
 // Featured toggle (admin list page quick action)
 // ═══════════════════════════════════════════════════════════════

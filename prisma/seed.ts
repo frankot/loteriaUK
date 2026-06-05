@@ -1,7 +1,17 @@
 import { PrismaClient, CompetitionStatus, EntryType, TicketStatus } from "@prisma/client";
-import { PrismaNeon } from "@prisma/adapter-neon";
+import { PrismaPg } from "@prisma/adapter-pg";
 
-process.loadEnvFile(".env.local");
+// Env loaded by prisma.config.ts — no need for loadEnvFile here
+
+process.on("uncaughtException", (e) => {
+  console.error("UNCAUGHT:", e);
+  process.exit(1);
+});
+process.on("unhandledRejection", (e) => {
+  console.error("UNHANDLED:", e);
+  process.exit(1);
+});
+
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
@@ -9,7 +19,7 @@ if (!connectionString) {
   process.exit(1);
 }
 
-const adapter = new PrismaNeon({ connectionString });
+const adapter = new PrismaPg(connectionString);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -28,20 +38,17 @@ async function main() {
   });
   console.log(`  ✓ Admin user: ${admin.email}`);
 
-  // ── Sample users for winners ────────────────────────────────
-  const sampleUsers = [
-    { name: "Sarah Mitchell", email: "sarah.m@example.com", address: "12 Oak Lane, London SW1A 1AA", phone: "+447700900001" },
-    { name: "James Kowalski", email: "james.k@example.com", address: "45 Park Rd, Manchester M1 2AB", phone: "+447700900002" },
-    { name: "Amina Rahman", email: "amina.r@example.com", address: "78 High St, Birmingham B1 1AA", phone: "+447700900003" },
+  // ── Winner users (only the two we need) ──────────────────────
+  const winnerUsers = [
     { name: "Piotr Gramza", email: "piotr.g@example.com", address: "15 Kościuszki St, London E1 6AN", phone: "+447700900004" },
     { name: "Tapiwa Tgunda", email: "tapiwa.t@example.com", address: "8 Zimbabwe Rd, London N4 3HQ", phone: "+447700900005" },
   ];
 
   const users: Record<string, string> = {};
-  for (const u of sampleUsers) {
+  for (const u of winnerUsers) {
     const user = await prisma.user.upsert({
       where: { email: u.email },
-      update: { name: u.name, address: u.address, phone: u.phone },
+      update: {},
       create: {
         email: u.email,
         name: u.name,
@@ -54,9 +61,9 @@ async function main() {
     });
     users[u.email] = user.id;
   }
-  console.log(`  ✓ ${Object.keys(users).length} sample users`);
+  console.log(`  ✓ ${Object.keys(users).length} winner users`);
 
-  // ── Skill questions (always re-seed) ────────────────────────
+  // ── Skill questions (localization) ──────────────────────────
   await prisma.skillQuestion.deleteMany();
   const questions = [
     { en: "How many days are in a week?", pl: "Ile dni ma tydzień?", ro: "Câte zile are o săptămână?", bg: "Колко дни има в седмицата?", aEn: "5", aPl: "5", aRo: "5", aBg: "5", bEn: "7", bPl: "7", bRo: "7", bBg: "7", cEn: "9", cPl: "9", cRo: "9", cBg: "9", dEn: "12", dPl: "12", dRo: "12", dBg: "12", correct: "B" },
@@ -75,10 +82,10 @@ async function main() {
     { en: "What is the hardest natural substance?", pl: "Jaka jest najtwardsza naturalna substancja?", ro: "Care este cea mai dură substanță naturală?", bg: "Кое е най-твърдото естествено вещество?", aEn: "Gold", aPl: "Złoto", aRo: "Aur", aBg: "Злато", bEn: "Iron", bPl: "Żelazo", bRo: "Fier", bBg: "Желязо", cEn: "Diamond", cPl: "Diament", cRo: "Diamant", cBg: "Диамант", dEn: "Platinum", dPl: "Platyna", dRo: "Platină", dBg: "Платина", correct: "C" },
     { en: "Which river is the longest in the world?", pl: "Która rzeka jest najdłuższa na świecie?", ro: "Care este cel mai lung fluviu din lume?", bg: "Коя река е най-дългата в света?", aEn: "Amazon", aPl: "Amazonka", aRo: "Amazon", aBg: "Амазонка", bEn: "Nile", bPl: "Nil", bRo: "Nil", bBg: "Нил", cEn: "Mississippi", cPl: "Missisipi", cRo: "Mississippi", cBg: "Мисисипи", dEn: "Yangtze", dPl: "Jangcy", dRo: "Yangtze", dBg: "Яндзъ", correct: "B" },
     { en: "How many sides does a hexagon have?", pl: "Ile boków ma sześciokąt?", ro: "Câte laturi are un hexagon?", bg: "Колко страни има шестоъгълникът?", aEn: "5", aPl: "5", aRo: "5", aBg: "5", bEn: "6", bPl: "6", bRo: "6", bBg: "6", cEn: "7", cPl: "7", cRo: "7", cBg: "7", dEn: "8", dPl: "8", dRo: "8", dBg: "8", correct: "B" },
-    { en: "What is the main ingredient in guacamole?", pl: "Jaki jest główny składnik guacamole?", ro: "Care este ingredientul principal în guacamole?", bg: "Каква е основната съставка на гуакамолето?", aEn: "Tomato", aPl: "Pomidor", aRo: "Roșie", aBg: "Домат", bEn: "Avocado", bPl: "Awokado", bRo: "Avocado", bBg: "Авокадо", cEn: "Pepper", cPl: "Papryka", cRo: "Ardei", cBg: "Чушка", dEn: "Onion", dPl: "Cebula", dRo: "Ceapă", dBg: "Лук", correct: "B" },
+    { en: "What is the main ingredient in guacamole?", pl: "Jaki jest główny składnik guacamole?", ro: "Care este ingredientul principal în guacamole?", bg: "Каква е основната съставка на гуакамолето?", aEn: "Tomato", aPl: "Pomidor", aRo: "Roșie", aBg: "Домат", bEn: "Avocado", bPl: "Awokado", bRo: "Avocado", bBg: "Авокадо", cEn: "Pepper", cPl: "Papryka", cRo: "Ardei", bBg: "Чушка", dEn: "Onion", dPl: "Cebula", dRo: "Ceapă", dBg: "Лук", correct: "B" },
     { en: "How many continents are there?", pl: "Ile jest kontynentów?", ro: "Câte continente sunt?", bg: "Колко континента има?", aEn: "5", aPl: "5", aRo: "5", aBg: "5", bEn: "6", bPl: "6", bRo: "6", bBg: "6", cEn: "7", cPl: "7", cRo: "7", cBg: "7", dEn: "8", dPl: "8", dRo: "8", dBg: "8", correct: "C" },
     { en: "What is the currency of Japan?", pl: "Jaka jest waluta Japonii?", ro: "Care este moneda Japoniei?", bg: "Коя е валутата на Япония?", aEn: "Yuan", aPl: "Yuan", aRo: "Yuan", aBg: "Юан", bEn: "Won", bPl: "Won", bRo: "Won", bBg: "Уон", cEn: "Yen", cPl: "Jen", cRo: "Yen", cBg: "Йена", dEn: "Ringgit", dPl: "Ringgit", dRo: "Ringgit", dBg: "Рингит", correct: "C" },
-    { en: "Which planet is closest to the Sun?", pl: "Która planeta jest najbliżej Słońca?", ro: "Care planetă este cea mai apropiată de Soare?", bg: "Коя планета е най-близо до Слънцето?", aEn: "Venus", aPl: "Wenus", aRo: "Venus", aBg: "Венера", bEn: "Earth", bPl: "Ziemia", bRo: "Pământ", bBg: "Земя", cEn: "Mercury", cPl: "Merkury", cRo: "Mercur", cBg: "Меркурий", dEn: "Mars", dPl: "Mars", dRo: "Marte", dBg: "Марс", correct: "C" },
+    { en: "Which planet is closest to the Sun?", pl: "Która planeta jest najbliżej Słońca?", ro: "Care planetă este cea mai apropiată de Soare?", bg: "Коя планета е най-близо до Слънцето?", aEn: "Venus", aPl: "Wenus", aRo: "Venus", aBg: "Венера", bEn: "Earth", bPl: "Ziemia", bRo: "Pământ", bBg: "Земя", cEn: "Mercury", cPl: "Merkury", cRo: "Mercur", bBg: "Меркурий", dEn: "Mars", dPl: "Mars", dRo: "Marte", dBg: "Марс", correct: "C" },
   ];
 
   for (const q of questions) {
@@ -110,89 +117,59 @@ async function main() {
   }
   console.log(`  ✓ ${questions.length} skill questions created (EN + PL + RO + BG)`);
 
-  // ── 6 ACTIVE competitions (matches design reference) ────────
+  // ── Competitions (all with ticketsSold: 0) ───────────────────
   const compsData = [
     {
       slug: "cartier-love-bracelet",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "Cartier Love Bracelet",
       descEn: "The legendary Cartier Love Bracelet in 18K rose gold, size 17. A timeless symbol of devotion and luxury, featuring the iconic screw motif and included screwdriver. Handcrafted in Cartier's workshops.",
-      pricePounds: "1.99",
-      maxTickets: 400,
-      drawDate: new Date("2026-05-28T20:00:00Z"),
       prizeImageUrl: "/images/cartier.avif",
       prizeCategory: "jewellery",
       prizeValue: "6900",
-      ticketsSold: 387,
     },
     {
       slug: "iphone-16-pro-max",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "iPhone 17 Pro Max",
       descEn: "The all-new iPhone 17 Pro Max in Desert Titanium with 256GB storage. Powered by the A19 Pro chip, 48MP camera system, and a stunning 6.9-inch Super Retina XDR display with ProMotion.",
-      pricePounds: "1.99",
-      maxTickets: 500,
-      drawDate: new Date("2026-06-03T20:00:00Z"),
       prizeImageUrl: "/images/iphone.jpg",
       prizeCategory: "electronics",
       prizeValue: "1299",
-      ticketsSold: 234,
     },
     {
       slug: "5000-cash-prize",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "£500 Cash Prize",
       descEn: "A straight £500 cash prize paid directly to your bank account within 24 hours of winning. No strings attached — spend it however you like.",
-      pricePounds: "1.99",
-      maxTickets: 1000,
-      drawDate: new Date("2026-06-01T20:00:00Z"),
       prizeImageUrl: "/images/money.jpg",
       prizeCategory: "cash",
       prizeValue: "500",
-      ticketsSold: 712,
     },
     {
       slug: "gucci-gg-marmont-bag",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "Gucci GG Marmont Bag",
       descEn: "The iconic Gucci GG Marmont matelassé leather shoulder bag in black. Features the signature double G hardware, sliding chain strap, and suede-like microfiber lining.",
-      pricePounds: "1.99",
-      maxTickets: 300,
-      drawDate: new Date("2026-06-10T20:00:00Z"),
       prizeImageUrl: "/images/gucci.jpg",
       prizeCategory: "fashion",
       prizeValue: "1650",
-      ticketsSold: 89,
     },
     {
       slug: "sony-wh-1000xm6",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "Sony WH-1000XM6",
       descEn: "The Sony WH-1000XM6 wireless noise-cancelling headphones — the gold standard in audio. Industry-leading noise cancellation, 40-hour battery life, and crystal-clear hands-free calling.",
-      pricePounds: "1.99",
-      maxTickets: 250,
-      drawDate: new Date("2026-06-05T20:00:00Z"),
       prizeImageUrl: "/images/sony.webp",
       prizeCategory: "electronics",
       prizeValue: "379",
-      ticketsSold: 156,
     },
     {
       slug: "rolex-datejust-36",
-      status: CompetitionStatus.ACTIVE,
       titleEn: "Rolex Datejust 36",
       descEn: "The iconic Rolex Datejust 36 in Oystersteel and white gold. Features a stunning blue dial, fluted bezel, and the legendary Rolex calibre 3235 movement. A timeless classic.",
-      pricePounds: "1.99",
-      maxTickets: 500,
-      drawDate: new Date("2026-05-30T20:00:00Z"),
       prizeImageUrl: "/images/rolex.png",
       prizeCategory: "jewellery",
       prizeValue: "9500",
-      ticketsSold: 428,
     },
   ];
 
-  // Delete old entries/tickets/winners/comps for clean slate
+  // Clean slate
   await prisma.winner.deleteMany();
   await prisma.entry.deleteMany();
   await prisma.ticket.deleteMany();
@@ -200,12 +177,26 @@ async function main() {
 
   const competitionIds: string[] = [];
   for (const c of compsData) {
-    const comp = await prisma.competition.create({ data: c });
+    const comp = await prisma.competition.create({
+      data: {
+        slug: c.slug,
+        status: CompetitionStatus.ACTIVE,
+        titleEn: c.titleEn,
+        descEn: c.descEn,
+        pricePounds: "1.99",
+        maxTickets: 400,
+        drawDate: new Date("2026-06-28T20:00:00Z"),
+        prizeImageUrl: c.prizeImageUrl,
+        prizeCategory: c.prizeCategory,
+        prizeValue: c.prizeValue,
+        ticketsSold: 0,
+      },
+    });
     competitionIds.push(comp.id);
   }
-  console.log(`  ✓ ${compsData.length} ACTIVE competitions`);
+  console.log(`  ✓ ${compsData.length} competitions (all ticketsSold: 0)`);
 
-  // ── Tickets + Entries + Winners (2 male winners with photos) ──
+  // ── Winners (Piotr & Tapiwa with photos) ─────────────────────
   const winnerData = [
     {
       email: "piotr.g@example.com",

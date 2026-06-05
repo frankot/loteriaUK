@@ -371,3 +371,127 @@ export function redrawNoticeHtml(params: {
   `;
   return baseWrapper(body, "Redraw notice for ${params.competitionTitle}");
 }
+
+/* ═══════════════════════════════════════════════════════════
+   5. Admin — New Purchase Notification
+   ═══════════════════════════════════════════════════════════ */
+
+export function adminPurchaseNotificationHtml(params: {
+  userName: string;
+  userEmail: string;
+  competitionTitle: string;
+  ticketCount: number;
+  ticketNumbers: number[];
+  totalPaid: string;
+  userPhone?: string | null;
+  userAddress?: string | null;
+}): string {
+  const body = `
+    <div class="header" style="background:#1C1C1C;">
+      <h1>💰 New Purchase</h1>
+      <div class="subtitle">A customer just bought tickets</div>
+    </div>
+    <div class="body">
+      <div class="card">
+        <div class="title">Customer</div>
+        <div class="value">${params.userName}</div>
+        <div style="font-size:13px;color:#7A7A7A;margin-top:4px;">${params.userEmail}</div>
+        ${params.userPhone ? `<div style="font-size:13px;color:#7A7A7A;">${params.userPhone}</div>` : ""}
+        ${params.userAddress ? `<div style="font-size:13px;color:#7A7A7A;">${params.userAddress}</div>` : ""}
+      </div>
+
+      <div class="prize-card">
+        <div class="emoji">🏆</div>
+        <div class="name">${params.competitionTitle}</div>
+        <div class="detail">${params.ticketCount} ticket${params.ticketCount > 1 ? "s" : ""} &bull; £${params.totalPaid}</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Ticket Numbers</div>
+        <div style="font-size:20px;font-weight:700;color:#8B6914;font-family:Georgia,serif;letter-spacing:2px;margin-top:4px;">
+          ${params.ticketNumbers.map((n) => `#${n}`).join("  ")}
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Golden Dream Draw Admin</p>
+    </div>
+  `;
+  return baseWrapper(body, `New purchase: ${params.ticketCount} ticket(s) for ${params.competitionTitle}`);
+}
+
+/* ── 6. Admin — Competition Ending Soon (24h) ──────────── */
+
+export function adminEndingSoonHtml(params: {
+  competitionTitle: string;
+  competitionSlug: string;
+  ticketsSold: number;
+  maxTickets: number;
+  drawDate: string;
+  hoursLeft: number;
+}): string {
+  const pct = params.maxTickets > 0 ? Math.round((params.ticketsSold / params.maxTickets) * 100) : 0;
+  const body = `
+    <div class="header" style="background:#C0392B;">
+      <h1>⏰ Competition Ending Soon</h1>
+      <div class="subtitle">Less than ${params.hoursLeft} hours until the draw</div>
+    </div>
+    <div class="body">
+      <div class="prize-card">
+        <div class="emoji">🔥</div>
+        <div class="name">${params.competitionTitle}</div>
+        <div class="detail">Draw: ${params.drawDate}</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Progress</div>
+        <div class="value">${params.ticketsSold} / ${params.maxTickets} sold (${pct}%)</div>
+      </div>
+
+      <div class="cta-box">
+        <a href="${SITE_URL}/en/admin/competitions" class="cta">View in Admin →</a>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Golden Dream Draw Admin</p>
+    </div>
+  `;
+  return baseWrapper(body, `Ending soon: ${params.competitionTitle}`);
+}
+
+/* ── 7. Admin — Nearly Sold Out (95%) ─────────────────── */
+
+export function adminNearlySoldOutHtml(params: {
+  competitionTitle: string;
+  competitionSlug: string;
+  ticketsSold: number;
+  maxTickets: number;
+  remaining: number;
+}): string {
+  const body = `
+    <div class="header" style="background:#B8943A;">
+      <h1>📊 Nearly Sold Out</h1>
+      <div class="subtitle">Only ${params.remaining} ticket${params.remaining > 1 ? "s" : ""} remaining</div>
+    </div>
+    <div class="body">
+      <div class="prize-card">
+        <div class="emoji">🎯</div>
+        <div class="name">${params.competitionTitle}</div>
+        <div class="detail">${params.ticketsSold} / ${params.maxTickets} sold</div>
+      </div>
+
+      <div class="card">
+        <div class="title">Tickets Left</div>
+        <div class="value" style="font-size:28px;color:#C0392B;">${params.remaining}</div>
+      </div>
+
+      <div class="cta-box">
+        <a href="${SITE_URL}/en/admin/competitions" class="cta">View in Admin →</a>
+      </div>
+    </div>
+    <div class="footer">
+      <p>Golden Dream Draw Admin</p>
+    </div>
+  `;
+  return baseWrapper(body, `Nearly sold out: ${params.competitionTitle}`);
+}

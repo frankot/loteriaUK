@@ -4,7 +4,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { toggleFeatured, deleteCompetition } from "@/actions/admin";
+import { toggleFeatured, deleteCompetition, hardDeleteCompetition } from "@/actions/admin";
 
 interface RowActionsDropdownProps {
   competitionId: string;
@@ -26,6 +26,7 @@ export function RowActionsDropdown({
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [confirmHardDelete, setConfirmHardDelete] = useState(false);
   const [loading, setLoading] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -63,6 +64,7 @@ export function RowActionsDropdown({
       if (!clickedTrigger && !clickedMenu) {
         setOpen(false);
         setConfirmDelete(false);
+        setConfirmHardDelete(false);
       }
     }
     if (open) {
@@ -86,6 +88,15 @@ export function RowActionsDropdown({
     if (result.success) router.refresh();
     setLoading(false);
     setConfirmDelete(false);
+    setOpen(false);
+  }
+
+  async function handleHardDelete() {
+    setLoading(true);
+    const result = await hardDeleteCompetition(competitionId);
+    if (result.success) router.refresh();
+    setLoading(false);
+    setConfirmHardDelete(false);
     setOpen(false);
   }
 
@@ -145,14 +156,15 @@ export function RowActionsDropdown({
         </Link>
       )}
 
-      {/* Divider */}
-      <div className="my-1 border-t border-border-light" />
-
-      {/* Delete */}
+      {/* Cancel (only if not already cancelled) */}
+      {status !== "CANCELLED" && (
+        <>
+          {/* Divider */}
+          <div className="my-1 border-t border-border-light" />
       {confirmDelete ? (
         <div className="px-3 py-2">
           <p className="mb-2 text-xs text-ink-soft">
-            Delete &quot;{title.slice(0, 24)}{title.length > 24 ? "…" : ""}&quot;?
+            Cancel &quot;{title.slice(0, 24)}{title.length > 24 ? "…" : ""}&quot;?
           </p>
           <div className="flex gap-1.5">
             <button
@@ -175,8 +187,51 @@ export function RowActionsDropdown({
           onClick={() => setConfirmDelete(true)}
           className={`${baseItem} text-urgent hover:bg-urgent/10`}
         >
-          🗑️ Delete
+          🚫 Cancel
         </button>
+      )}
+        </>
+      )}
+
+      {/* Permanent delete (only for already cancelled) */}
+      {status === "CANCELLED" && (
+        <>
+          {/* Divider */}
+          <div className="my-1 border-t border-border-light" />
+          {confirmHardDelete ? (
+            <div className="px-3 py-2">
+              <p className="mb-2 text-xs font-semibold text-urgent">
+                Permanently delete &quot;{title.slice(0, 24)}{title.length > 24 ? "…" : ""}&quot;?
+              </p>
+              <p className="mb-2 text-[11px] text-ink-muted leading-relaxed">
+                This will also delete all entries, tickets, and winners
+                associated with this competition. This cannot be undone.
+              </p>
+              <div className="flex gap-1.5">
+                <button
+                  onClick={handleHardDelete}
+                  disabled={loading}
+                  className="rounded bg-urgent px-3 py-1 text-xs font-medium text-white hover:bg-urgent/80 disabled:opacity-50"
+                >
+                  Yes, delete everything
+                </button>
+                <button
+                  onClick={() => setConfirmHardDelete(false)}
+                  className="rounded border border-border px-3 py-1 text-xs text-ink-muted hover:border-gold"
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          ) : (
+            <button
+              onClick={() => setConfirmHardDelete(true)}
+              className={`${baseItem} text-urgent hover:bg-urgent/10`}
+            >
+              🗑️ Delete permanently
+            </button>
+          )}
+        </>
       )}
     </div>
   );

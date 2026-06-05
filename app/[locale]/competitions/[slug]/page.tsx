@@ -4,6 +4,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/prisma";
 import ProgressBar from "@/components/public/progress-bar";
 import PurchaseSection from "./purchase-section";
+import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
@@ -215,7 +216,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
                   </div>
                   <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5">
                     <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("maxPerPerson")}</div>
-                    <div className="text-base md:text-lg font-bold text-ink">10</div>
+                    <div className="text-base md:text-lg font-bold text-ink">{MAX_TICKETS_PER_TRANSACTION}</div>
                   </div>
                   <div className="rounded-xl border border-border bg-white px-3 md:px-4 py-2 md:py-2.5 col-span-2 sm:col-span-1">
                     <div className="text-[10px] md:text-[11px] font-semibold tracking-wide text-ink-muted uppercase">{t("draw")}</div>

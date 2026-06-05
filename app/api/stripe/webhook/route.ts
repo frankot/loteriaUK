@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, getWebhookSecret } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
-import resend, { FROM_AUTH } from "@/lib/resend";
-import { purchaseConfirmationHtml } from "@/lib/email-templates";
+import resend, { FROM_AUTH, ADMIN_NOTIFICATION_EMAIL } from "@/lib/resend";
+import { purchaseConfirmationHtml, adminPurchaseNotificationHtml } from "@/lib/email-templates";
 import type Stripe from "stripe";
 
 export async function POST(request: NextRequest) {
@@ -185,7 +185,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         const [user, comp] = await Promise.all([
           prisma.user.findUnique({
             where: { id: userId },
-            select: { email: true, name: true },
+            select: { email: true, name: true, phone: true, address: true },
           }),
           prisma.competition.findUnique({
             where: { id: competitionId },
@@ -218,6 +218,26 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
           });
 
           console.log(`📧 Purchase confirmation sent to ${user.email}`);
+
+          // ── Admin notification ────────────────────────────────
+          if (ADMIN_NOTIFICATION_EMAIL) {
+            await resend.emails.send({
+              from: FROM_AUTH,
+              to: ADMIN_NOTIFICATION_EMAIL,
+              subject: `💰 New purchase: ${user.name || "Someone"} bought ${quantity} ticket(s) for ${comp.titleEn}`,
+              html: adminPurchaseNotificationHtml({
+                userName: user.name || "Unknown",
+                userEmail: user.email,
+                competitionTitle: comp.titleEn,
+                ticketCount: quantity,
+                ticketNumbers,
+                totalPaid,
+                userPhone: user.phone,
+                userAddress: user.address,
+              }),
+            });
+            console.log(`📧 Admin purchase notification sent to ${ADMIN_NOTIFICATION_EMAIL}`);
+          }
         }
       } catch (emailError) {
         console.error("Failed to send purchase confirmation email:", emailError);
