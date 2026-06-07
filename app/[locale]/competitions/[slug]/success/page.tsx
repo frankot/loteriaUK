@@ -46,11 +46,10 @@ export default async function SuccessPage({ params, searchParams }: Props) {
     select: { id: true, titleEn: true, prizeImageUrl: true },
   });
 
-  // ── Fetch tickets specifically for this Stripe session ──────
-  // Uses the Entry→Ticket relation: entries created by the webhook
-  // for this session have the stripeSessionId set.
-  let ticketNumbers: number[] = [];
-
+  // ── Fetch tickets for this specific Stripe session ─────────
+  // Only the stripeSessionId query is correct — it returns exactly
+  // the tickets from this purchase. Never fall back to userId-based
+  // queries which would leak tickets from previous purchases.
   const entries = await prisma.entry.findMany({
     where: { stripeSessionId: session_id },
     select: {
@@ -59,24 +58,9 @@ export default async function SuccessPage({ params, searchParams }: Props) {
     orderBy: { createdAt: "asc" },
   });
 
-  ticketNumbers = entries
+  const initialTickets = entries
     .filter((e) => e.ticket)
     .map((e) => e.ticket!.number);
-
-  // Fallback: if webhook hasn't fired yet, try by userId+competitionId
-  // (catches cases where user is re-visiting a previously processed success page)
-  if (ticketNumbers.length === 0) {
-    const { userId, competitionId } = session.metadata || {};
-    if (userId && competitionId) {
-      const fallbackTickets = await prisma.ticket.findMany({
-        where: { userId, competitionId, status: "SOLD" },
-        orderBy: { createdAt: "desc" },
-        select: { number: true },
-        take: 100,
-      });
-      ticketNumbers = fallbackTickets.map((t) => t.number);
-    }
-  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 md:py-24 text-center">
@@ -98,7 +82,7 @@ export default async function SuccessPage({ params, searchParams }: Props) {
       {/* Ticket Numbers — polls if webhook hasn't created them yet */}
       <TicketPoller
         stripeSessionId={session_id}
-        initialTickets={ticketNumbers}
+        initialTickets={initialTickets}
         timeoutSec={30}
       />
 

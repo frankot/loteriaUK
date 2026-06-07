@@ -13,6 +13,7 @@ export default function RegisterPage() {
   const params = useParams();
   const locale = (params.locale as string) || "en";
   const [email, setEmail] = useState(searchParams.get("email") || "");
+  const redirect = searchParams.get("redirect") || "";
 
   // If redirected by middleware (no email in URL), fetch from session
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function RegisterPage() {
       });
 
       if (result.success) {
-        router.push(`/${locale}`);
+        router.push(redirect || `/${locale}`);
       } else {
         setError(result.error || commonT("error"));
         if (result.fieldErrors) {

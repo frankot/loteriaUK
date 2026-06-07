@@ -67,13 +67,22 @@ export async function POST(request: Request) {
       });
     }
 
-    // Returning user — create session directly
+    // Returning user
     await saveSession({
       userId: user.id,
       email: user.email,
       role: user.role as "user" | "admin",
       ageConfirmed: user.ageConfirmed,
     });
+
+    // If user exists but hasn't completed registration, redirect to register
+    if (!user.ageConfirmed || !user.name || !user.address) {
+      return NextResponse.json({
+        message: "Registration incomplete — please complete your profile",
+        needsRegistration: true,
+        userId: user.id,
+      });
+    }
 
     return NextResponse.json({
       message: "Authenticated",

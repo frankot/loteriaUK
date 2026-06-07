@@ -108,7 +108,10 @@ export default function VerifyPage() {
       }
 
       if (data.needsRegistration) {
-        router.push(`/${locale}/register?email=${encodeURIComponent(email)}`);
+        const regParams = new URLSearchParams();
+        regParams.set("email", email);
+        if (redirect) regParams.set("redirect", redirect);
+        router.push(`/${locale}/register?${regParams.toString()}`);
         router.refresh();
       } else if (data.role === "admin") {
         router.push(`/${locale}/admin`);
