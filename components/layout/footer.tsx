@@ -11,10 +11,25 @@ export default function Footer() {
   const params = useParams();
   const locale = (params.locale as string) || "en";
 
-  const footerLinks: Record<string, string[]> = {
-    competitions: ["allPrizes", "electronics", "jewellery", "fashion", "cashAwards"],
-    company: ["aboutUs", "ourWinners", "liveDraws", "contact", "careers"],
-    support: ["faq", "terms", "privacy", "responsiblePlay"],
+  const footerLinks: Record<string, Array<{ key: string; href: string }>> = {
+    competitions: [
+      { key: "allPrizes", href: `/${locale}/competitions` },
+      { key: "electronics", href: `/${locale}/competitions?category=electronics` },
+      { key: "jewellery", href: `/${locale}/competitions?category=jewellery` },
+      { key: "fashion", href: `/${locale}/competitions?category=fashion` },
+      { key: "cashAwards", href: `/${locale}/competitions?category=cash` },
+    ],
+    company: [
+      { key: "aboutUs", href: `/${locale}/` },
+      { key: "ourWinners", href: `/${locale}/#winners` },
+      { key: "liveDraws", href: `/${locale}/#how-it-works` },
+    ],
+    support: [
+      { key: "faq", href: `/${locale}/#faq` },
+      { key: "freePostalEntry", href: `/${locale}/free-postal-entry` },
+      { key: "terms", href: `/${locale}/terms` },
+      { key: "privacy", href: `/${locale}/privacy` },
+    ],
   };
 
   return (
@@ -84,13 +99,13 @@ export default function Footer() {
                 {t(heading)}
               </h4>
               <ul className="flex flex-col gap-2.5 md:gap-3">
-                {links.map((key) => (
-                  <li key={key}>
+                {links.map((link) => (
+                  <li key={link.key}>
                     <Link
-                      href={`/${locale}/${key === "faq" ? "faq" : key === "terms" ? "terms" : key === "privacy" ? "privacy" : "#"}`}
+                      href={link.href}
                       className="text-sm text-ink-soft transition-colors hover:text-gold-dark"
                     >
-                      {t(key)}
+                      {t(link.key)}
                     </Link>
                   </li>
                 ))}

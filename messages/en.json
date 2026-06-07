@@ -351,6 +351,7 @@
     "browseMore": "Browse More",
     "loading": "Generating your tickets...",
     "webhookTimeout": "Still waiting for confirmation. Refresh or check your profile.",
+    "recoveryFailed": "Unable to confirm your tickets automatically. Please refresh or contact support.",
     "refresh": "Refresh page"
   },
   "notFound": {

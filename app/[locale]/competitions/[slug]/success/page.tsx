@@ -29,7 +29,7 @@ export default async function SuccessPage({ params, searchParams }: Props) {
     notFound();
   }
 
-  if (session.payment_status !== "paid") {
+  if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 md:py-24 text-center">
         <h1 className="font-serif text-2xl md:text-3xl font-semibold">{t("pendingTitle")}</h1>
@@ -46,16 +46,36 @@ export default async function SuccessPage({ params, searchParams }: Props) {
     select: { id: true, titleEn: true, prizeImageUrl: true },
   });
 
-  // Fetch tickets for this user + competition
-  const { competitionId, userId } = session.metadata || {};
-  let tickets: { number: number }[] = [];
-  if (competitionId && userId) {
-    tickets = await prisma.ticket.findMany({
-      where: { competitionId, userId },
-      orderBy: { number: "asc" },
-      select: { number: true },
-      take: 100,
-    });
+  // ── Fetch tickets specifically for this Stripe session ──────
+  // Uses the Entry→Ticket relation: entries created by the webhook
+  // for this session have the stripeSessionId set.
+  let ticketNumbers: number[] = [];
+
+  const entries = await prisma.entry.findMany({
+    where: { stripeSessionId: session_id },
+    select: {
+      ticket: { select: { number: true } },
+    },
+    orderBy: { createdAt: "asc" },
+  });
+
+  ticketNumbers = entries
+    .filter((e) => e.ticket)
+    .map((e) => e.ticket!.number);
+
+  // Fallback: if webhook hasn't fired yet, try by userId+competitionId
+  // (catches cases where user is re-visiting a previously processed success page)
+  if (ticketNumbers.length === 0) {
+    const { userId, competitionId } = session.metadata || {};
+    if (userId && competitionId) {
+      const fallbackTickets = await prisma.ticket.findMany({
+        where: { userId, competitionId, status: "SOLD" },
+        orderBy: { createdAt: "desc" },
+        select: { number: true },
+        take: 100,
+      });
+      ticketNumbers = fallbackTickets.map((t) => t.number);
+    }
   }
 
   return (
@@ -78,7 +98,7 @@ export default async function SuccessPage({ params, searchParams }: Props) {
       {/* Ticket Numbers — polls if webhook hasn't created them yet */}
       <TicketPoller
         stripeSessionId={session_id}
-        initialTickets={tickets.map((t) => t.number)}
+        initialTickets={ticketNumbers}
         timeoutSec={30}
       />
 

@@ -351,6 +351,7 @@
     "browseMore": "Przeglądaj więcej",
     "loading": "Generowanie biletów...",
     "webhookTimeout": "Wciąż czekamy na potwierdzenie. Odśwież lub sprawdź profil.",
+    "recoveryFailed": "Nie można automatycznie potwierdzić biletów. Odśwież stronę lub skontaktuj się z pomocą.",
     "refresh": "Odśwież stronę"
   },
   "notFound": {

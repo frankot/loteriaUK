@@ -23,6 +23,8 @@ export default function TicketPoller({
   const [tickets, setTickets] = useState<number[]>(initialTickets);
   const [polling, setPolling] = useState(!initialTickets.length);
   const [timedOut, setTimedOut] = useState(false);
+  const [recoveryFailed, setRecoveryFailed] = useState(false);
+  const [recoveryError, setRecoveryError] = useState("");
   const attempts = useRef(0);
   const maxAttempts = Math.max(1, Math.floor(timeoutSec / 2));
 
@@ -35,7 +37,7 @@ export default function TicketPoller({
 
       try {
         const res = await fetch(
-          `/api/stripe/session-tickets?session_id=${encodeURIComponent(stripeSessionId)}`
+          `/api/stripe/session-tickets?session_id=${encodeURIComponent(stripeSessionId)}&attempt=${attempts.current}`
         );
         const data = await res.json();
 
@@ -43,6 +45,15 @@ export default function TicketPoller({
           setTickets(data.tickets.map((t: TicketData) => t.number));
           setPolling(false);
           clearInterval(interval);
+          return;
+        }
+
+        // Check if recovery was attempted but failed
+        if (data.recoveryFailed) {
+          clearInterval(interval);
+          setPolling(false);
+          setRecoveryFailed(true);
+          setRecoveryError(data.error || "");
           return;
         }
       } catch {
@@ -64,6 +75,23 @@ export default function TicketPoller({
       <div className="mb-8 md:mb-10 rounded-2xl border border-border bg-white p-5 md:p-6 text-center">
         <div className="inline-block h-6 w-6 animate-spin rounded-full border-2 border-gold border-t-transparent" />
         <p className="mt-3 text-sm text-ink-muted">{t("loading")}</p>
+      </div>
+    );
+  }
+
+  if (recoveryFailed) {
+    return (
+      <div className="mb-8 md:mb-10 rounded-2xl border border-urgent/20 bg-urgent/5 p-5 md:p-6 text-center">
+        <p className="text-sm text-urgent">{t("recoveryFailed")}</p>
+        {recoveryError && (
+          <p className="mt-1 text-xs text-ink-muted">{recoveryError}</p>
+        )}
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-3 text-xs font-semibold text-gold-dark underline"
+        >
+          {t("refresh")}
+        </button>
       </div>
     );
   }

@@ -71,7 +71,7 @@ export async function createCheckoutSession(
       return { error: "You must answer the skill question correctly", status: 400 };
     }
 
-    // 5. Build checkout session
+    // 4. Fetch user email for Stripe customer_email
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
       select: { email: true },
@@ -79,10 +79,10 @@ export async function createCheckoutSession(
 
     const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/+$/, "");
 
-    // 6. Create Stripe Checkout Session
-    const lineItemPrice = Math.round(Number(competition.pricePounds) * 100); // cents
+    // 5. Build price (pounds → pence)
+    const lineItemPrice = Math.round(Number(competition.pricePounds) * 100);
 
-    // Build image URL: if prizeImageUrl is already absolute, use as-is; otherwise prefix with appUrl
+    // 6. Build image URL for Stripe product display
     const imageUrl = competition.prizeImageUrl
       ? competition.prizeImageUrl.startsWith("http://") || competition.prizeImageUrl.startsWith("https://")
         ? competition.prizeImageUrl
@@ -94,6 +94,7 @@ export async function createCheckoutSession(
       ? [imageUrl]
       : undefined;
 
+    // 7. Create Stripe Checkout Session
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: "payment",
       customer_email: user?.email || session.email,
@@ -116,6 +117,7 @@ export async function createCheckoutSession(
         userId: session.userId,
         quantity: String(quantity),
       },
+      // Only redirect to success when payment is actually complete
       success_url: `${appUrl}/${locale}/competitions/${competitionSlug}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${appUrl}/${locale}/competitions/${competitionSlug}?cancelled=true`,
     });
