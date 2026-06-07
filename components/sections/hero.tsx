@@ -21,22 +21,20 @@ function formatDrawDate(date: Date): string {
 /** Shown when no competitions exist at all — not just un-featured, but zero ACTIVE */
 function NoCompetitionsCard({
   t,
-  fallbackImage,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: any;
-  fallbackImage: string;
 }) {
   return (
     <div className="overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured">
       <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden bg-cream-warm">
-        <Image
-          src={fallbackImage}
-          alt="Coming soon"
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-          className="object-contain p-4 opacity-60"
-        />
+        <div className="flex flex-col items-center gap-2 text-gold/20">
+          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2a7 7 0 0 0-7 7c0 2.4 1.2 4.5 3 5.7V17l4 4 4-4v-2.3c1.8-1.3 3-3.4 3-5.7a7 7 0 0 0-7-7Z"/>
+            <path d="M12 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+          </svg>
+          <span className="text-[11px] font-medium uppercase tracking-wider">{t("comingSoonBadge")}</span>
+        </div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-gold-pale px-4 py-1.5 text-xs font-semibold tracking-wide text-gold-dark uppercase">
@@ -74,14 +72,12 @@ async function FeaturedCard({
   featured,
   t,
   locale,
-  fallbackImage,
 }: {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   featured: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t: any;
   locale: string;
-  fallbackImage: string;
 }) {
   const isActive = featured.status === "ACTIVE";
   const isClosed = featured.status === "CLOSED";
@@ -114,13 +110,24 @@ async function FeaturedCard({
             🏆 {t("winnerDrawnBadge")}
           </span>
         )}
-        <Image
-          src={featured.prizeImageUrl || fallbackImage}
-          alt={featured.titleEn || "Featured Prize"}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-          className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
-        />
+        {featured.prizeImageUrl ? (
+          <Image
+            src={featured.prizeImageUrl}
+            alt={featured.titleEn || "Featured Prize"}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+            className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-2 text-gold/25">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+              <path d="M3 6h18"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span className="text-[11px] font-medium uppercase tracking-wider">{featured.prizeCategory || t("trendingBadge")}</span>
+          </div>
+        )}
       </div>
       <div className="p-5 md:p-7">
         <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
@@ -221,13 +228,24 @@ async function FeaturedCard({
             🏆 {t("winnerDrawnBadge")}
           </span>
         )}
-        <Image
-          src={featured.prizeImageUrl || fallbackImage}
-          alt={featured.titleEn || "Featured Prize"}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
-          className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
-        />
+        {featured.prizeImageUrl ? (
+          <Image
+            src={featured.prizeImageUrl}
+            alt={featured.titleEn || "Featured Prize"}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 50vw"
+            className={`object-contain p-4 ${!isActive ? "opacity-60" : ""}`}
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-2 text-gold/25">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+              <path d="M3 6h18"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span className="text-[11px] font-medium uppercase tracking-wider">{featured.prizeCategory || t("trendingBadge")}</span>
+          </div>
+        )}
       </div>
       <div className="p-5 md:p-7">
         <div className="mb-2 text-xs font-semibold tracking-[1.5px] text-ink-muted uppercase">
@@ -292,8 +310,6 @@ export default async function Hero({ locale }: { locale: string }) {
   const t = await getTranslations("hero");
   const featured = await getHeroCompetition();
 
-  const fallbackImage = "/images/cartier.webp";
-
   return (
     <section className="bg-cream px-4 md:px-8 lg:px-12 pt-10 md:pt-16 lg:pt-20 pb-16 md:pb-24 lg:pb-[120px]">
       <div className="mx-auto max-w-6xl">
@@ -346,10 +362,10 @@ export default async function Hero({ locale }: { locale: string }) {
 
           {/* Right column — Featured Prize Card — appears above text on mobile */}
           {featured ? (
-            <FeaturedCard featured={featured} t={t} locale={locale} fallbackImage={fallbackImage} />
+            <FeaturedCard featured={featured} t={t} locale={locale} />
           ) : (
             <div className="animate-fade-in-up order-0 lg:order-1 [animation-delay:200ms]">
-              <NoCompetitionsCard t={t} fallbackImage={fallbackImage} />
+              <NoCompetitionsCard t={t} />
             </div>
           )}
         </div>

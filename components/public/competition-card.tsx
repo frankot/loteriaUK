@@ -64,7 +64,7 @@ export default function CompetitionCard({
       className="relative cursor-pointer overflow-hidden rounded-xl bg-white shadow-card transition-all duration-300 hover:translate-y-[-2px] hover:shadow-card-hover block"
     >
       {/* Image */}
-      <div className="relative flex h-[180px] sm:h-[200px] md:h-[220px] items-center justify-center overflow-hidden">
+      <div className={`relative flex h-[180px] sm:h-[200px] md:h-[220px] items-center justify-center overflow-hidden ${!imageUrl ? "bg-cream-warm" : ""}`}>
         <span
           className={`absolute top-3 right-3 rounded-xl px-2.5 py-1 text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeColor}`}
         >
@@ -75,13 +75,24 @@ export default function CompetitionCard({
             🔥 {t("onlyLeft", { left })}
           </span>
         )}
-        <Image
-          src={imageUrl || "/images/rolex.png"}
-          alt={title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          className="object-contain p-4"
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain p-4"
+          />
+        ) : (
+          <div className="flex flex-col items-center gap-2 text-gold/30">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+              <path d="M3 6h18"/>
+              <path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span className="text-[11px] font-medium text-ink-muted/40">{catLabel}</span>
+          </div>
+        )}
       </div>
 
       {/* Body */}

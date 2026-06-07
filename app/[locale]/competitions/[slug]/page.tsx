@@ -119,14 +119,25 @@ export default async function CompetitionDetailPage({ params }: Props) {
                 </span>
               )}
 
-              <Image
-                src={competition.prizeImageUrl || "/images/rolex.png"}
-                alt={title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
-                className="object-contain p-6 md:p-8 lg:p-10"
-                priority
-              />
+              {competition.prizeImageUrl ? (
+                <Image
+                  src={competition.prizeImageUrl}
+                  alt={title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 50vw"
+                  className="object-contain p-6 md:p-8 lg:p-10"
+                  priority
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-3 text-gold/25">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                    <path d="M3 6h18"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                  </svg>
+                  <span className="text-xs font-medium uppercase tracking-wider">{category}</span>
+                </div>
+              )}
 
               {/* Category badge */}
               <span className={`absolute top-3 right-3 rounded-xl px-2 md:px-2.5 py-1 text-[10px] md:text-[11px] font-semibold z-10 tracking-wider text-white uppercase ${badgeBg}`}>
