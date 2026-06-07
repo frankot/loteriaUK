@@ -165,7 +165,9 @@
     "subtitle": "Get notified when new prizes drop. We'll send you a quick email — no spam, just the good stuff.",
     "placeholder": "Your email address",
     "button": "Notify Me",
-    "disabled": "form disabled in mockup"
+    "subscribedTitle": "You're in!",
+    "subscribedDesc": "We'll let you know when new prizes drop.",
+    "saving": "Subscribing..."
   },
   "login": {
     "title": "Sign In",

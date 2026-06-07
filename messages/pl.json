@@ -165,7 +165,9 @@
     "subtitle": "Otrzymuj powiadomienia o nowych nagrodach. Wyślemy Ci szybkiego maila — bez spamu, tylko to, co najlepsze.",
     "placeholder": "Twój adres email",
     "button": "Powiadom mnie",
-    "disabled": "formularz wyłączony w wersji demo"
+    "subscribedTitle": "Zapisano!",
+    "subscribedDesc": "Damy Ci znać, gdy pojawią się nowe nagrody.",
+    "saving": "Zapisywanie..."
   },
   "login": {
     "title": "Zaloguj się",
