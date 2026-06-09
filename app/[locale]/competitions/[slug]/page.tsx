@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { prisma } from "@/lib/prisma";
+import { getCompetitionBySlug } from "@/lib/queries";
 import ProgressBar from "@/components/public/progress-bar";
 import PurchaseSection from "./purchase-section";
+import PixelViewContent from "@/components/public/pixel-view-content";
 import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 
 type Props = {
@@ -35,19 +36,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("competition");
 
-  const competition = await prisma.competition.findUnique({
-    where: { slug },
-    include: {
-      winners: {
-        include: {
-          user: {
-            select: { name: true },
-          },
-        },
-        take: 1,
-      },
-    },
-  });
+  const competition = await getCompetitionBySlug(slug);
 
   if (!competition || (competition.status !== "ACTIVE" && competition.status !== "DRAWN")) {
     notFound();
@@ -88,6 +77,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
 
   return (
     <div className="bg-cream px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
+      <PixelViewContent contentName={title} value={price} />
       <div className="mx-auto max-w-6xl">
         {/* Breadcrumb */}
         <nav className="mb-6 md:mb-8 lg:mb-10 text-sm text-ink-muted">

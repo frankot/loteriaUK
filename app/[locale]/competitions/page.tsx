@@ -1,5 +1,5 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { prisma } from "@/lib/prisma";
+import { getCompetitionsList } from "@/lib/queries";
 import CompetitionCard from "@/components/public/competition-card";
 import { EmptyState } from "@/components/ui/empty-state";
 
@@ -21,18 +21,10 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
   const where = {
     status: "ACTIVE" as const,
     drawDate: { gte: new Date() },
-    ...(category && { prizeCategory: category }),
+    ...(category ? { prizeCategory: category } : {}),
   };
 
-  const [competitions, totalCount] = await Promise.all([
-    prisma.competition.findMany({
-      where,
-      orderBy: { drawDate: "asc" },
-      skip: (page - 1) * PAGE_SIZE,
-      take: PAGE_SIZE,
-    }),
-    prisma.competition.count({ where }),
-  ]);
+  const { competitions, totalCount } = await getCompetitionsList(where, page, PAGE_SIZE);
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 

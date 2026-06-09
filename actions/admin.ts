@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/session";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import resend, { FROM_WINNERS } from "@/lib/resend";
 import { winnerNotificationHtml } from "@/lib/email-templates";
@@ -115,6 +115,11 @@ export async function createCompetition(
     });
 
     revalidatePath("/[locale]/admin/competitions", "page");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true, id: competition.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -183,7 +188,15 @@ export async function updateCompetition(
       },
     });
 
+    revalidatePath("/[locale]/admin/competitions/[id]", "page");
     revalidatePath("/[locale]/admin/competitions", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -205,6 +218,13 @@ export async function deleteCompetition(id: string): Promise<AdminResult> {
     });
 
     revalidatePath("/[locale]/admin/competitions", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -250,6 +270,13 @@ export async function hardDeleteCompetition(id: string): Promise<AdminResult> {
     });
 
     revalidatePath("/[locale]/admin/competitions", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -293,6 +320,10 @@ export async function toggleFeatured(
     }
 
     revalidatePath("/[locale]/admin/competitions", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("competitions-list", "seconds");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -550,6 +581,10 @@ export async function createPostalEntry(
     });
 
     revalidatePath(`/[locale]/admin/competitions/[id]`, "page");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true, id: entry.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -827,6 +862,13 @@ export async function assignWinner(
     revalidatePath("/[locale]/admin/competitions/[id]", "page");
     revalidatePath("/[locale]/admin/winners", "page");
     revalidatePath("/[locale]/winners", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("recent-winners", "minutes");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true, id: winner.id };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -865,6 +907,7 @@ export async function toggleWinnerNotified(
         data: { notified: false, notifiedAt: null },
       });
       revalidatePath("/[locale]/admin/winners", "page");
+      revalidateTag("recent-winners", "minutes");
       return { success: true };
     }
 
@@ -898,6 +941,7 @@ export async function toggleWinnerNotified(
     });
 
     revalidatePath("/[locale]/admin/winners", "page");
+    revalidateTag("recent-winners", "minutes");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -930,6 +974,7 @@ export async function toggleWinnerClaimed(
     });
 
     revalidatePath("/[locale]/admin/winners", "page");
+    revalidateTag("recent-winners", "minutes");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
@@ -964,6 +1009,13 @@ export async function resetWinner(
 
     revalidatePath("/[locale]/admin/winners", "page");
     revalidatePath("/[locale]/winners", "page");
+    revalidatePath("/[locale]/competitions", "page");
+    revalidateTag("recent-winners", "minutes");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
     return { success: true };
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {

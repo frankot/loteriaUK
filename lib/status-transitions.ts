@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { revalidateTag } from "next/cache";
 
 /**
  * Auto-transition ACTIVE competitions past their draw date to CLOSED.
@@ -26,6 +27,12 @@ export async function transitionPastDueCompetitions(): Promise<number> {
       console.log(
         `🔄 [status-transition] Auto-closed ${closed.count} past-due competition(s)`,
       );
+      revalidateTag("trending-competitions", "seconds");
+      revalidateTag("hero-competition", "seconds");
+      revalidateTag("featured-competition", "minutes");
+      revalidateTag("homepage-stats", "minutes");
+      revalidateTag("competition-detail", "minutes");
+      revalidateTag("competitions-list", "seconds");
     }
 
     // 2) Fix inconsistency: competitions with winners but status not DRAWN
@@ -53,6 +60,11 @@ export async function transitionPastDueCompetitions(): Promise<number> {
             .map((c) => `  ${c.titleEn} (was ${c.status})`)
             .join("\n"),
       );
+      revalidateTag("trending-competitions", "seconds");
+      revalidateTag("hero-competition", "seconds");
+      revalidateTag("homepage-stats", "minutes");
+      revalidateTag("competition-detail", "minutes");
+      revalidateTag("competitions-list", "seconds");
     }
 
     return total;

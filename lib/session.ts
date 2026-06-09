@@ -8,10 +8,20 @@ export interface SessionData {
   ageConfirmed?: boolean;
 }
 
+function getSessionSecret(): string {
+  if (process.env.SESSION_SECRET) return process.env.SESSION_SECRET;
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "SESSION_SECRET environment variable must be set in production. " +
+      "Generate one with: openssl rand -base64 32"
+    );
+  }
+  // Dev-only fallback — never used in production
+  return "dev-session-secret-change-in-production-32-chars-ok";
+}
+
 export const sessionOptions = {
-  password:
-    process.env.SESSION_SECRET ??
-    "complex_password_at_least_32_characters_long_for_security",
+  password: getSessionSecret(),
   cookieName: "loteria-session",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",

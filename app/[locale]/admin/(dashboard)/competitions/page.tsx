@@ -6,8 +6,10 @@ import { EmptyState } from "@/components/ui/empty-state";
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ status?: string; search?: string }>;
+  searchParams: Promise<{ status?: string; search?: string; page?: string }>;
 };
+
+const ADMIN_PAGE_SIZE = 20;
 
 const statusColors: Record<string, string> = {
   DRAFT: "bg-cream-warm text-ink-muted",
@@ -23,7 +25,8 @@ export default async function AdminCompetitionsPage({
 }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const { status, search } = await searchParams;
+  const { status, search, page: pageStr } = await searchParams;
+  const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
 
   const where: Record<string, unknown> = {};
   if (status && status !== "all") where.status = status;
@@ -34,11 +37,16 @@ export default async function AdminCompetitionsPage({
     ];
   }
 
-  const competitions = await prisma.competition.findMany({
-    where,
-    orderBy: { updatedAt: "desc" },
-    take: 100,
-  });
+  const [competitions, totalCount] = await Promise.all([
+    prisma.competition.findMany({
+      where,
+      orderBy: { updatedAt: "desc" },
+      skip: (page - 1) * ADMIN_PAGE_SIZE,
+      take: ADMIN_PAGE_SIZE,
+    }),
+    prisma.competition.count({ where }),
+  ]);
+  const totalPages = Math.ceil(totalCount / ADMIN_PAGE_SIZE);
 
   const statusCounts = await prisma.competition.groupBy({
     by: ["status"],
@@ -51,13 +59,32 @@ export default async function AdminCompetitionsPage({
   }
 
   const filterTabs = [
-    { value: "all", label: "All", count: competitions.length },
+    { value: "all", label: "All", count: totalCount },
     { value: "ACTIVE", label: "Active", count: counts.ACTIVE || 0 },
     { value: "DRAFT", label: "Draft", count: counts.DRAFT || 0 },
     { value: "CLOSED", label: "Closed", count: counts.CLOSED || 0 },
     { value: "DRAWN", label: "Drawn", count: counts.DRAWN || 0 },
     { value: "CANCELLED", label: "Cancelled", count: counts.CANCELLED || 0 },
   ];
+
+  // Build filter URL preserving search, resetting page to 1
+  function filterHref(tabValue: string) {
+    const params = new URLSearchParams();
+    if (tabValue !== "all") params.set("status", tabValue);
+    if (search) params.set("search", search);
+    const qs = params.toString();
+    return `/${locale}/admin/competitions${qs ? `?${qs}` : ""}`;
+  }
+
+  // Build page URL preserving current filters
+  function pageHref(p: number) {
+    const params = new URLSearchParams();
+    if (status && status !== "all") params.set("status", status);
+    if (search) params.set("search", search);
+    if (p > 1) params.set("page", String(p));
+    const qs = params.toString();
+    return `/${locale}/admin/competitions${qs ? `?${qs}` : ""}`;
+  }
 
   return (
     <div>
@@ -78,13 +105,9 @@ export default async function AdminCompetitionsPage({
       <div className="mb-6 flex flex-wrap items-center gap-4">
         <div className="flex flex-wrap gap-1.5">
           {filterTabs.map((tab) => (
-            <a
+            <Link
               key={tab.value}
-              href={
-                tab.value === "all"
-                  ? `/${locale}/admin/competitions`
-                  : `/${locale}/admin/competitions?status=${tab.value}`
-              }
+              href={filterHref(tab.value)}
               className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
                 (status || "all") === tab.value
                   ? "bg-ink text-white"
@@ -93,7 +116,7 @@ export default async function AdminCompetitionsPage({
             >
               {tab.label}
               <span className="ml-1.5 opacity-60">({tab.count})</span>
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -206,6 +229,50 @@ export default async function AdminCompetitionsPage({
           </table>
         </div>
       </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="mt-6 flex items-center justify-center gap-1.5">
+          {page > 1 && (
+            <Link
+              href={pageHref(page - 1)}
+              className="rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-ink"
+            >
+              ← Prev
+            </Link>
+          )}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
+            const isCurrent = p === page;
+            return (
+              <Link
+                key={p}
+                href={pageHref(p)}
+                className={`flex h-9 w-9 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
+                  isCurrent
+                    ? "bg-gold text-white"
+                    : "border border-border bg-white text-ink-muted hover:border-gold hover:text-ink"
+                }`}
+              >
+                {p}
+              </Link>
+            );
+          })}
+          {page < totalPages && (
+            <Link
+              href={pageHref(page + 1)}
+              className="rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-ink-muted transition-colors hover:border-gold hover:text-ink"
+            >
+              Next →
+            </Link>
+          )}
+        </div>
+      )}
+
+      {totalCount > ADMIN_PAGE_SIZE && (
+        <p className="mt-3 text-center text-xs text-ink-muted">
+          Showing {(page - 1) * ADMIN_PAGE_SIZE + 1}–{Math.min(page * ADMIN_PAGE_SIZE, totalCount)} of {totalCount} competitions
+        </p>
+      )}
     </div>
   );
 }

@@ -15,6 +15,7 @@ import { prisma } from "@/lib/prisma";
 import { stripe } from "@/lib/stripe";
 import resend, { FROM_AUTH, ADMIN_NOTIFICATION_EMAIL } from "@/lib/resend";
 import { purchaseConfirmationHtml, adminPurchaseNotificationHtml } from "@/lib/email-templates";
+import { revalidateTag } from "next/cache";
 import type Stripe from "stripe";
 
 export interface ProcessResult {
@@ -199,6 +200,14 @@ export async function processStripeCheckout(
     console.log(
       `Purchase complete: user=${userId} comp=${competitionId} tickets=[${ticketNumbers.join(",")}] session=${stripeSessionId}`
     );
+
+    // ── Bust caches ──────────────────────────────────────────
+    revalidateTag("trending-competitions", "seconds");
+    revalidateTag("featured-competition", "minutes");
+    revalidateTag("hero-competition", "seconds");
+    revalidateTag("homepage-stats", "minutes");
+    revalidateTag("competition-detail", "minutes");
+    revalidateTag("competitions-list", "seconds");
 
     // ── Send confirmation emails (non-blocking) ──────────────
     sendPurchaseEmails(userId, competitionId, ticketNumbers, quantity, session).catch(
