@@ -25,7 +25,9 @@ export default async function LocaleLayout({ children, params }: Props) {
     <Suspense
       fallback={
         <NextIntlClientProvider messages={{}}>
-          <LayoutShell isLoggedIn={false} />
+          <LayoutShell isLoggedIn={false}>
+            <div />
+          </LayoutShell>
         </NextIntlClientProvider>
       }
     >
