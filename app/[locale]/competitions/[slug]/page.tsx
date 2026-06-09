@@ -76,7 +76,7 @@ export default async function CompetitionDetailPage({ params }: Props) {
   const badgeBg = categoryBadgeColors[competition.prizeCategory || ""] || "bg-badge-electronics";
 
   return (
-    <div className="bg-cream px-4 md:px-8 lg:px-12 py-8 md:py-12 lg:py-16">
+    <div className="bg-cream px-4 md:px-8 lg:px-12 py-8  md:py-12 lg:my-16 lg:py-0">
       <PixelViewContent contentName={title} value={price} />
       <div className="mx-auto max-w-6xl">
         {/* Breadcrumb */}
