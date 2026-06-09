@@ -3,6 +3,9 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Ticket, Trophy, Edit, Users } from "lucide-react";
+
+export const dynamic = "force-dynamic";
+
 import { AddPostalEntryButton } from "./entries/add-postal-button";
 import { EntriesTable } from "./entries/entries-table";
 import FeaturedToggle from "@/components/admin/featured-toggle";
