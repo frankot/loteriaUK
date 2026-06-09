@@ -14,14 +14,22 @@ export async function GET(
 
     const { id } = await params;
 
-    const entries = await prisma.entry.findMany({
-      where: { competitionId: id },
-      orderBy: { createdAt: "desc" },
-      include: {
-        user: { select: { email: true, name: true } },
-        ticket: { select: { number: true } },
-      },
-    });
+    const MAX_EXPORT_ROWS = 10_000;
+
+    const [entries, totalCount] = await Promise.all([
+      prisma.entry.findMany({
+        where: { competitionId: id },
+        orderBy: { createdAt: "desc" },
+        take: MAX_EXPORT_ROWS,
+        include: {
+          user: { select: { email: true, name: true } },
+          ticket: { select: { number: true } },
+        },
+      }),
+      prisma.entry.count({ where: { competitionId: id } }),
+    ]);
+
+    const truncated = totalCount > MAX_EXPORT_ROWS;
 
     // Build CSV
     const header = "email,name,ticketNumber,type,answerCorrect,createdAt";
@@ -40,10 +48,14 @@ export async function GET(
 
     const csv = [header, ...rows].join("\n");
 
+    const filename = truncated
+      ? `entries-export-${MAX_EXPORT_ROWS}-of-${totalCount}.csv`
+      : `entries-export.csv`;
+
     return new NextResponse(csv, {
       headers: {
         "Content-Type": "text/csv",
-        "Content-Disposition": `attachment; filename="entries-export.csv"`,
+        "Content-Disposition": `attachment; filename="${filename}"`,
       },
     });
   } catch (error) {

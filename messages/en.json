@@ -128,7 +128,12 @@
     "subtitle": "Real people winning real prizes. Could be you next.",
     "viewAll": "View all winners →",
     "noWinners": "No winners yet — be the first!",
-    "unknownName": "Winner"
+    "unknownName": "Winner",
+    "allWinnersTitle": "All Winners",
+    "allWinnersSubtitle": "{count} lucky winners so far — could you be next?",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
   },
   "faq": {
     "title": "Frequently Asked Questions",

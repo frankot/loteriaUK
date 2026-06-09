@@ -128,7 +128,12 @@
     "subtitle": "Prawdziwi ludzie wygrywają prawdziwe nagrody. Może następny będziesz Ty.",
     "viewAll": "Zobacz wszystkich zwycięzców →",
     "noWinners": "Jeszcze nikt nie wygrał — bądź pierwszy!",
-    "unknownName": "Zwycięzca"
+    "unknownName": "Zwycięzca",
+    "allWinnersTitle": "Wszyscy zwycięzcy",
+    "allWinnersSubtitle": "{count} szczęśliwych zwycięzców — czy następny będziesz Ty?",
+    "previous": "Poprzednia",
+    "next": "Następna",
+    "pageOf": "Strona {page} z {total}"
   },
   "faq": {
     "title": "Często zadawane pytania",

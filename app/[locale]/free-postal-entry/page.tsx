@@ -5,7 +5,7 @@ type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const requiredFields = ["fullName", "address", "email", "dob", "competition", "answer"] as const;
+const requiredFields = ["fullName", "address", "email", "dateOfBirth", "competitionName", "answer"] as const;
 
 export default async function FreePostalEntryPage({ params }: Props) {
   const { locale } = await params;

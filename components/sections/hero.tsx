@@ -26,7 +26,7 @@ function NoCompetitionsCard({
   t: any;
 }) {
   return (
-    <div className="overflow-hidden rounded-[16px] md:rounded-[20px] bg-white shadow-featured">
+    <div className="overflow-hidden rounded-[16px]  md:rounded-[20px] bg-white shadow-featured">
       <div className="relative flex h-[200px] sm:h-[240px] md:h-[280px] items-center justify-center overflow-hidden bg-cream-warm">
         <div className="flex flex-col items-center gap-2 text-gold/20">
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round">
@@ -311,7 +311,7 @@ export default async function Hero({ locale }: { locale: string }) {
   const featured = await getHeroCompetition();
 
   return (
-    <section className="bg-cream px-4 md:px-8 lg:px-12 pt-10 md:pt-16 lg:pt-20 pb-16 md:pb-24 lg:pb-[120px]">
+    <section className="bg-cream px-4  md:px-8 lg:px-12 pt-10 md:pt-16 lg:mt-6 pb-16 md:pb-24 lg:pb-[120px]">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col lg:grid lg:grid-cols-2 lg:items-center gap-10 lg:gap-20">
           {/* Left column */}

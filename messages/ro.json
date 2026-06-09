@@ -126,7 +126,12 @@
     "subtitle": "Oameni reali câștigă premii reale. Ai putea fi următorul.",
     "viewAll": "Vezi toți câștigătorii →",
     "noWinners": "Niciun câștigător încă — fii primul!",
-    "unknownName": "Câștigător"
+    "unknownName": "Câștigător",
+    "allWinnersTitle": "Toți câștigătorii",
+    "allWinnersSubtitle": "{count} câștigători norocoși până acum — ai putea fi următorul?",
+    "previous": "Anterior",
+    "next": "Următor",
+    "pageOf": "Pagina {page} din {total}"
   },
   "faq": {
     "title": "Întrebări frecvente",
