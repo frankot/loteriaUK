@@ -18,13 +18,7 @@ export default async function CompetitionsPage({ params, searchParams }: Props) 
   const { category, page: pageStr } = await searchParams;
   const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
 
-  const where = {
-    status: "ACTIVE" as const,
-    drawDate: { gte: new Date() },
-    ...(category ? { prizeCategory: category } : {}),
-  };
-
-  const { competitions, totalCount } = await getCompetitionsList(where, page, PAGE_SIZE);
+  const { competitions, totalCount } = await getCompetitionsList(category, page, PAGE_SIZE);
 
   const totalPages = Math.ceil(totalCount / PAGE_SIZE);
 
