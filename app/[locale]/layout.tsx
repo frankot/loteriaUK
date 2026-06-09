@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -19,8 +20,25 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   setRequestLocale(locale);
-  const messages = await getMessages();
-  const session = await getSession();
+
+  return (
+    <Suspense
+      fallback={
+        <NextIntlClientProvider messages={{}}>
+          <LayoutShell isLoggedIn={false} />
+        </NextIntlClientProvider>
+      }
+    >
+      <AsyncShell>{children}</AsyncShell>
+    </Suspense>
+  );
+}
+
+async function AsyncShell({ children }: { children: React.ReactNode }) {
+  const [messages, session] = await Promise.all([
+    getMessages(),
+    getSession(),
+  ]);
 
   return (
     <NextIntlClientProvider messages={messages}>
