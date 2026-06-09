@@ -6,13 +6,6 @@ import { routing } from "@/i18n/routing";
 import { getSession } from "@/lib/session";
 import { LayoutShell } from "@/components/layout/layout-shell";
 
-/**
- * This layout reads cookies (getSession) and headers (getMessages),
- * making the entire [locale] route segment dynamic. Force-dynamic
- * prevents Next.js from attempting static prerender during build.
- */
-export const dynamic = "force-dynamic";
-
 type Props = {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;

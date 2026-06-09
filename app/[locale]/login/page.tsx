@@ -1,15 +1,22 @@
+import { Suspense } from "react";
 import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getSession } from "@/lib/session";
 import { LoginForm } from "./form";
 
-export const dynamic = "force-dynamic";
-
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
-export default async function LoginPage({ params }: Props) {
+export default function LoginPage({ params }: Props) {
+  return (
+    <Suspense fallback={<LoginForm />}>
+      <LoginPageInner params={params} />
+    </Suspense>
+  );
+}
+
+async function LoginPageInner({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 

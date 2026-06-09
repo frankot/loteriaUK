@@ -1,14 +1,13 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { Ticket, Trophy, Edit, Users } from "lucide-react";
-
-export const dynamic = "force-dynamic";
-
 import { AddPostalEntryButton } from "./entries/add-postal-button";
 import { EntriesTable } from "./entries/entries-table";
 import FeaturedToggle from "@/components/admin/featured-toggle";
+import { AdminPageSkeleton } from "@/components/ui/skeleton";
 
 type Props = {
   params: Promise<{ locale: string; id: string }>;
@@ -25,7 +24,20 @@ const statusColors: Record<string, string> = {
   CANCELLED: "bg-urgent/10 text-urgent",
 };
 
-export default async function CompetitionDetailPage({ params, searchParams }: Props) {
+/**
+ * Shell — suspends while waiting for searchParams + DB data.
+ * searchParams is a dynamic API that must be accessed inside Suspense
+ * in cacheComponents mode.
+ */
+export default function CompetitionDetailPage(props: Props) {
+  return (
+    <Suspense fallback={<AdminPageSkeleton hasAction columns={8} />}>
+      <CompetitionDetailInner {...props} />
+    </Suspense>
+  );
+}
+
+async function CompetitionDetailInner({ params, searchParams }: Props) {
   const { locale, id } = await params;
   setRequestLocale(locale);
   const { search, type, correct, page: pageStr } = await searchParams;
