@@ -11,6 +11,32 @@ function maybeDecimal(d: unknown): number | null {
   return d != null ? Number(String(d)) : null;
 }
 
+/**
+ * unstable_cache serializes with JSON — Date objects become ISO strings.
+ * Walk the result tree and revive ISO date strings back to Date objects.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function reviveDates(obj: any): any {
+  if (obj === null || obj === undefined) return obj;
+  if (obj instanceof Date) return obj;
+  if (Array.isArray(obj)) return obj.map(reviveDates);
+  if (typeof obj === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = reviveDates(v);
+    }
+    return out;
+  }
+  // ISO 8601 date strings → Date
+  if (
+    typeof obj === "string" &&
+    /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(obj)
+  ) {
+    return new Date(obj);
+  }
+  return obj;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function serializeComp(c: any) {
   if (!c) return c;
@@ -21,9 +47,30 @@ function serializeComp(c: any) {
   };
 }
 
+/**
+ * Wraps an async function with unstable_cache + date revival.
+ * unstable_cache's JSON serialization turns Dates into strings;
+ * reviveDates converts them back on every cache read.
+ */
+function cached<T extends (...args: any[]) => Promise<any>>(
+  keyParts: string[],
+  tags: string[],
+  revalidate: number,
+  fn: T
+): T {
+  const inner = unstable_cache(fn, keyParts, { tags, revalidate });
+  return (async (...args: Parameters<T>) => {
+    const result = await inner(...args);
+    return reviveDates(result);
+  }) as T;
+}
+
 // ── Trending competitions (ACTIVE, ordered by urgency) ────────
 
-export const getTrendingCompetitions = unstable_cache(
+export const getTrendingCompetitions = cached(
+  ["trending-competitions"],
+  ["trending-competitions"],
+  30,
   async (limit = 6) => {
     const rows = await prisma.competition.findMany({
       where: {
@@ -50,14 +97,15 @@ export const getTrendingCompetitions = unstable_cache(
       },
     });
     return rows.map(serializeComp);
-  },
-  ["trending-competitions"],
-  { tags: ["trending-competitions"], revalidate: 30 }
+  }
 );
 
 // ── Featured competition (admin-picked, for hero card) ────────
 
-export const getFeaturedCompetition = unstable_cache(
+export const getFeaturedCompetition = cached(
+  ["featured-competition"],
+  ["featured-competition"],
+  300,
   async () => {
     const comp = await prisma.competition.findFirst({
       where: {
@@ -79,14 +127,15 @@ export const getFeaturedCompetition = unstable_cache(
       },
     });
     return serializeComp(comp);
-  },
-  ["featured-competition"],
-  { tags: ["featured-competition"], revalidate: 300 }
+  }
 );
 
 // ── Hero competition — featured first (any status), else most urgent ACTIVE ──
 
-export const getHeroCompetition = unstable_cache(
+export const getHeroCompetition = cached(
+  ["hero-competition"],
+  ["hero-competition"],
+  30,
   async () => {
     const featured = await prisma.competition.findFirst({
       where: {
@@ -148,14 +197,15 @@ export const getHeroCompetition = unstable_cache(
     });
 
     return serializeComp(fallback);
-  },
-  ["hero-competition"],
-  { tags: ["hero-competition"], revalidate: 30 }
+  }
 );
 
 // ── Recent winners (with user + competition info) ─────────────
 
-export const getRecentWinners = unstable_cache(
+export const getRecentWinners = cached(
+  ["recent-winners"],
+  ["recent-winners"],
+  300,
   async (limit = 6) => {
     return prisma.winner.findMany({
       orderBy: { createdAt: "desc" },
@@ -172,12 +222,11 @@ export const getRecentWinners = unstable_cache(
         },
       },
     });
-  },
-  ["recent-winners"],
-  { tags: ["recent-winners"], revalidate: 300 }
+  }
 );
 
 // ── Paginated winners (for /winners subpage) ──────────────────
+// Not cached — page/offset varies per request
 
 export async function getWinnersPaginated(page: number, perPage: number) {
   const [winners, totalCount] = await Promise.all([
@@ -205,7 +254,10 @@ export async function getWinnersPaginated(page: number, perPage: number) {
 
 // ── Competition detail (by slug, for /competitions/[slug]) ──
 
-export const getCompetitionBySlug = unstable_cache(
+export const getCompetitionBySlug = cached(
+  ["competition-detail"],
+  ["competition-detail"],
+  300,
   async (slug: string) => {
     const comp = await prisma.competition.findUnique({
       where: { slug },
@@ -221,19 +273,16 @@ export const getCompetitionBySlug = unstable_cache(
       },
     });
     return serializeComp(comp);
-  },
-  ["competition-detail"],
-  { tags: ["competition-detail"], revalidate: 300 }
+  }
 );
 
 // ── Competition list (paginated, for /competitions) ────────────
 
-export const getCompetitionsList = unstable_cache(
-  async (
-    category: string | undefined,
-    page: number,
-    pageSize: number
-  ) => {
+export const getCompetitionsList = cached(
+  ["competitions-list"],
+  ["competitions-list"],
+  30,
+  async (category: string | undefined, page: number, pageSize: number) => {
     const where = {
       status: "ACTIVE" as const,
       drawDate: { gte: new Date() },
@@ -254,26 +303,28 @@ export const getCompetitionsList = unstable_cache(
       competitions: rows.map(serializeComp),
       totalCount,
     };
-  },
-  ["competitions-list"],
-  { tags: ["competitions-list"], revalidate: 30 }
+  }
 );
 
 // ── Homepage stats ────────────────────────────────────────────
 
-export const getHomepageStats = unstable_cache(
+export const getHomepageStats = cached(
+  ["homepage-stats"],
+  ["homepage-stats"],
+  300,
   async () => {
-    const [activeCompetitions, totalWinners, totalEntries, prizesGiven] = await Promise.all([
-      prisma.competition.count({
-        where: {
-          status: "ACTIVE",
-          drawDate: { gte: new Date() },
-        },
-      }),
-      prisma.winner.count(),
-      prisma.entry.count(),
-      prisma.winner.count(),
-    ]);
+    const [activeCompetitions, totalWinners, totalEntries, prizesGiven] =
+      await Promise.all([
+        prisma.competition.count({
+          where: {
+            status: "ACTIVE",
+            drawDate: { gte: new Date() },
+          },
+        }),
+        prisma.winner.count(),
+        prisma.entry.count(),
+        prisma.winner.count(),
+      ]);
 
     return {
       activeCompetitions,
@@ -281,7 +332,5 @@ export const getHomepageStats = unstable_cache(
       totalEntries,
       prizesGiven,
     };
-  },
-  ["homepage-stats"],
-  { tags: ["homepage-stats"], revalidate: 300 }
+  }
 );
