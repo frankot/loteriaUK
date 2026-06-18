@@ -42,7 +42,7 @@
     "terms": "Termeni și condiții",
     "privacy": "Politica de confidențialitate",
     "responsiblePlay": "Joc responsabil",
-    "copyright": "© 2026 Golden Dream Draw Ltd. Toate drepturile rezervate. Golden Dream Draw este o platformă de concursuri bazate pe abilități. Nu este joc de noroc. Licențiat și reglementat în Regatul Unit.",
+    "copyright": "© 2026 Golden Dream Draw. Toate drepturile rezervate. Golden Dream Draw este o platformă de concursuri bazate pe abilități. Nu este joc de noroc.",
     "sslEncrypted": "Criptat SSL",
     "skillCompetition": "Concurs de abilități",
     "tagline": "Concursuri bazate pe abilități pentru Marea Britanie. Premii premium, extrageri transparente și câștigători reali — de fiecare dată.",
@@ -219,6 +219,9 @@
     "drawPassed": "Extragerea a avut deja loc",
     "enterNow": "Participă acum",
     "freePostalOption": "Sau participă gratuit prin poștă",
+    "freeEntryTitle": "Participare poștală gratuită",
+    "freeEntryDesc": "Fără obligația de cumpărare. Participă la orice concurs gratuit prin poștă.",
+    "freeEntryLink": "Află mai multe",
     "viewDetails": "Detalii",
     "sold": "vândute",
     "left": "rămase",
@@ -291,14 +294,19 @@
       "email": "Adresa ta de email",
       "dateOfBirth": "Data ta de naștere",
       "competitionName": "Numele concursului la care participi",
-      "answer": "Răspunsul tău la întrebare (A, B, C sau D)"
+      "answer": "Răspunsul tău la întrebare (A, B, C sau D)",
+      "telephone": "Numărul tău de telefon"
     },
     "mailingAddress": "Adresă poștală",
-    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, Regatul Unit",
+    "address": "Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG, Regatul Unit",
     "deadline": "Important",
     "deadlineText": "Participarea ta poștală trebuie să ajungă înainte de data extragerii concursului. Participările primite după extragere nu vor fi valide.",
     "equalChance": "Șanse egale",
     "equalChanceText": "Participările poștale au exact aceleași șanse de câștig ca și cele plătite. Nu există niciun dezavantaj în a participa gratuit.",
+    "limits": "Limite de participare",
+    "limitsText": "O singură participare poștală gratuită per persoană, per concurs. Mai multe participări de la aceeași persoană pentru același concurs vor fi descalificate.",
+    "questions": "Întrebare de abilități",
+    "questionsText": "Fiecare concurs are o întrebare bazată pe abilități cu patru opțiuni de răspuns (A, B, C sau D). Trebuie să răspunzi corect pentru ca participarea ta să fie validă. Găsește întrebarea și răspunsul pe pagina fiecărui concurs.",
     "cta": "Vezi concursurile"
   },
   "notFound": {
@@ -315,7 +323,7 @@
       {
         "number": "1.",
         "title": "INFORMAȚII DESPRE COMPANIE",
-        "body": "Golden Dream Draw este operată de:\n\nGolden Dream Draw Ltd.\nPO Box 483, Green Lanes\nLondra, N13 4FG\nRegatul Unit\n\nEmail: info@goldendreamdraw.com"
+        "body": "Golden Dream Draw este operată de:\n\nGolden Dream Draw.\nPO Box 483, Green Lanes\nLondra, N13 4FG\nRegatul Unit\n\nEmail: contact@goldendreamdraw.uk"
       },
       {
         "number": "2.",
@@ -360,7 +368,7 @@
       {
         "number": "10.",
         "title": "POLITICA DE RAMBURSARE ȘI ANULARE",
-        "body": "10.1 Conform Regulamentului privind contractele de consum din 2013, aveți dreptul de anulare în ceea ce privește achizițiile online. Cu toate acestea, deoarece participările la concursuri sunt limitate în timp, dreptul dumneavoastră de anulare expiră la cea mai apropiată dintre: (a) 14 zile de la achiziționare, sau (b) Data de închidere a Concursului.\n\n10.2 Pentru a solicita o rambursare înainte de Data de închidere, contactați-ne la info@goldendreamdraw.com cu numărul de referință al comenzii. Solicitările de rambursare vor fi procesate în termen de 5 zile lucrătoare.\n\n10.3 Rambursările NU vor fi emise în următoarele circumstanțe:\nDupă trecerea Datei de închidere a Concursului;\nCând contul participantului a fost creat folosind un răspuns incorect la Întrebarea de abilități și biletele au fost achiziționate în ciuda acestui fapt (de exemplu, prin denaturare frauduloasă a eligibilității);\nCând participantul a fost deja anunțat ca câștigător;\nCând solicitarea de rambursare este făcută la mai mult de 14 zile după achiziționare.\n\n10.4 Dacă un Concurs este anulat sau invalidat de Companie din orice motiv, toate participările plătite valide vor fi rambursate integral în termen de 14 zile calendaristice.\n\n10.5 Rambursările vor fi făcute către metoda de plată originală utilizată la momentul achiziției."
+        "body": "10.1 Conform Regulamentului privind contractele de consum din 2013, aveți dreptul de anulare în ceea ce privește achizițiile online. Cu toate acestea, deoarece participările la concursuri sunt limitate în timp, dreptul dumneavoastră de anulare expiră la cea mai apropiată dintre: (a) 14 zile de la achiziționare, sau (b) Data de închidere a Concursului.\n\n10.2 Pentru a solicita o rambursare înainte de Data de închidere, contactați-ne la contact@goldendreamdraw.uk cu numărul de referință al comenzii. Solicitările de rambursare vor fi procesate în termen de 5 zile lucrătoare.\n\n10.3 Rambursările NU vor fi emise în următoarele circumstanțe:\nDupă trecerea Datei de închidere a Concursului;\nCând contul participantului a fost creat folosind un răspuns incorect la Întrebarea de abilități și biletele au fost achiziționate în ciuda acestui fapt (de exemplu, prin denaturare frauduloasă a eligibilității);\nCând participantul a fost deja anunțat ca câștigător;\nCând solicitarea de rambursare este făcută la mai mult de 14 zile după achiziționare.\n\n10.4 Dacă un Concurs este anulat sau invalidat de Companie din orice motiv, toate participările plătite valide vor fi rambursate integral în termen de 14 zile calendaristice.\n\n10.5 Rambursările vor fi făcute către metoda de plată originală utilizată la momentul achiziției."
       },
       {
         "number": "11.",
@@ -375,12 +383,12 @@
       {
         "number": "13.",
         "title": "PARTICIPAREA POȘTALĂ GRATUITĂ",
-        "body": "13.1 Pentru a asigura că concursurile Golden Dream Draw rămân conforme cu legislația britanică aplicabilă, o metodă gratuită de participare este disponibilă pentru fiecare Concurs, după cum urmează.\n\n13.2 Pentru a trimite o participare gratuită prin poștă, participantul trebuie:\nSă scrie numele complet, data nașterii, adresa de domiciliu (doar adrese din Regatul Unit), adresa de email, numărul de telefon și numele sau numărul de referință al Concursului la care dorește să participe, pe o foaie simplă de hârtie (dimensiune minimă A5);\nSă furnizeze un răspuns scris corect la Întrebarea de abilități pentru acel Concurs;\nSă includă o declarație scrisă scurtă (minimum 25 de cuvinte) care explică de ce ar dori să câștige premiul (aceasta constituie elementul suplimentar de abilitate necesar pentru o participare gratuită validă);\nSă expedieze participarea completată într-un plic timbrat la: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nSă se asigure că participarea este primită la adresa de mai sus înainte sau la Data de închidere a Concursului relevant.\n\n13.3 Pentru ca o participare poștală gratuită să fie considerată validă, TOATE următoarele condiții trebuie îndeplinite:\nParticiparea trebuie să fie scrisă de mână. Participările imprimate, dactilografiate sau generate pe calculator nu vor fi acceptate;\nEste permisă o singură participare poștală gratuită per persoană, per Concurs;\nPlicul trebuie să fie timbrat cu un timbru poștal Royal Mail valid. Trimiterile franco și plicurile freepost nu vor fi acceptate;\nParticiparea trebuie primită (nu doar ștampilată) până la Data de închidere;\nRăspunsul corect la Întrebarea de abilități trebuie furnizat și trebuie să corespundă răspunsului publicat de Companie;\nDeclarația scrisă (condiția 13.2.3) trebuie să aibă minimum 25 de cuvinte și să fie originală și scrisă de participant însuși;\nParticipantul trebuie să îndeplinească toate cerințele generale de eligibilitate stabilite în Secțiunea 4 a prezentilor Termeni.\n\n13.4 Participările poștale gratuite care nu îndeplinesc oricare dintre condițiile de mai sus vor fi considerate invalide și nu vor fi introduse în Extragere.\n\n13.5 Participările poștale gratuite au aceeași pondere și șanse de câștig ca și participările plătite și vor fi introduse în aceeași Extragere.\n\n13.6 Compania nu își asumă responsabilitatea pentru participările poștale pierdute, întârziate sau deteriorate în poștă. Se recomandă insistent participanților să păstreze dovada expedierii.\n\n13.7 Costul poștal pentru participările poștale gratuite este responsabilitatea exclusivă a participantului."
+        "body": "13.1 Pentru a asigura că concursurile Golden Dream Draw rămân conforme cu legislația britanică aplicabilă, o metodă gratuită de participare este disponibilă pentru fiecare Concurs, după cum urmează.\n\n13.2 Pentru a trimite o participare gratuită prin poștă, participantul trebuie:\nSă scrie numele complet, data nașterii, adresa de domiciliu (doar adrese din Regatul Unit), adresa de email, numărul de telefon și numele sau numărul de referință al Concursului la care dorește să participe, pe o foaie simplă de hârtie (dimensiune minimă A5);\nSă furnizeze un răspuns scris corect la Întrebarea de abilități pentru acel Concurs;\nSă expedieze participarea completată într-un plic timbrat la: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nSă se asigure că participarea este primită la adresa de mai sus înainte sau la Data de închidere a Concursului relevant.\n\n13.3 Pentru ca o participare poștală gratuită să fie considerată validă, TOATE următoarele condiții trebuie îndeplinite:\nParticiparea trebuie să fie scrisă de mână. Participările imprimate, dactilografiate sau generate pe calculator nu vor fi acceptate;\nEste permisă o singură participare poștală gratuită per persoană, per Concurs;\nPlicul trebuie să fie timbrat cu un timbru poștal Royal Mail valid. Trimiterile franco și plicurile freepost nu vor fi acceptate;\nParticiparea trebuie primită (nu doar ștampilată) până la Data de închidere;\nRăspunsul corect la Întrebarea de abilități trebuie furnizat și trebuie să corespundă răspunsului publicat de Companie;\nParticipantul trebuie să îndeplinească toate cerințele generale de eligibilitate stabilite în Secțiunea 4 a prezentilor Termeni.\n\n13.4 Participările poștale gratuite care nu îndeplinesc oricare dintre condițiile de mai sus vor fi considerate invalide și nu vor fi introduse în Extragere.\n\n13.5 Participările poștale gratuite au aceeași pondere și șanse de câștig ca și participările plătite și vor fi introduse în aceeași Extragere.\n\n13.6 Compania nu își asumă responsabilitatea pentru participările poștale pierdute, întârziate sau deteriorate în poștă. Se recomandă insistent participanților să păstreze dovada expedierii.\n\n13.7 Costul poștal pentru participările poștale gratuite este responsabilitatea exclusivă a participantului."
       },
       {
         "number": "14.",
         "title": "PROTECȚIA DATELOR ȘI CONFIDENȚIALITATEA",
-        "body": "14.1 Golden Dream Draw se angajează să protejeze datele dumneavoastră personale. Procesăm datele personale în conformitate cu Regulamentul General privind Protecția Datelor (UK GDPR) și Legea privind protecția datelor din 2018.\n\n14.2 Datele personale colectate la momentul participării vor fi utilizate în următoarele scopuri:\nPentru a procesa participarea dumneavoastră și, după caz, pentru a vă contacta dacă sunteți selectat ca câștigător;\nPentru a vă trimite corespondență legată de concurs;\nPentru a ne conforma obligațiilor legale;\nPentru a preveni frauda și a asigura integritatea concursurilor noastre.\n\n14.3 Nu vom vinde, închiria sau partaja datele dumneavoastră personale cu nicio terță parte în scopuri de marketing fără consimțământul dumneavoastră explicit.\n\n14.4 Aveți dreptul de a accesa, corecta sau solicita ștergerea datelor dumneavoastră personale în orice moment. Pentru a exercita aceste drepturi, contactați-ne la info@goldendreamdraw.com.\n\n14.5 Detalii complete despre modul în care gestionăm datele dumneavoastră personale sunt stabilite în Politica noastră de confidențialitate, disponibilă pe site-ul nostru."
+        "body": "14.1 Golden Dream Draw se angajează să protejeze datele dumneavoastră personale. Procesăm datele personale în conformitate cu Regulamentul General privind Protecția Datelor (UK GDPR) și Legea privind protecția datelor din 2018.\n\n14.2 Datele personale colectate la momentul participării vor fi utilizate în următoarele scopuri:\nPentru a procesa participarea dumneavoastră și, după caz, pentru a vă contacta dacă sunteți selectat ca câștigător;\nPentru a vă trimite corespondență legată de concurs;\nPentru a ne conforma obligațiilor legale;\nPentru a preveni frauda și a asigura integritatea concursurilor noastre.\n\n14.3 Nu vom vinde, închiria sau partaja datele dumneavoastră personale cu nicio terță parte în scopuri de marketing fără consimțământul dumneavoastră explicit.\n\n14.4 Aveți dreptul de a accesa, corecta sau solicita ștergerea datelor dumneavoastră personale în orice moment. Pentru a exercita aceste drepturi, contactați-ne la contact@goldendreamdraw.uk.\n\n14.5 Detalii complete despre modul în care gestionăm datele dumneavoastră personale sunt stabilite în Politica noastră de confidențialitate, disponibilă pe site-ul nostru."
       },
       {
         "number": "15.",
@@ -400,7 +408,7 @@
       {
         "number": "18.",
         "title": "PROCEDURA DE RECLAMAȚII",
-        "body": "18.1 Dacă aveți o reclamație privind orice aspect al unui Concurs sau al serviciilor noastre, vă rugăm să ne contactați mai întâi la: info@goldendreamdraw.com.\n\n18.2 Ne propunem să confirmăm toate reclamațiile în termen de 5 zile lucrătoare și să oferim un răspuns complet în termen de 21 de zile lucrătoare.\n\n18.3 Dacă nu sunteți mulțumit de răspunsul nostru, puteți solicita o rezolvare suplimentară prin Citizens Advice (www.citizensadvice.org.uk) sau, după caz, prin instanțele din Anglia și Țara Galilor."
+        "body": "18.1 Dacă aveți o reclamație privind orice aspect al unui Concurs sau al serviciilor noastre, vă rugăm să ne contactați mai întâi la: contact@goldendreamdraw.uk.\n\n18.2 Ne propunem să confirmăm toate reclamațiile în termen de 5 zile lucrătoare și să oferim un răspuns complet în termen de 21 de zile lucrătoare.\n\n18.3 Dacă nu sunteți mulțumit de răspunsul nostru, puteți solicita o rezolvare suplimentară prin Citizens Advice (www.citizensadvice.org.uk) sau, după caz, prin instanțele din Anglia și Țara Galilor."
       },
       {
         "number": "19.",

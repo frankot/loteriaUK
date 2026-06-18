@@ -246,6 +246,26 @@ export default async function CompetitionDetailPage({ params }: Props) {
                   <ProgressBar sold={competition.ticketsSold} max={competition.maxTickets} />
                 </div>
 
+                {/* Free Postal Entry Callout */}
+                <div className="mb-5 md:mb-6 rounded-xl border border-border bg-white px-4 py-3 shadow-card">
+                  <div className="flex items-center justify-between gap-2">
+                    <div>
+                      <p className="text-xs font-semibold text-ink">
+                        {t("freeEntryTitle")}
+                      </p>
+                      <p className="text-xs text-ink-muted">
+                        {t("freeEntryDesc")}
+                      </p>
+                    </div>
+                    <a
+                      href={`/${locale}/free-postal-entry`}
+                      className="flex-shrink-0 text-xs font-semibold text-gold-dark hover:text-gold transition-colors"
+                    >
+                      {t("freeEntryLink")} →
+                    </a>
+                  </div>
+                </div>
+
                 {/* Purchase Section */}
                 {!soldOut && !drawPast ? (
                   <PurchaseSection

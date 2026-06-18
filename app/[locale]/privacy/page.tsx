@@ -34,7 +34,7 @@ export default async function PrivacyPage({ params }: Props) {
             <p>
               <strong>Contact details:</strong><br />
               Golden Dream Draw<br />
-              Email: <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a><br />
+              Email: <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a><br />
               Website: <a href="https://www.goldendreamdraw.uk" className="text-gold-dark hover:underline">www.goldendreamdraw.uk</a>
             </p>
           </section>
@@ -191,7 +191,7 @@ export default async function PrivacyPage({ params }: Props) {
               <li><strong>Right to Withdraw Consent:</strong> Where we process your data on the basis of consent, you may withdraw that consent at any time. Withdrawal does not affect the lawfulness of processing prior to withdrawal.</li>
             </ul>
             <p className="mt-2">
-              To exercise any of these rights, please contact us at <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a>. We will respond to your request within one calendar month. We may need to verify your identity before processing your request.
+              To exercise any of these rights, please contact us at <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a>. We will respond to your request within one calendar month. We may need to verify your identity before processing your request.
             </p>
           </section>
 
@@ -204,7 +204,7 @@ export default async function PrivacyPage({ params }: Props) {
             <p className="mb-2">You can opt out of receiving marketing communications at any time by:</p>
             <ul className="list-disc pl-5 space-y-1">
               <li>Clicking the 'Unsubscribe' link at the bottom of any marketing email</li>
-              <li>Contacting us at <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a> and requesting to be removed</li>
+              <li>Contacting us at <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a> and requesting to be removed</li>
               <li>Updating your preferences in your account settings on our website</li>
             </ul>
             <p className="mt-2">
@@ -216,7 +216,7 @@ export default async function PrivacyPage({ params }: Props) {
           <section>
             <h2 className="font-serif mb-2 text-xl md:text-2xl font-semibold text-ink">12. Children</h2>
             <p>
-              Our competitions are strictly open to persons aged 18 and over. We do not knowingly collect personal data from anyone under the age of 18. If you believe we may have inadvertently collected data from a minor, please contact us immediately at <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a> and we will delete the data without delay.
+              Our competitions are strictly open to persons aged 18 and over. We do not knowingly collect personal data from anyone under the age of 18. If you believe we may have inadvertently collected data from a minor, please contact us immediately at <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a> and we will delete the data without delay.
             </p>
           </section>
 
@@ -233,7 +233,7 @@ export default async function PrivacyPage({ params }: Props) {
               <li>Regular review of our security practices</li>
             </ul>
             <p className="mt-2">
-              While we take all reasonable steps to protect your personal data, no method of data transmission over the internet is completely secure. If you have any concerns about data security, please contact us at <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a>.
+              While we take all reasonable steps to protect your personal data, no method of data transmission over the internet is completely secure. If you have any concerns about data security, please contact us at <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a>.
             </p>
           </section>
 
@@ -260,7 +260,7 @@ export default async function PrivacyPage({ params }: Props) {
               If you are unhappy with how we have handled your personal data, we ask that you contact us in the first instance so that we can try to resolve the matter:
             </p>
             <p className="mb-2">
-              Email: <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a>
+              Email: <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a>
             </p>
             <p className="mb-2">If you remain unsatisfied, you have the right to lodge a complaint with the UK's supervisory authority for data protection:</p>
             <p className="mb-1">
@@ -273,7 +273,7 @@ export default async function PrivacyPage({ params }: Props) {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border text-xs text-ink-muted">
-          <p>&copy; 2025 Golden Dream Draw &bull; <a href="https://www.goldendreamdraw.uk" className="text-gold-dark hover:underline">www.goldendreamdraw.uk</a> &bull; <a href="mailto:info@goldendreamdraw.uk" className="text-gold-dark hover:underline">info@goldendreamdraw.uk</a></p>
+          <p>&copy; 2025 Golden Dream Draw &bull; <a href="https://www.goldendreamdraw.uk" className="text-gold-dark hover:underline">www.goldendreamdraw.uk</a> &bull; <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a></p>
         </div>
       </div>
     </div>

@@ -44,7 +44,7 @@
     "terms": "Terms & Conditions",
     "privacy": "Privacy Policy",
     "responsiblePlay": "Responsible Play",
-    "copyright": "© 2026 Golden Dream Draw Ltd. All rights reserved. Golden Dream Draw is a skill-based competition platform. Not gambling. Licensed and regulated in the United Kingdom.",
+    "copyright": "© 2026 Golden Dream Draw. All rights reserved. Golden Dream Draw is a skill-based competition platform. Not gambling.",
     "sslEncrypted": "SSL Encrypted",
     "skillCompetition": "Skill Competition",
     "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time.",
@@ -224,6 +224,9 @@
     "drawPassed": "Draw has passed",
     "enterNow": "Enter Now",
     "freePostalOption": "Or enter for free by post",
+    "freeEntryTitle": "Free Postal Entry",
+    "freeEntryDesc": "No purchase necessary. Enter any competition for free by post.",
+    "freeEntryLink": "Learn more",
     "viewDetails": "View Details",
     "sold": "sold",
     "left": "left",
@@ -307,14 +310,19 @@
       "email": "Your email address",
       "dateOfBirth": "Your date of birth",
       "competitionName": "The name of the competition you're entering",
-      "answer": "Your answer to the skill question (A, B, C, or D)"
+      "answer": "Your answer to the skill question (A, B, C, or D)",
+      "telephone": "Your telephone number"
     },
     "mailingAddress": "Mailing Address",
-    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, United Kingdom",
+    "address": "Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG, United Kingdom",
     "deadline": "Important",
     "deadlineText": "Your postal entry must arrive before the competition's draw date. Entries received after the draw will not be valid.",
     "equalChance": "Equal Chance",
     "equalChanceText": "Postal entries have exactly the same chance of winning as paid entries. There is no disadvantage to entering for free.",
+    "limits": "Entry Limits",
+    "limitsText": "One free postal entry per person, per competition. Multiple entries from the same person for the same competition will be disqualified.",
+    "questions": "Skill Question",
+    "questionsText": "Each competition has a skill-based question with four answer options (A, B, C, or D). You must answer correctly for your entry to be valid. Find the question and answer on each competition page.",
     "cta": "Browse Competitions"
   },
   "competitionsPage": {
@@ -375,7 +383,7 @@
       {
         "number": "1.",
         "title": "COMPANY INFORMATION",
-        "body": "Golden Dream Draw is operated by:\n\nGolden Dream Draw Ltd.\nPO Box 483, Green Lanes\nLondon, N13 4FG\nUnited Kingdom\n\nEmail: info@goldendreamdraw.com"
+        "body": "Golden Dream Draw is operated by:\n\nGolden Dream Draw.\nPO Box 483, Green Lanes\nLondon, N13 4FG\nUnited Kingdom\n\nEmail: contact@goldendreamdraw.uk"
       },
       {
         "number": "2.",
@@ -420,7 +428,7 @@
       {
         "number": "10.",
         "title": "REFUNDS AND CANCELLATION POLICY",
-        "body": "10.1 Under the Consumer Contracts Regulations 2013, you have a right of cancellation in respect of online purchases. However, because Competition entries are time-limited, your right to cancel expires at the earlier of: (a) 14 days from purchase, or (b) the Closing Date of the Competition.\n\n10.2 To request a refund before the Closing Date, contact us at info@goldendreamdraw.com with your order reference number. Refund requests will be processed within 5 working days.\n\n10.3 Refunds will NOT be issued in the following circumstances:\nAfter the Closing Date of the Competition has passed;\nWhere the participant's account was created using an incorrect Skill Question answer and tickets were purchased despite this (e.g. through fraudulent misrepresentation of eligibility);\nWhere the participant has already been announced as a winner;\nWhere the refund request is made more than 14 days after purchase.\n\n10.4 If a Competition is cancelled or voided by the Company for any reason, all valid paid entries will be refunded in full within 14 calendar days.\n\n10.5 Refunds will be made to the original payment method used at the time of purchase."
+        "body": "10.1 Under the Consumer Contracts Regulations 2013, you have a right of cancellation in respect of online purchases. However, because Competition entries are time-limited, your right to cancel expires at the earlier of: (a) 14 days from purchase, or (b) the Closing Date of the Competition.\n\n10.2 To request a refund before the Closing Date, contact us at contact@goldendreamdraw.uk with your order reference number. Refund requests will be processed within 5 working days.\n\n10.3 Refunds will NOT be issued in the following circumstances:\nAfter the Closing Date of the Competition has passed;\nWhere the participant's account was created using an incorrect Skill Question answer and tickets were purchased despite this (e.g. through fraudulent misrepresentation of eligibility);\nWhere the participant has already been announced as a winner;\nWhere the refund request is made more than 14 days after purchase.\n\n10.4 If a Competition is cancelled or voided by the Company for any reason, all valid paid entries will be refunded in full within 14 calendar days.\n\n10.5 Refunds will be made to the original payment method used at the time of purchase."
       },
       {
         "number": "11.",
@@ -435,12 +443,12 @@
       {
         "number": "13.",
         "title": "FREE POSTAL ENTRY",
-        "body": "13.1 In order to ensure that Golden Dream Draw competitions remain compliant with applicable UK law, a free method of entry is available for every Competition, as follows.\n\n13.2 To submit a free entry by post, the participant must:\nWrite their full name, date of birth, home address (UK addresses only), email address, telephone number, and the name or reference number of the Competition they wish to enter, on a plain piece of paper (minimum A5 size);\nProvide a correct written answer to the Skill Question for that Competition;\nInclude a brief written statement (minimum 25 words) explaining why they would like to win the prize (this constitutes the additional skill element required for a valid free entry);\nPost the completed entry in a stamped envelope to: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nEnsure the entry is received at the above address on or before the Closing Date of the relevant Competition.\n\n13.3 In order for a free postal entry to be deemed valid, ALL of the following conditions must be satisfied:\nThe entry must be handwritten. Printed, typed, or computer-generated entries will not be accepted;\nOnly one free postal entry is permitted per person, per Competition;\nThe envelope must be stamped with a valid Royal Mail postage stamp. Franked mail and freepost envelopes will not be accepted;\nThe entry must be received (not merely postmarked) by the Closing Date;\nThe correct answer to the Skill Question must be provided and must match the answer published by the Company;\nThe written statement (condition 13.2.3) must be a minimum of 25 words and must be original and written by the participant themselves;\nThe participant must satisfy all general eligibility requirements set out in Section 4 of these Terms.\n\n13.4 Free postal entries that fail to meet any of the above conditions will be deemed invalid and will not be entered into the Draw.\n\n13.5 Free postal entries carry the same weight and chance of winning as paid entries and will be entered into the same Draw.\n\n13.6 The Company does not accept responsibility for postal entries lost, delayed, or damaged in the mail. It is strongly recommended that participants retain proof of postage.\n\n13.7 The cost of postage for free postal entries is the sole responsibility of the participant."
+        "body": "13.1 In order to ensure that Golden Dream Draw competitions remain compliant with applicable UK law, a free method of entry is available for every Competition, as follows.\n\n13.2 To submit a free entry by post, the participant must:\nWrite their full name, date of birth, home address (UK addresses only), email address, telephone number, and the name or reference number of the Competition they wish to enter, on a plain piece of paper (minimum A5 size);\nProvide a correct written answer to the Skill Question for that Competition;\nPost the completed entry in a stamped envelope to: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nEnsure the entry is received at the above address on or before the Closing Date of the relevant Competition.\n\n13.3 In order for a free postal entry to be deemed valid, ALL of the following conditions must be satisfied:\nThe entry must be handwritten. Printed, typed, or computer-generated entries will not be accepted;\nOnly one free postal entry is permitted per person, per Competition;\nThe envelope must be stamped with a valid Royal Mail postage stamp. Franked mail and freepost envelopes will not be accepted;\nThe entry must be received (not merely postmarked) by the Closing Date;\nThe correct answer to the Skill Question must be provided and must match the answer published by the Company;\nThe participant must satisfy all general eligibility requirements set out in Section 4 of these Terms.\n\n13.4 Free postal entries that fail to meet any of the above conditions will be deemed invalid and will not be entered into the Draw.\n\n13.5 Free postal entries carry the same weight and chance of winning as paid entries and will be entered into the same Draw.\n\n13.6 The Company does not accept responsibility for postal entries lost, delayed, or damaged in the mail. It is strongly recommended that participants retain proof of postage.\n\n13.7 The cost of postage for free postal entries is the sole responsibility of the participant."
       },
       {
         "number": "14.",
         "title": "DATA PROTECTION AND PRIVACY",
-        "body": "14.1 Golden Dream Draw is committed to protecting your personal data. We process personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.\n\n14.2 Personal data collected at the point of entry will be used for the following purposes:\nTo process your entry and, if applicable, to contact you if you are selected as a winner;\nTo send you competition-related correspondence;\nTo comply with our legal obligations;\nTo prevent fraud and ensure the integrity of our competitions.\n\n14.3 We will not sell, rent, or share your personal data with any third party for marketing purposes without your explicit consent.\n\n14.4 You have the right to access, correct, or request deletion of your personal data at any time. To exercise these rights, contact us at info@goldendreamdraw.com.\n\n14.5 Full details of how we handle your personal data are set out in our Privacy Policy, available on our website."
+        "body": "14.1 Golden Dream Draw is committed to protecting your personal data. We process personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.\n\n14.2 Personal data collected at the point of entry will be used for the following purposes:\nTo process your entry and, if applicable, to contact you if you are selected as a winner;\nTo send you competition-related correspondence;\nTo comply with our legal obligations;\nTo prevent fraud and ensure the integrity of our competitions.\n\n14.3 We will not sell, rent, or share your personal data with any third party for marketing purposes without your explicit consent.\n\n14.4 You have the right to access, correct, or request deletion of your personal data at any time. To exercise these rights, contact us at contact@goldendreamdraw.uk.\n\n14.5 Full details of how we handle your personal data are set out in our Privacy Policy, available on our website."
       },
       {
         "number": "15.",
@@ -460,7 +468,7 @@
       {
         "number": "18.",
         "title": "COMPLAINTS PROCEDURE",
-        "body": "18.1 If you have a complaint regarding any aspect of a Competition or our services, please contact us in the first instance at: info@goldendreamdraw.com.\n\n18.2 We aim to acknowledge all complaints within 5 working days and to provide a full response within 21 working days.\n\n18.3 If you are not satisfied with our response, you may seek further resolution through Citizens Advice (www.citizensadvice.org.uk) or, where appropriate, through the courts of England and Wales."
+        "body": "18.1 If you have a complaint regarding any aspect of a Competition or our services, please contact us in the first instance at: contact@goldendreamdraw.uk.\n\n18.2 We aim to acknowledge all complaints within 5 working days and to provide a full response within 21 working days.\n\n18.3 If you are not satisfied with our response, you may seek further resolution through Citizens Advice (www.citizensadvice.org.uk) or, where appropriate, through the courts of England and Wales."
       },
       {
         "number": "19.",

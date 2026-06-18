@@ -224,7 +224,7 @@ export function loginCodeEmailHtml(code: string): string {
       </p>
     </div>
     <div class="footer">
-      <p>Golden Dream Draw Ltd</p>
+      <p>Golden Dream Draw</p>
       <p>Skill-based prize competitions &bull; UK registered</p>
     </div>
   `;
@@ -282,7 +282,7 @@ export function purchaseConfirmationHtml(params: {
       </p>
     </div>
     <div class="footer">
-      <p>Golden Dream Draw Ltd</p>
+      <p>Golden Dream Draw</p>
       <p>Skill-based prize competitions &bull; UK registered</p>
     </div>
   `;
@@ -327,7 +327,7 @@ export function winnerNotificationHtml(params: {
       </p>
     </div>
     <div class="footer">
-      <p>Golden Dream Draw Ltd</p>
+      <p>Golden Dream Draw</p>
       <p>Skill-based prize competitions &bull; UK registered</p>
       <p style="margin-top:8px;">
         <a href="${SITE_URL}/en/competitions/${params.competitionSlug}">View competition details</a>
@@ -365,7 +365,7 @@ export function redrawNoticeHtml(params: {
       </div>
     </div>
     <div class="footer">
-      <p>Golden Dream Draw Ltd</p>
+      <p>Golden Dream Draw</p>
       <p>Skill-based prize competitions &bull; UK registered</p>
     </div>
   `;

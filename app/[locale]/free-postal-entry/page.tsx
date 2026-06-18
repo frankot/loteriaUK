@@ -1,11 +1,12 @@
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
+import { ADDRESS } from "@/lib/data";
 
 type Props = {
   params: Promise<{ locale: string }>;
 };
 
-const requiredFields = ["fullName", "address", "email", "dateOfBirth", "competitionName", "answer"] as const;
+const requiredFields = ["fullName", "address", "email", "dateOfBirth", "competitionName", "answer", "telephone"] as const;
 
 export default async function FreePostalEntryPage({ params }: Props) {
   const { locale } = await params;
@@ -75,10 +76,10 @@ export default async function FreePostalEntryPage({ params }: Props) {
         </h2>
         <div className="rounded-xl border border-dashed border-gold bg-gold-pale/30 p-6">
           <address className="not-italic space-y-0.5 text-[15px] leading-relaxed text-ink">
-            <p className="font-semibold">{t("addressLine1")}</p>
-            <p>{t("addressLine2")}</p>
-            <p>{t("addressLine3")}</p>
-            <p>{t("addressLine4")}</p>
+            <p className="font-semibold">{ADDRESS.line1}</p>
+            <p>{ADDRESS.line2}</p>
+            <p>{ADDRESS.line3}</p>
+            <p>{ADDRESS.line4}</p>
           </address>
         </div>
       </section>

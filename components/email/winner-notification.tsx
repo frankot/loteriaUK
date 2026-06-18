@@ -71,7 +71,7 @@ export function WinnerNotificationEmail({
             If you do not claim within 14 days, a new winner will be drawn.
           </p>
           <div className="footer">
-            Golden Dream Draw Ltd — Skill-based prize competitions
+            Golden Dream Draw — Skill-based prize competitions
             <br />© {new Date().getFullYear()} All rights reserved.
           </div>
         </div>

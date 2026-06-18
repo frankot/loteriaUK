@@ -20,7 +20,7 @@ export const FROM_WINNERS =
 
 /**
  * Admin notification email address.
- * Set ADMIN_NOTIFICATION_EMAIL in .env.local (e.g. info@goldendreamdraw.com).
+ * Set ADMIN_NOTIFICATION_EMAIL in .env.local (e.g. contact@goldendreamdraw.uk).
  */
 export const ADMIN_NOTIFICATION_EMAIL =
   process.env.ADMIN_NOTIFICATION_EMAIL || "";

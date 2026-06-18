@@ -44,7 +44,7 @@
     "terms": "Regulamin",
     "privacy": "Polityka prywatności",
     "responsiblePlay": "Odpowiedzialna gra",
-    "copyright": "© 2026 Golden Dream Draw Ltd. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard. Licencjonowane i regulowane w Wielkiej Brytanii.",
+    "copyright": "© 2026 Golden Dream Draw. Wszelkie prawa zastrzeżone. Golden Dream Draw to platforma konkursów umiejętnościowych. To nie hazard.",
     "sslEncrypted": "Szyfrowane SSL",
     "skillCompetition": "Konkurs umiejętności",
     "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy — za każdym razem.",
@@ -224,6 +224,9 @@
     "drawPassed": "Losowanie już się odbyło",
     "enterNow": "Weź udział",
     "freePostalOption": "Lub weź udział za darmo pocztą",
+    "freeEntryTitle": "Darmowy udział pocztowy",
+    "freeEntryDesc": "Bez konieczności zakupu. Weź udział w dowolnym konkursie za darmo pocztą.",
+    "freeEntryLink": "Dowiedz się więcej",
     "viewDetails": "Szczegóły",
     "sold": "sprzedanych",
     "left": "pozostało",
@@ -307,14 +310,19 @@
       "email": "Twój adres email",
       "dateOfBirth": "Twoja data urodzenia",
       "competitionName": "Nazwa konkursu, do którego się zgłaszasz",
-      "answer": "Twoja odpowiedź na pytanie (A, B, C lub D)"
+      "answer": "Twoja odpowiedź na pytanie (A, B, C lub D)",
+      "telephone": "Twój numer telefonu"
     },
     "mailingAddress": "Adres korespondencyjny",
-    "address": "Golden Dream Draw, PO Box 1234, London, SW1A 1AA, Wielka Brytania",
+    "address": "Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG, Wielka Brytania",
     "deadline": "Ważne",
     "deadlineText": "Twoje zgłoszenie pocztowe musi dotrzeć przed datą losowania konkursu. Zgłoszenia otrzymane po losowaniu nie będą ważne.",
     "equalChance": "Równe szanse",
     "equalChanceText": "Zgłoszenia pocztowe mają dokładnie taką samą szansę na wygraną jak zgłoszenia płatne. Darmowy udział nie stawia Cię w gorszej pozycji.",
+    "limits": "Limity zgłoszeń",
+    "limitsText": "Jedno darmowe zgłoszenie pocztowe na osobę, na konkurs. Wielokrotne zgłoszenia od tej samej osoby w tym samym konkursie zostaną zdyskwalifikowane.",
+    "questions": "Pytanie kwalifikacyjne",
+    "questionsText": "Każdy konkurs zawiera pytanie sprawdzające umiejętności z czterema opcjami odpowiedzi (A, B, C lub D). Aby zgłoszenie było ważne, musisz odpowiedzieć poprawnie. Pytanie i odpowiedź znajdziesz na stronie każdego konkursu.",
     "cta": "Przeglądaj konkursy"
   },
   "competitionsPage": {
@@ -375,7 +383,7 @@
       {
         "number": "1.",
         "title": "INFORMACJE O FIRMIE",
-        "body": "Firma Golden Dream Draw jest prowadzona przez:\n\nGolden Dream Draw Ltd.\nPO Box 483, Green Lanes\nLondyn, N13 4FG\nWielka Brytania\n\nEmail: info@goldendreamdraw.com"
+        "body": "Firma Golden Dream Draw jest prowadzona przez:\n\nGolden Dream Draw.\nPO Box 483, Green Lanes\nLondyn, N13 4FG\nWielka Brytania\n\nEmail: contact@goldendreamdraw.uk"
       },
       {
         "number": "2.",
@@ -420,7 +428,7 @@
       {
         "number": "10.",
         "title": "ZWROTY I POLITYKA ANULOWANIA",
-        "body": "10.1 Zgodnie z Rozporządzeniem w sprawie umów konsumenckich z 2013 r., przysługuje Ci prawo odstąpienia od umowy w przypadku zakupów online. Jednakże, ponieważ zgłoszenia konkursowe są ograniczone czasowo, Twoje prawo do odstąpienia wygasa z wcześniejszą z dat: (a) 14 dni od zakupu, lub (b) Daty zamknięcia Konkursu.\n\n10.2 Aby poprosić o zwrot pieniędzy przed Datą zamknięcia, skontaktuj się z nami pod adresem info@goldendreamdraw.com, podając numer referencyjny zamówienia. Prośby o zwrot zostaną rozpatrzone w ciągu 5 dni roboczych.\n\n10.3 Zwroty NIE będą udzielane w następujących okolicznościach:\nPo upływie Daty zamknięcia Konkursu;\nGdy konto uczestnika zostało utworzone przy użyciu nieprawidłowej odpowiedzi na Pytanie kwalifikacyjne, a bilety zostały zakupione mimo to (np. poprzez oszukańcze wprowadzenie w błąd co do kwalifikowalności);\nGdy uczestnik został już ogłoszony jako zwycięzca;\nGdy prośba o zwrot została złożona po upływie 14 dni od zakupu.\n\n10.4 Jeśli Konkurs zostanie odwołany lub unieważniony przez Spółkę z jakiegokolwiek powodu, wszystkie ważne płatne zgłoszenia otrzymają pełny zwrot pieniędzy w ciągu 14 dni kalendarzowych.\n\n10.5 Zwroty zostaną dokonane na oryginalną metodę płatności użytej w momencie zakupu."
+        "body": "10.1 Zgodnie z Rozporządzeniem w sprawie umów konsumenckich z 2013 r., przysługuje Ci prawo odstąpienia od umowy w przypadku zakupów online. Jednakże, ponieważ zgłoszenia konkursowe są ograniczone czasowo, Twoje prawo do odstąpienia wygasa z wcześniejszą z dat: (a) 14 dni od zakupu, lub (b) Daty zamknięcia Konkursu.\n\n10.2 Aby poprosić o zwrot pieniędzy przed Datą zamknięcia, skontaktuj się z nami pod adresem contact@goldendreamdraw.uk, podając numer referencyjny zamówienia. Prośby o zwrot zostaną rozpatrzone w ciągu 5 dni roboczych.\n\n10.3 Zwroty NIE będą udzielane w następujących okolicznościach:\nPo upływie Daty zamknięcia Konkursu;\nGdy konto uczestnika zostało utworzone przy użyciu nieprawidłowej odpowiedzi na Pytanie kwalifikacyjne, a bilety zostały zakupione mimo to (np. poprzez oszukańcze wprowadzenie w błąd co do kwalifikowalności);\nGdy uczestnik został już ogłoszony jako zwycięzca;\nGdy prośba o zwrot została złożona po upływie 14 dni od zakupu.\n\n10.4 Jeśli Konkurs zostanie odwołany lub unieważniony przez Spółkę z jakiegokolwiek powodu, wszystkie ważne płatne zgłoszenia otrzymają pełny zwrot pieniędzy w ciągu 14 dni kalendarzowych.\n\n10.5 Zwroty zostaną dokonane na oryginalną metodę płatności użytej w momencie zakupu."
       },
       {
         "number": "11.",
@@ -435,12 +443,12 @@
       {
         "number": "13.",
         "title": "DARMOWY UDZIAŁ POCZTOWY",
-        "body": "13.1 Aby zapewnić zgodność konkursów Golden Dream Draw z obowiązującym prawem brytyjskim, dla każdego Konkursu dostępna jest bezpłatna metoda zgłoszenia, jak poniżej.\n\n13.2 Aby dokonać bezpłatnego zgłoszenia pocztą, uczestnik musi:\nNapisać swoje pełne imię i nazwisko, datę urodzenia, adres domowy (tylko adresy w Wielkiej Brytanii), adres email, numer telefonu oraz nazwę lub numer referencyjny Konkursu, w którym chce wziąć udział, na czystej kartce papieru (minimum format A5);\nPodać poprawną pisemną odpowiedź na Pytanie kwalifikacyjne dla tego Konkursu;\nDołączyć krótkie pisemne oświadczenie (minimum 25 słów) wyjaśniające, dlaczego chcą wygrać nagrodę (stanowi to dodatkowy element umiejętności wymagany do ważnego bezpłatnego zgłoszenia);\nWysłać wypełnione zgłoszenie w zaadresowanej kopercie ze znaczkiem na adres: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nUpewnić się, że zgłoszenie wpłynie na powyższy adres najpóźniej w Dacie zamknięcia danego Konkursu.\n\n13.3 Aby bezpłatne zgłoszenie pocztowe było uznane za ważne, muszą być spełnione WSZYSTKIE następujące warunki:\nZgłoszenie musi być odręczne. Wydrukowane, napisane na maszynie lub wygenerowane komputerowo zgłoszenia nie będą akceptowane;\nDozwolone jest tylko jedno bezpłatne zgłoszenie pocztowe na osobę, na Konkurs;\nKoperta musi być opatrzona ważnym znaczkiem pocztowym Royal Mail. Przesyłki frankowane i koperty freepost nie będą akceptowane;\nZgłoszenie musi wpłynąć (nie wystarczy data stempla pocztowego) do Daty zamknięcia;\nPoprawna odpowiedź na Pytanie kwalifikacyjne musi być podana i zgodna z odpowiedzią opublikowaną przez Spółkę;\nPisemne oświadczenie (warunek 13.2.3) musi mieć minimum 25 słów i być oryginalne oraz napisane przez samego uczestnika;\nUczestnik musi spełniać wszystkie ogólne wymogi kwalifikacyjne określone w Sekcji 4 niniejszego Regulaminu.\n\n13.4 Bezpłatne zgłoszenia pocztowe niespełniające któregokolwiek z powyższych warunków zostaną uznane za nieważne i nie zostaną uwzględnione w Losowaniu.\n\n13.5 Bezpłatne zgłoszenia pocztowe mają taką samą wagę i szansę na wygraną jak zgłoszenia płatne i zostaną uwzględnione w tym samym Losowaniu.\n\n13.6 Spółka nie ponosi odpowiedzialności za zgłoszenia pocztowe zagubione, opóźnione lub uszkodzone w poczcie. Zaleca się zachowanie dowodu nadania.\n\n13.7 Koszt przesyłki pocztowej za bezpłatne zgłoszenia pocztowe jest w całości pokrywany przez uczestnika."
+        "body": "13.1 Aby zapewnić zgodność konkursów Golden Dream Draw z obowiązującym prawem brytyjskim, dla każdego Konkursu dostępna jest bezpłatna metoda zgłoszenia, jak poniżej.\n\n13.2 Aby dokonać bezpłatnego zgłoszenia pocztą, uczestnik musi:\nNapisać swoje pełne imię i nazwisko, datę urodzenia, adres domowy (tylko adresy w Wielkiej Brytanii), adres email, numer telefonu oraz nazwę lub numer referencyjny Konkursu, w którym chce wziąć udział, na czystej kartce papieru (minimum format A5);\nPodać poprawną pisemną odpowiedź na Pytanie kwalifikacyjne dla tego Konkursu;\nWysłać wypełnione zgłoszenie w zaadresowanej kopercie ze znaczkiem na adres: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nUpewnić się, że zgłoszenie wpłynie na powyższy adres najpóźniej w Dacie zamknięcia danego Konkursu.\n\n13.3 Aby bezpłatne zgłoszenie pocztowe było uznane za ważne, muszą być spełnione WSZYSTKIE następujące warunki:\nZgłoszenie musi być odręczne. Wydrukowane, napisane na maszynie lub wygenerowane komputerowo zgłoszenia nie będą akceptowane;\nDozwolone jest tylko jedno bezpłatne zgłoszenie pocztowe na osobę, na Konkurs;\nKoperta musi być opatrzona ważnym znaczkiem pocztowym Royal Mail. Przesyłki frankowane i koperty freepost nie będą akceptowane;\nZgłoszenie musi wpłynąć (nie wystarczy data stempla pocztowego) do Daty zamknięcia;\nPoprawna odpowiedź na Pytanie kwalifikacyjne musi być podana i zgodna z odpowiedzią opublikowaną przez Spółkę;\nUczestnik musi spełniać wszystkie ogólne wymogi kwalifikacyjne określone w Sekcji 4 niniejszego Regulaminu.\n\n13.4 Bezpłatne zgłoszenia pocztowe niespełniające któregokolwiek z powyższych warunków zostaną uznane za nieważne i nie zostaną uwzględnione w Losowaniu.\n\n13.5 Bezpłatne zgłoszenia pocztowe mają taką samą wagę i szansę na wygraną jak zgłoszenia płatne i zostaną uwzględnione w tym samym Losowaniu.\n\n13.6 Spółka nie ponosi odpowiedzialności za zgłoszenia pocztowe zagubione, opóźnione lub uszkodzone w poczcie. Zaleca się zachowanie dowodu nadania.\n\n13.7 Koszt przesyłki pocztowej za bezpłatne zgłoszenia pocztowe jest w całości pokrywany przez uczestnika."
       },
       {
         "number": "14.",
         "title": "OCHRONA DANYCH I PRYWATNOŚĆ",
-        "body": "14.1 Golden Dream Draw zobowiązuje się do ochrony Twoich danych osobowych. Przetwarzamy dane osobowe zgodnie z Ogólnym Rozporządzeniem o Ochronie Danych (UK GDPR) oraz ustawą o ochronie danych z 2018 r.\n\n14.2 Dane osobowe zebrane w momencie zgłoszenia będą wykorzystywane w następujących celach:\nDo przetworzenia Twojego zgłoszenia i, w stosownych przypadkach, skontaktowania się z Tobą, jeśli zostaniesz wybrany jako zwycięzca;\nDo wysyłania korespondencji związanej z konkursem;\nDo wypełniania naszych obowiązków prawnych;\nDo zapobiegania oszustwom i zapewnienia integralności naszych konkursów.\n\n14.3 Nie będziemy sprzedawać, wynajmować ani udostępniać Twoich danych osobowych stronom trzecim w celach marketingowych bez Twojej wyraźnej zgody.\n\n14.4 Masz prawo dostępu do swoich danych osobowych, ich poprawiania lub żądania ich usunięcia w dowolnym momencie. Aby skorzystać z tych praw, skontaktuj się z nami pod adresem info@goldendreamdraw.com.\n\n14.5 Pełne szczegóły dotyczące sposobu, w jaki przetwarzamy Twoje dane osobowe, znajdują się w naszej Polityce prywatności, dostępnej na naszej stronie internetowej."
+        "body": "14.1 Golden Dream Draw zobowiązuje się do ochrony Twoich danych osobowych. Przetwarzamy dane osobowe zgodnie z Ogólnym Rozporządzeniem o Ochronie Danych (UK GDPR) oraz ustawą o ochronie danych z 2018 r.\n\n14.2 Dane osobowe zebrane w momencie zgłoszenia będą wykorzystywane w następujących celach:\nDo przetworzenia Twojego zgłoszenia i, w stosownych przypadkach, skontaktowania się z Tobą, jeśli zostaniesz wybrany jako zwycięzca;\nDo wysyłania korespondencji związanej z konkursem;\nDo wypełniania naszych obowiązków prawnych;\nDo zapobiegania oszustwom i zapewnienia integralności naszych konkursów.\n\n14.3 Nie będziemy sprzedawać, wynajmować ani udostępniać Twoich danych osobowych stronom trzecim w celach marketingowych bez Twojej wyraźnej zgody.\n\n14.4 Masz prawo dostępu do swoich danych osobowych, ich poprawiania lub żądania ich usunięcia w dowolnym momencie. Aby skorzystać z tych praw, skontaktuj się z nami pod adresem contact@goldendreamdraw.uk.\n\n14.5 Pełne szczegóły dotyczące sposobu, w jaki przetwarzamy Twoje dane osobowe, znajdują się w naszej Polityce prywatności, dostępnej na naszej stronie internetowej."
       },
       {
         "number": "15.",
@@ -460,7 +468,7 @@
       {
         "number": "18.",
         "title": "PROCEDURA REKLAMACYJNA",
-        "body": "18.1 Jeśli masz reklamację dotyczącą jakiegokolwiek aspektu Konkursu lub naszych usług, skontaktuj się z nami w pierwszej kolejności pod adresem: info@goldendreamdraw.com.\n\n18.2 Dokładamy starań, aby potwierdzić wszystkie reklamacje w ciągu 5 dni roboczych i udzielić pełnej odpowiedzi w ciągu 21 dni roboczych.\n\n18.3 Jeśli nie jesteś zadowolony z naszej odpowiedzi, możesz ubiegać się o dalsze rozwiązanie za pośrednictwem Citizens Advice (www.citizensadvice.org.uk) lub, w stosownych przypadkach, przed sądami Anglii i Walii."
+        "body": "18.1 Jeśli masz reklamację dotyczącą jakiegokolwiek aspektu Konkursu lub naszych usług, skontaktuj się z nami w pierwszej kolejności pod adresem: contact@goldendreamdraw.uk.\n\n18.2 Dokładamy starań, aby potwierdzić wszystkie reklamacje w ciągu 5 dni roboczych i udzielić pełnej odpowiedzi w ciągu 21 dni roboczych.\n\n18.3 Jeśli nie jesteś zadowolony z naszej odpowiedzi, możesz ubiegać się o dalsze rozwiązanie za pośrednictwem Citizens Advice (www.citizensadvice.org.uk) lub, w stosownych przypadkach, przed sądami Anglii i Walii."
       },
       {
         "number": "19.",
