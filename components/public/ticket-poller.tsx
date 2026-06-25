@@ -8,14 +8,14 @@ interface TicketData {
 }
 
 interface TicketPollerProps {
-  stripeSessionId: string;
+  paymentId: string;
   initialTickets: number[];
   /** Max seconds to poll before giving up (default 30) */
   timeoutSec?: number;
 }
 
 export default function TicketPoller({
-  stripeSessionId,
+  paymentId,
   initialTickets,
   timeoutSec = 30,
 }: TicketPollerProps) {
@@ -37,7 +37,7 @@ export default function TicketPoller({
 
       try {
         const res = await fetch(
-          `/api/stripe/session-tickets?session_id=${encodeURIComponent(stripeSessionId)}&attempt=${attempts.current}`
+          `/api/cashflows/payment-tickets?payment_id=${encodeURIComponent(paymentId)}&attempt=${attempts.current}`
         );
         const data = await res.json();
 
@@ -68,7 +68,7 @@ export default function TicketPoller({
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [stripeSessionId, initialTickets, maxAttempts]);
+  }, [paymentId, initialTickets, maxAttempts]);
 
   if (!tickets.length && polling) {
     return (

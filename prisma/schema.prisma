@@ -24,6 +24,21 @@ enum TicketStatus {
   SOLD
 }
 
+enum PaymentProvider {
+  CASHFLOWS
+  STRIPE
+}
+
+enum PaymentStatus {
+  INITIATED
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+  EXPIRED
+  PROCESSING_FAILED
+}
+
 model User {
   id           String         @id @default(cuid())
   email        String         @unique
@@ -38,6 +53,7 @@ model User {
 
   tickets      Ticket[]
   entries      Entry[]
+  payments     Payment[]
   winners      Winner[]
 
   @@map("users")
@@ -91,6 +107,7 @@ model Competition {
 
   tickets       Ticket[]
   entries       Entry[]
+  payments      Payment[]
   winners       Winner[]
 
   @@index([status, drawDate])
@@ -122,17 +139,57 @@ model Entry {
   user           User       @relation(fields: [userId], references: [id])
   ticketId       String?    @unique
   ticket         Ticket?    @relation(fields: [ticketId], references: [id])
+  paymentId      String?
+  payment        Payment?   @relation(fields: [paymentId], references: [id])
   type           EntryType  @default(PAID)
   answerCorrect  Boolean?
-  stripeSessionId String?  // idempotency key for Stripe webhook replays
+  stripeSessionId String?  // historical idempotency key for Stripe webhook replays
   createdAt      DateTime   @default(now())
 
   winner         Winner?
 
   @@index([competitionId])
   @@index([userId])
+  @@index([paymentId])
   @@index([stripeSessionId])
   @@map("entries")
+}
+
+model Payment {
+  id                          String          @id @default(cuid())
+  provider                    PaymentProvider
+  status                      PaymentStatus   @default(INITIATED)
+
+  orderNumber                 String          @unique
+  providerPaymentJobReference String?         @unique
+  providerPaymentReference    String?
+  providerActionUrl           String?
+
+  competitionId               String
+  competition                 Competition     @relation(fields: [competitionId], references: [id])
+
+  userId                      String
+  user                        User            @relation(fields: [userId], references: [id])
+
+  quantity                    Int
+  amountPence                 Int
+  currency                    String          @default("GBP")
+  locale                      String?
+
+  rawCreateResponse           Json?
+  rawLastStatusResponse       Json?
+
+  paidAt                      DateTime?
+  failedAt                    DateTime?
+  createdAt                   DateTime        @default(now())
+  updatedAt                   DateTime        @updatedAt
+
+  entries                     Entry[]
+
+  @@index([provider, status])
+  @@index([competitionId])
+  @@index([userId])
+  @@map("payments")
 }
 
 model Winner {

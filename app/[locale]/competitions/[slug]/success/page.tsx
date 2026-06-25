@@ -1,92 +1,90 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { stripe } from "@/lib/stripe";
 import { prisma } from "@/lib/prisma";
-import { CheckCircle } from "lucide-react";
+import { AlertCircle, CheckCircle } from "lucide-react";
 import TicketPoller from "@/components/public/ticket-poller";
 
 type Props = {
   params: Promise<{ locale: string; slug: string }>;
-  searchParams: Promise<{ session_id?: string }>;
+  searchParams: Promise<{ payment_id?: string }>;
 };
 
 export default async function SuccessPage({ params, searchParams }: Props) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("success");
-  const { session_id } = await searchParams;
+  const { payment_id } = await searchParams;
 
-  if (!session_id || !process.env.STRIPE_SECRET_KEY) {
+  if (!payment_id) {
     notFound();
   }
 
-  // Verify the Stripe session
-  let session;
-  try {
-    session = await stripe.checkout.sessions.retrieve(session_id);
-  } catch {
+  const payment = await prisma.payment.findUnique({
+    where: { id: payment_id },
+    include: {
+      competition: {
+        select: { id: true, slug: true, titleEn: true, prizeImageUrl: true },
+      },
+      entries: {
+        select: { ticket: { select: { number: true } } },
+        orderBy: { createdAt: "asc" },
+      },
+    },
+  });
+
+  if (!payment || payment.provider !== "CASHFLOWS" || payment.competition.slug !== slug) {
     notFound();
   }
 
-  if (session.payment_status !== "paid" && session.payment_status !== "no_payment_required") {
+  const initialTickets = payment.entries
+    .filter((entry) => entry.ticket)
+    .map((entry) => entry.ticket!.number);
+
+  if (["FAILED", "CANCELLED", "EXPIRED", "PROCESSING_FAILED"].includes(payment.status)) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 md:py-24 text-center">
-        <h1 className="font-serif text-2xl md:text-3xl font-semibold">{t("pendingTitle")}</h1>
-        <p className="mt-4 text-sm md:text-base text-ink-muted">
-          {t("pendingDesc")}
-        </p>
+        <div className="mx-auto mb-6 md:mb-8 flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-urgent/10">
+          <AlertCircle className="h-10 w-10 md:h-12 md:w-12 text-urgent" />
+        </div>
+        <h1 className="font-serif text-2xl md:text-3xl font-semibold">{t("failedTitle")}</h1>
+        <p className="mt-4 text-sm md:text-base text-ink-muted">{t("failedDesc")}</p>
+        <div className="mt-8 flex justify-center">
+          <Link
+            href={`/${locale}/competitions/${slug}`}
+            className="rounded-3xl bg-gold px-8 py-3.5 text-[15px] font-semibold text-white shadow-[0_2px_8px_rgba(184,148,58,0.25)] transition-all hover:bg-gold-dark"
+          >
+            {t("tryAgain")}
+          </Link>
+        </div>
       </div>
     );
   }
 
-  // Fetch the competition for display
-  const competition = await prisma.competition.findUnique({
-    where: { slug },
-    select: { id: true, titleEn: true, prizeImageUrl: true },
-  });
-
-  // ── Fetch tickets for this specific Stripe session ─────────
-  // Only the stripeSessionId query is correct — it returns exactly
-  // the tickets from this purchase. Never fall back to userId-based
-  // queries which would leak tickets from previous purchases.
-  const entries = await prisma.entry.findMany({
-    where: { stripeSessionId: session_id },
-    select: {
-      ticket: { select: { number: true } },
-    },
-    orderBy: { createdAt: "asc" },
-  });
-
-  const initialTickets = entries
-    .filter((e) => e.ticket)
-    .map((e) => e.ticket!.number);
+  const isPending = payment.status !== "PAID" || initialTickets.length === 0;
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-16 md:py-24 text-center">
-      {/* Success animation */}
       <div className="mx-auto mb-6 md:mb-8 flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-success/10">
         <CheckCircle className="h-10 w-10 md:h-12 md:w-12 text-success" />
       </div>
 
       <h1 className="font-serif mb-3 text-[28px] md:text-[36px] leading-tight font-semibold">
-        {t("title")}
+        {isPending ? t("pendingTitle") : t("title")}
       </h1>
 
       <p className="mb-6 md:mb-8 text-base md:text-lg text-ink-muted">
-        {competition
-          ? t("subtitle", { title: competition.titleEn })
-          : t("fallbackSubtitle")}
+        {isPending
+          ? t("pendingDesc")
+          : t("subtitle", { title: payment.competition.titleEn })}
       </p>
 
-      {/* Ticket Numbers — polls if webhook hasn't created them yet */}
       <TicketPoller
-        stripeSessionId={session_id}
+        paymentId={payment.id}
         initialTickets={initialTickets}
         timeoutSec={30}
       />
 
-      {/* CTA buttons */}
       <div className="flex flex-col sm:flex-row justify-center gap-3 md:gap-4">
         <Link
           href={`/${locale}/profile`}

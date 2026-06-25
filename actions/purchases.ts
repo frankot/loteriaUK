@@ -1,9 +1,19 @@
 "use server";
 
+import { randomBytes } from "crypto";
 import { getSession } from "@/lib/session";
 import { MAX_TICKETS_PER_TRANSACTION } from "@/lib/constants";
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
+import {
+  createCashflowsPaymentJob,
+  formatPenceAsPounds,
+  getCashflowsActionUrl,
+  getCashflowsPaymentJobReference,
+  getCashflowsPaymentReference,
+  getCashflowsPaymentStatus,
+  normalizeCashflowsStatus,
+  toCashflowsLocale,
+} from "@/lib/cashflows";
 
 interface CreateCheckoutResult {
   url?: string;
@@ -20,7 +30,6 @@ export async function createCheckoutSession(
   answer?: string
 ): Promise<CreateCheckoutResult> {
   try {
-    // 1. Auth check
     const session = await getSession();
     if (!session.userId || !session.ageConfirmed) {
       return {
@@ -31,11 +40,14 @@ export async function createCheckoutSession(
       };
     }
 
-    if (!process.env.STRIPE_SECRET_KEY) {
-      return { error: "Stripe is not configured", status: 500 };
+    if (process.env.PAYMENT_PROVIDER && process.env.PAYMENT_PROVIDER.toLowerCase() !== "cashflows") {
+      return { error: "Configured payment provider is not supported", status: 500 };
     }
 
-    // 2. Validate competition and question
+    if (!process.env.CASHFLOWS_CONFIGURATION_ID || !process.env.CASHFLOWS_API_KEY) {
+      return { error: "Cashflows is not configured", status: 500 };
+    }
+
     const competition = await prisma.competition.findUnique({
       where: { id: competitionId, status: "ACTIVE" },
       include: { question: { select: { id: true, correctOption: true } } },
@@ -45,8 +57,16 @@ export async function createCheckoutSession(
       return { error: "Competition not found or not active", status: 404 };
     }
 
+    if (competition.slug !== competitionSlug) {
+      return { error: "Competition mismatch", status: 400 };
+    }
+
     if (competition.drawDate < new Date()) {
       return { error: "This competition's draw has already passed", status: 400 };
+    }
+
+    if (quantity < 1 || quantity > MAX_TICKETS_PER_TRANSACTION) {
+      return { error: `Quantity must be between 1 and ${MAX_TICKETS_PER_TRANSACTION}`, status: 400 };
     }
 
     const left = competition.maxTickets - competition.ticketsSold;
@@ -54,11 +74,6 @@ export async function createCheckoutSession(
       return { error: `Only ${left} ticket${left !== 1 ? "s" : ""} remaining`, status: 400 };
     }
 
-    if (quantity < 1 || quantity > MAX_TICKETS_PER_TRANSACTION) {
-      return { error: `Quantity must be between 1 and ${MAX_TICKETS_PER_TRANSACTION}`, status: 400 };
-    }
-
-    // 3. Verify skill question answer (server-side)
     if (questionId && answer && competition.question) {
       if (competition.question.id !== questionId) {
         return { error: "Question mismatch — please answer the current question", status: 400 };
@@ -67,68 +82,105 @@ export async function createCheckoutSession(
         return { error: "Incorrect answer — you must answer correctly to purchase tickets", status: 400 };
       }
     } else if (competition.question) {
-      // Question exists but wasn't answered — possible client bypass attempt
       return { error: "You must answer the skill question correctly", status: 400 };
     }
 
-    // 4. Fetch user email for Stripe customer_email
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
       select: { email: true },
     });
 
-    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/+$/, "");
-
-    // 5. Build price (pounds → pence)
-    const lineItemPrice = Math.round(Number(competition.pricePounds) * 100);
-
-    // 6. Build image URL for Stripe product display
-    const imageUrl = competition.prizeImageUrl
-      ? competition.prizeImageUrl.startsWith("http://") || competition.prizeImageUrl.startsWith("https://")
-        ? competition.prizeImageUrl
-        : `${appUrl}${competition.prizeImageUrl.startsWith("/") ? "" : "/"}${competition.prizeImageUrl}`
-      : null;
-
-    // Skip images when running on localhost — Stripe can't fetch them
-    const finalImages = imageUrl && !imageUrl.includes("localhost") && !imageUrl.includes("127.0.0.1")
-      ? [imageUrl]
-      : undefined;
-
-    // 7. Create Stripe Checkout Session
-    const checkoutSession = await stripe.checkout.sessions.create({
-      mode: "payment",
-      customer_email: user?.email || session.email,
-      line_items: [
-        {
-          price_data: {
-            currency: "gbp",
-            product_data: {
-              name: competition.titleEn,
-              description: `${quantity} ticket${quantity > 1 ? "s" : ""} for ${competition.titleEn}`,
-              images: finalImages,
-            },
-            unit_amount: lineItemPrice,
-          },
-          quantity,
-        },
-      ],
-      metadata: {
-        competitionId,
-        userId: session.userId,
-        quantity: String(quantity),
-      },
-      // Only redirect to success when payment is actually complete
-      success_url: `${appUrl}/${locale}/competitions/${competitionSlug}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${appUrl}/${locale}/competitions/${competitionSlug}?cancelled=true`,
-    });
-
-    if (!checkoutSession.url) {
-      return { error: "Failed to create checkout session", status: 500 };
+    const email = user?.email || session.email;
+    if (!email) {
+      return { error: "A verified email address is required to purchase tickets", status: 400 };
     }
 
-    return { url: checkoutSession.url, status: 200 };
+    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/+$/, "");
+    const unitPricePence = Math.round(Number(competition.pricePounds) * 100);
+    const amountPence = unitPricePence * quantity;
+    const orderNumber = createOrderNumber();
+
+    const payment = await prisma.payment.create({
+      data: {
+        provider: "CASHFLOWS",
+        status: "INITIATED",
+        orderNumber,
+        competitionId,
+        userId: session.userId,
+        quantity,
+        amountPence,
+        currency: "GBP",
+        locale,
+      },
+    });
+
+    try {
+      const paymentJob = await createCashflowsPaymentJob({
+        type: "Payment",
+        amountToCollect: formatPenceAsPounds(amountPence),
+        currency: "GBP",
+        locale: toCashflowsLocale(locale),
+        paymentMethodsToUse: ["Card"],
+        order: {
+          orderNumber,
+          billingIdentity: {
+            emailAddress: email,
+          },
+        },
+        parameters: {
+          ReturnUrlSuccess: `${appUrl}/${locale}/competitions/${competitionSlug}/success?payment_id=${payment.id}`,
+          ReturnUrlFailed: `${appUrl}/${locale}/competitions/${competitionSlug}?payment_failed=true`,
+          ReturnUrlCancelled: `${appUrl}/${locale}/competitions/${competitionSlug}?payment_cancelled=true`,
+          WebhookUrl: `${appUrl}/api/cashflows/webhook`,
+        },
+      });
+
+      const paymentJobReference = getCashflowsPaymentJobReference(paymentJob.body);
+      const paymentReference = getCashflowsPaymentReference(paymentJob.body);
+      const actionUrl = getCashflowsActionUrl(paymentJob.body);
+      const providerStatus = getCashflowsPaymentStatus(paymentJob.body);
+      const localStatus = normalizeCashflowsStatus(providerStatus);
+
+      if (!paymentJobReference || !actionUrl) {
+        await prisma.payment.update({
+          where: { id: payment.id },
+          data: {
+            status: "PROCESSING_FAILED",
+            rawCreateResponse: paymentJob.body as never,
+            failedAt: new Date(),
+          },
+        });
+        return { error: "Cashflows did not return a checkout URL", status: 500 };
+      }
+
+      await prisma.payment.update({
+        where: { id: payment.id },
+        data: {
+          status: localStatus === "INITIATED" ? "PENDING" : localStatus,
+          providerPaymentJobReference: paymentJobReference,
+          providerPaymentReference: paymentReference,
+          providerActionUrl: actionUrl,
+          rawCreateResponse: paymentJob.body as never,
+        },
+      });
+
+      return { url: actionUrl, status: 200 };
+    } catch (error) {
+      await prisma.payment.update({
+        where: { id: payment.id },
+        data: {
+          status: "PROCESSING_FAILED",
+          failedAt: new Date(),
+        },
+      });
+      throw error;
+    }
   } catch (error) {
-    console.error("Checkout session error:", error);
+    console.error("Cashflows checkout error:", error);
     return { error: "Failed to create checkout session", status: 500 };
   }
+}
+
+function createOrderNumber() {
+  return `LOT-${Date.now()}-${randomBytes(4).toString("hex").toUpperCase()}`;
 }

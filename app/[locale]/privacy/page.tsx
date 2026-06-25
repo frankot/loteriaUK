@@ -68,7 +68,7 @@ export default async function PrivacyPage({ params }: Props) {
               <li>Phone number</li>
               <li>Date of birth (to verify that you are aged 18 or over)</li>
               <li>Billing and delivery address</li>
-              <li>Payment details (processed securely by Stripe; we do not store full card details)</li>
+              <li>Payment details (processed securely by Cashflows; we do not store full card details)</li>
               <li>Competition entries and ticket numbers</li>
             </ul>
 
@@ -104,10 +104,10 @@ export default async function PrivacyPage({ params }: Props) {
               <li>To process your ticket purchases and competition entries</li>
               <li>To verify your age and eligibility to enter our competitions (must be 18+, UK residents only)</li>
               <li>To administer competitions, select winners and coordinate prize delivery</li>
-              <li>To process payments securely via Stripe</li>
+              <li>To process payments securely via Cashflows</li>
               <li>To send you order confirmations, ticket numbers and competition updates</li>
               <li>To respond to your enquiries and provide customer support</li>
-              <li>To publish winners' first name and first initial of surname on our website and social media (as required by our competition rules)</li>
+              <li>To publish winners&apos; first name and first initial of surname on our website and social media (as required by our competition rules)</li>
               <li>To send you marketing communications if you have opted in to receive them</li>
               <li>To comply with our legal and regulatory obligations</li>
               <li>To prevent fraud and ensure the security of our website</li>
@@ -130,7 +130,7 @@ export default async function PrivacyPage({ params }: Props) {
             <h2 className="font-serif mb-2 text-xl md:text-2xl font-semibold text-ink">6. Sharing Your Personal Data</h2>
             <p className="mb-2">We do not sell or rent your personal data to any third party. We will only share your data in the following limited circumstances:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li><strong>Stripe:</strong> Our payment processor. Stripe processes your payment securely. Please see Stripe's privacy policy at stripe.com/gb/privacy.</li>
+              <li><strong>Cashflows:</strong> Our payment processor. Cashflows processes your payment securely. Please see Cashflows&apos; privacy policy.</li>
               <li><strong>Hosting &amp; IT providers:</strong> We use Vercel to host our website. They act as a data processor on our behalf and are bound by appropriate data protection agreements.</li>
               <li><strong>Email marketing:</strong> We may use an email service provider to manage marketing communications. They process data only on our instruction.</li>
               <li><strong>Meta Platforms (Facebook/Instagram):</strong> We use Meta Pixel on our website for advertising purposes. Meta may process data in accordance with their own privacy policy.</li>
@@ -203,7 +203,7 @@ export default async function PrivacyPage({ params }: Props) {
             </p>
             <p className="mb-2">You can opt out of receiving marketing communications at any time by:</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>Clicking the 'Unsubscribe' link at the bottom of any marketing email</li>
+              <li>Clicking the &apos;Unsubscribe&apos; link at the bottom of any marketing email</li>
               <li>Contacting us at <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a> and requesting to be removed</li>
               <li>Updating your preferences in your account settings on our website</li>
             </ul>
@@ -228,7 +228,7 @@ export default async function PrivacyPage({ params }: Props) {
             </p>
             <ul className="list-disc pl-5 space-y-1">
               <li>SSL/TLS encryption across our website (HTTPS)</li>
-              <li>Secure payment processing via Stripe (PCI DSS compliant)</li>
+              <li>Secure payment processing via Cashflows (PCI DSS compliant)</li>
               <li>Access controls to restrict who within our business can access your data</li>
               <li>Regular review of our security practices</li>
             </ul>
@@ -249,7 +249,7 @@ export default async function PrivacyPage({ params }: Props) {
           <section>
             <h2 className="font-serif mb-2 text-xl md:text-2xl font-semibold text-ink">15. Changes to This Policy</h2>
             <p>
-              We may update this Privacy Policy from time to time to reflect changes in our practices, technology or legal obligations. We will post the updated policy on this page with the revised 'Last updated' date. We encourage you to review this policy periodically. Where changes are significant, we will take reasonable steps to notify you directly.
+              We may update this Privacy Policy from time to time to reflect changes in our practices, technology or legal obligations. We will post the updated policy on this page with the revised &apos;Last updated&apos; date. We encourage you to review this policy periodically. Where changes are significant, we will take reasonable steps to notify you directly.
             </p>
           </section>
 
@@ -262,9 +262,9 @@ export default async function PrivacyPage({ params }: Props) {
             <p className="mb-2">
               Email: <a href="mailto:contact@goldendreamdraw.uk" className="text-gold-dark hover:underline">contact@goldendreamdraw.uk</a>
             </p>
-            <p className="mb-2">If you remain unsatisfied, you have the right to lodge a complaint with the UK's supervisory authority for data protection:</p>
+            <p className="mb-2">If you remain unsatisfied, you have the right to lodge a complaint with the UK&apos;s supervisory authority for data protection:</p>
             <p className="mb-1">
-              <strong>Information Commissioner's Office (ICO)</strong><br />
+              <strong>Information Commissioner&apos;s Office (ICO)</strong><br />
               Website: <a href="https://www.ico.org.uk" className="text-gold-dark hover:underline" target="_blank" rel="noopener noreferrer">www.ico.org.uk</a><br />
               Telephone: 0303 123 1113<br />
               Address: Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF

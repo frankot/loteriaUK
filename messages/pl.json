@@ -48,7 +48,7 @@
     "sslEncrypted": "Szyfrowane SSL",
     "skillCompetition": "Konkurs umiejętności",
     "tagline": "Konkursy umiejętnościowe dla Wielkiej Brytanii. Ekskluzywne nagrody, przejrzyste losowania i prawdziwi zwycięzcy — za każdym razem.",
-    "securePayments": "Bezpieczne płatności przez Stripe"
+    "securePayments": "Bezpieczne płatności przez Cashflows"
   },
   "hero": {
     "titleLine1": "Twoja wymarzona nagroda jest",
@@ -367,7 +367,10 @@
     "loading": "Generowanie biletów...",
     "webhookTimeout": "Wciąż czekamy na potwierdzenie. Odśwież lub sprawdź profil.",
     "recoveryFailed": "Nie można automatycznie potwierdzić biletów. Odśwież stronę lub skontaktuj się z pomocą.",
-    "refresh": "Odśwież stronę"
+    "refresh": "Odśwież stronę",
+    "failedTitle": "Płatność nie została ukończona",
+    "failedDesc": "Płatność nie została ukończona. Bilety nie zostały przydzielone.",
+    "tryAgain": "Spróbuj ponownie"
   },
   "notFound": {
     "title": "Strona nie znaleziona",

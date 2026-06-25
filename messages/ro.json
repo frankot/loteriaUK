@@ -46,7 +46,7 @@
     "sslEncrypted": "Criptat SSL",
     "skillCompetition": "Concurs de abilități",
     "tagline": "Concursuri bazate pe abilități pentru Marea Britanie. Premii premium, extrageri transparente și câștigători reali — de fiecare dată.",
-    "securePayments": "Plăți sigure prin Stripe"
+    "securePayments": "Plăți sigure prin Cashflows"
   },
   "hero": {
     "titleLine1": "Premiul tău de vis este",
@@ -314,6 +314,24 @@
     "subtitle": "Pagina pe care o căutați nu există sau a fost mutată.",
     "goHome": "Înapoi la pagina principală",
     "browseCompetitions": "Vedeți competițiile"
+  },
+  "success": {
+    "title": "Plată reușită!",
+    "subtitle": "Ați intrat în competiția {title}.",
+    "fallbackSubtitle": "Participarea dvs. a fost confirmată.",
+    "pendingTitle": "Plată în așteptare",
+    "pendingDesc": "Plata dvs. este încă în procesare. Veți primi în curând un email de confirmare.",
+    "ticketNumbers": "Numerele biletelor dvs.",
+    "emailSent": "Un email de confirmare a fost trimis cu aceste detalii.",
+    "viewTickets": "Vezi biletele mele",
+    "browseMore": "Răsfoiți mai multe",
+    "loading": "Generăm biletele dvs...",
+    "webhookTimeout": "Încă așteptăm confirmarea. Reîmprospătați sau verificați profilul.",
+    "recoveryFailed": "Nu am putut confirma automat biletele. Reîmprospătați sau contactați suportul.",
+    "refresh": "Reîmprospătați pagina",
+    "failedTitle": "Plata nu a fost finalizată",
+    "failedDesc": "Plata dvs. nu a fost finalizată. Nu au fost alocate bilete.",
+    "tryAgain": "Încercați din nou"
   },
   "terms": {
     "title": "GOLDEN DREAM DRAW",

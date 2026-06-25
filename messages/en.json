@@ -48,7 +48,7 @@
     "sslEncrypted": "SSL Encrypted",
     "skillCompetition": "Skill Competition",
     "tagline": "Skill-based prize competitions for the UK. Premium prizes, transparent draws, and real winners — every time.",
-    "securePayments": "Secure payments by Stripe"
+    "securePayments": "Secure payments by Cashflows"
   },
   "hero": {
     "titleLine1": "Your dream prize is",
@@ -367,7 +367,10 @@
     "loading": "Generating your tickets...",
     "webhookTimeout": "Still waiting for confirmation. Refresh or check your profile.",
     "recoveryFailed": "Unable to confirm your tickets automatically. Please refresh or contact support.",
-    "refresh": "Refresh page"
+    "refresh": "Refresh page",
+    "failedTitle": "Payment not completed",
+    "failedDesc": "Your payment was not completed. No tickets have been allocated.",
+    "tryAgain": "Try again"
   },
   "notFound": {
     "title": "Page not found",

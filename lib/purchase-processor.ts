@@ -1,97 +1,61 @@
-/**
- * Shared purchase processing logic — used by both the Stripe webhook
- * and the on-demand recovery endpoint (session-tickets).
- *
- * Key guarantees:
- * - Idempotent: safe to call multiple times for the same Stripe session
- * - Atomic: ticket allocation + entry creation in one DB transaction
- * - The atomic UPDATE on ticketsSold is the concurrency gate — only one
- *   caller can increment past the capacity check. Others get 0 rows and
- *   return 500, which causes Stripe to retry. On retry, the fast-path
- *   idempotency check (findFirst by stripeSessionId) sees existing entries.
- */
-
 import { prisma } from "@/lib/prisma";
-import { stripe } from "@/lib/stripe";
 import resend, { FROM_AUTH, ADMIN_NOTIFICATION_EMAIL } from "@/lib/resend";
 import { purchaseConfirmationHtml, adminPurchaseNotificationHtml } from "@/lib/email-templates";
 import { revalidateTag } from "next/cache";
-import type Stripe from "stripe";
+import {
+  getCashflowsAmountPence,
+  getCashflowsCurrency,
+  getCashflowsPaymentStatus,
+  normalizeCashflowsStatus,
+  retrieveCashflowsPayment,
+} from "@/lib/cashflows";
 
 export interface ProcessResult {
   success: boolean;
   ticketNumbers?: number[];
   alreadyProcessed?: boolean;
   error?: string;
-  status: number; // HTTP status for the caller
+  status: number; // HTTP status for route callers
 }
 
-/**
- * Process a completed Stripe checkout session: allocate tickets,
- * create entries, send confirmation email.
- *
- * Call with a session ID (fetches from Stripe) or a pre-fetched session object.
- */
-export async function processStripeCheckout(
-  sessionOrId: string | Stripe.Checkout.Session
-): Promise<ProcessResult> {
-  // Resolve session
-  let session: Stripe.Checkout.Session;
-  if (typeof sessionOrId === "string") {
-    try {
-      session = await stripe.checkout.sessions.retrieve(sessionOrId);
-    } catch (err) {
-      console.error(`Failed to retrieve Stripe session ${sessionOrId}:`, err);
-      return { success: false, error: "Failed to retrieve Stripe session", status: 500 };
-    }
-  } else {
-    session = sessionOrId;
-  }
+interface CompletePaidPurchaseInput {
+  paymentId: string;
+  idempotencyKey: string;
+  competitionId: string;
+  userId: string;
+  quantity: number;
+  amountPence: number;
+}
 
-  const stripeSessionId = session.id;
-
-  // ── Validate payment status ──────────────────────────────────
-  if (session.payment_status !== "paid") {
-    console.log(`Stripe session ${stripeSessionId} not paid (status: ${session.payment_status}) — skipping`);
-    return {
-      success: false,
-      error: `Payment not complete (status: ${session.payment_status})`,
-      status: 200, // 200 so Stripe doesn't retry — not an error, just not ready
-    };
-  }
-
-  // ── Extract and validate metadata ────────────────────────────
-  const { competitionId, userId, quantity: quantityStr } = session.metadata || {};
-  const quantity = parseInt(quantityStr || "0", 10);
-
-  if (!competitionId || !userId || quantity < 1) {
-    console.error(`Missing/invalid metadata in checkout session ${stripeSessionId}:`, session.metadata);
-    return { success: false, error: "Missing or invalid session metadata", status: 400 };
-  }
-
-  // ── Idempotency check (fast path) ────────────────────────────
+export async function completePaidPurchase({
+  paymentId,
+  idempotencyKey,
+  competitionId,
+  userId,
+  quantity,
+  amountPence,
+}: CompletePaidPurchaseInput): Promise<ProcessResult> {
   const existingEntry = await prisma.entry.findFirst({
-    where: { stripeSessionId },
+    where: { paymentId },
     select: { id: true },
   });
+
   if (existingEntry) {
     const existingTickets = await prisma.ticket.findMany({
-      where: { entry: { stripeSessionId } },
+      where: { entry: { paymentId } },
       select: { number: true },
       orderBy: { number: "asc" },
     });
-    console.log(`Stripe session ${stripeSessionId} already processed — returning existing tickets`);
+
+    console.log(`Payment ${paymentId} already processed — returning existing tickets`);
     return {
       success: true,
       alreadyProcessed: true,
-      ticketNumbers: existingTickets.map((t) => t.number),
+      ticketNumbers: existingTickets.map((ticket) => ticket.number),
       status: 200,
     };
   }
 
-  // ── Atomic ticket allocation ────────────────────────────────
-  // This is the concurrency gate: only one caller can succeed.
-  // All others get 0 rows → return 500 → Stripe retries → idempotency catches it.
   const result = await prisma.$queryRaw<{ tickets_sold: number }[]>`
     UPDATE competitions
     SET "ticketsSold" = "ticketsSold" + ${quantity}
@@ -102,71 +66,59 @@ export async function processStripeCheckout(
   `;
 
   if (result.length === 0) {
-    // Check why it failed
-    const comp = await prisma.competition.findUnique({
+    const competition = await prisma.competition.findUnique({
       where: { id: competitionId },
       select: { status: true, ticketsSold: true, maxTickets: true },
     });
 
-    const reason = !comp
+    const reason = !competition
       ? "Competition not found"
-      : comp.status !== "ACTIVE"
-        ? `Competition not active (status: ${comp.status})`
-        : `Capacity exceeded: need ${quantity}, only ${comp.maxTickets - comp.ticketsSold} left`;
+      : competition.status !== "ACTIVE"
+        ? `Competition not active (status: ${competition.status})`
+        : `Capacity exceeded: need ${quantity}, only ${competition.maxTickets - competition.ticketsSold} left`;
 
-    console.error(`Purchase processing failed for ${stripeSessionId}: ${reason}`);
-
-    // Return 500 so Stripe retries — the problem may be transient (e.g. competition
-    // was briefly deactivated, or another webhook is racing us and will succeed).
-    // On retry, idempotency check above will find the entries if the other call succeeded.
+    console.error(`Purchase processing failed for ${idempotencyKey}: ${reason}`);
     return { success: false, error: reason, status: 500 };
   }
 
-  // ── Pick random ticket numbers ─────────────────────────────
-  const comp = await prisma.competition.findUnique({
+  const competition = await prisma.competition.findUnique({
     where: { id: competitionId },
     select: { maxTickets: true },
   });
-  const maxTickets = comp?.maxTickets ?? 0;
+  const maxTickets = competition?.maxTickets ?? 0;
 
   const takenRows = await prisma.ticket.findMany({
     where: { competitionId },
     select: { number: true },
   });
-  const taken = new Set(takenRows.map((t) => t.number));
+  const taken = new Set(takenRows.map((ticket) => ticket.number));
 
   const available: number[] = [];
-  for (let n = 1; n <= maxTickets; n++) {
-    if (!taken.has(n)) available.push(n);
+  for (let number = 1; number <= maxTickets; number++) {
+    if (!taken.has(number)) available.push(number);
   }
 
   if (available.length < quantity) {
     console.error(
-      `Not enough free ticket numbers: need ${quantity}, only ${available.length} available — session ${stripeSessionId}`
+      `Not enough free ticket numbers: need ${quantity}, only ${available.length} available — payment ${paymentId}`
     );
-    // Rollback ticketsSold
-    await prisma.competition.update({
-      where: { id: competitionId },
-      data: { ticketsSold: { decrement: quantity } },
-    });
+    await rollbackTicketsSold(competitionId, quantity);
     return { success: false, error: "Not enough free ticket numbers", status: 500 };
   }
 
-  // Fisher-Yates shuffle
   for (let i = available.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [available[i], available[j]] = [available[j], available[i]];
   }
   const ticketNumbers = available.slice(0, quantity);
 
-  // ── Create tickets + entries in transaction ────────────────
   try {
     await prisma.$transaction(async (tx) => {
       await tx.ticket.createMany({
-        data: ticketNumbers.map((num) => ({
+        data: ticketNumbers.map((number) => ({
           competitionId,
           userId,
-          number: num,
+          number,
           status: "SOLD" as const,
         })),
       });
@@ -180,9 +132,7 @@ export async function processStripeCheckout(
       });
 
       if (createdTickets.length !== ticketNumbers.length) {
-        throw new Error(
-          `Ticket creation mismatch: expected ${ticketNumbers.length}, got ${createdTickets.length}`
-        );
+        throw new Error(`Ticket creation mismatch: expected ${ticketNumbers.length}, got ${createdTickets.length}`);
       }
 
       await tx.entry.createMany({
@@ -190,39 +140,28 @@ export async function processStripeCheckout(
           competitionId,
           userId,
           ticketId: ticket.id,
+          paymentId,
           type: "PAID" as const,
           answerCorrect: true,
-          stripeSessionId,
         })),
       });
     });
 
     console.log(
-      `Purchase complete: user=${userId} comp=${competitionId} tickets=[${ticketNumbers.join(",")}] session=${stripeSessionId}`
+      `Purchase complete: user=${userId} comp=${competitionId} tickets=[${ticketNumbers.join(",")}] payment=${paymentId}`
     );
 
-    // ── Bust caches ──────────────────────────────────────────
-    revalidateTag("trending-competitions", "seconds");
-    revalidateTag("featured-competition", "minutes");
-    revalidateTag("hero-competition", "seconds");
-    revalidateTag("homepage-stats", "minutes");
-    revalidateTag("competition-detail", "minutes");
-    revalidateTag("competitions-list", "seconds");
+    revalidatePurchaseCaches();
 
-    // ── Send confirmation emails (non-blocking) ──────────────
-    sendPurchaseEmails(userId, competitionId, ticketNumbers, quantity, session).catch(
-      (err) => console.error("Failed to send purchase emails:", err)
-    );
+    sendPurchaseEmails({ userId, competitionId, ticketNumbers, quantity, amountPence }).catch((error) => {
+      console.error("Failed to send purchase emails:", error);
+    });
 
     return { success: true, ticketNumbers, status: 200 };
   } catch (error) {
-    console.error(`Ticket/entry creation failed for session ${stripeSessionId}:`, error);
-    // Rollback ticketsSold since the transaction failed
-    await prisma.competition.update({
-      where: { id: competitionId },
-      data: { ticketsSold: { decrement: quantity } },
-    });
-    console.log(`Rolled back ticketsSold for failed session ${stripeSessionId}`);
+    console.error(`Ticket/entry creation failed for payment ${paymentId}:`, error);
+    await rollbackTicketsSold(competitionId, quantity);
+    console.log(`Rolled back ticketsSold for failed payment ${paymentId}`);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Ticket creation failed",
@@ -231,21 +170,144 @@ export async function processStripeCheckout(
   }
 }
 
-/**
- * Send purchase confirmation and admin notification emails.
- * Non-blocking — never throws to caller.
- */
-async function sendPurchaseEmails(
-  userId: string,
-  competitionId: string,
-  ticketNumbers: number[],
-  quantity: number,
-  session: Stripe.Checkout.Session
-) {
+export async function processCashflowsPayment(
+  paymentJobReference: string,
+  paymentReference: string
+): Promise<ProcessResult> {
+  let statusResponse: Awaited<ReturnType<typeof retrieveCashflowsPayment>>;
+
+  try {
+    statusResponse = await retrieveCashflowsPayment(paymentJobReference, paymentReference);
+  } catch (error) {
+    console.error(`Failed to retrieve Cashflows payment ${paymentJobReference}/${paymentReference}:`, error);
+    return { success: false, error: "Failed to retrieve Cashflows payment", status: 500 };
+  }
+
+  const payment = await prisma.payment.findFirst({
+    where: {
+      provider: "CASHFLOWS",
+      providerPaymentJobReference: paymentJobReference,
+    },
+  });
+
+  if (!payment) {
+    console.error("Cashflows webhook references unknown local payment", { paymentJobReference, paymentReference });
+    return { success: false, error: "Unknown payment reference", status: 200 };
+  }
+
+  const remoteAmountPence = getCashflowsAmountPence(statusResponse.body);
+  if (remoteAmountPence != null && remoteAmountPence !== payment.amountPence) {
+    console.error("Cashflows payment amount mismatch", {
+      paymentId: payment.id,
+      expected: payment.amountPence,
+      received: remoteAmountPence,
+    });
+    await prisma.payment.update({
+      where: { id: payment.id },
+      data: {
+        status: "PROCESSING_FAILED",
+        rawLastStatusResponse: statusResponse.body as never,
+        failedAt: new Date(),
+      },
+    });
+    return { success: false, error: "Payment amount mismatch", status: 500 };
+  }
+
+  const remoteCurrency = getCashflowsCurrency(statusResponse.body);
+  if (remoteCurrency && remoteCurrency.toUpperCase() !== payment.currency.toUpperCase()) {
+    console.error("Cashflows payment currency mismatch", {
+      paymentId: payment.id,
+      expected: payment.currency,
+      received: remoteCurrency,
+    });
+    await prisma.payment.update({
+      where: { id: payment.id },
+      data: {
+        status: "PROCESSING_FAILED",
+        rawLastStatusResponse: statusResponse.body as never,
+        failedAt: new Date(),
+      },
+    });
+    return { success: false, error: "Payment currency mismatch", status: 500 };
+  }
+
+  if (payment.providerPaymentReference && payment.providerPaymentReference !== paymentReference) {
+    console.error("Cashflows payment reference mismatch", {
+      paymentId: payment.id,
+      expected: payment.providerPaymentReference,
+      received: paymentReference,
+    });
+    return { success: false, error: "Payment reference mismatch", status: 200 };
+  }
+
+  const cashflowsStatus = getCashflowsPaymentStatus(statusResponse.body);
+  const localStatus = normalizeCashflowsStatus(cashflowsStatus);
+
+  const updatedPayment = await prisma.payment.update({
+    where: { id: payment.id },
+    data: {
+      status: localStatus,
+      providerPaymentReference: payment.providerPaymentReference ?? paymentReference,
+      rawLastStatusResponse: statusResponse.body as never,
+      paidAt: localStatus === "PAID" ? payment.paidAt ?? new Date() : payment.paidAt,
+      failedAt: ["FAILED", "CANCELLED", "EXPIRED", "PROCESSING_FAILED"].includes(localStatus)
+        ? payment.failedAt ?? new Date()
+        : payment.failedAt,
+    },
+  });
+
+  if (localStatus !== "PAID") {
+    console.log("Cashflows payment not paid — no ticket allocation", {
+      paymentId: payment.id,
+      status: cashflowsStatus,
+      localStatus,
+    });
+    return { success: false, error: `Payment not paid (status: ${cashflowsStatus ?? "unknown"})`, status: 200 };
+  }
+
+  return completePaidPurchase({
+    paymentId: updatedPayment.id,
+    idempotencyKey: `${paymentJobReference}/${paymentReference}`,
+    competitionId: updatedPayment.competitionId,
+    userId: updatedPayment.userId,
+    quantity: updatedPayment.quantity,
+    amountPence: updatedPayment.amountPence,
+  });
+}
+
+async function rollbackTicketsSold(competitionId: string, quantity: number) {
+  await prisma.competition.update({
+    where: { id: competitionId },
+    data: { ticketsSold: { decrement: quantity } },
+  });
+}
+
+function revalidatePurchaseCaches() {
+  revalidateTag("trending-competitions", "seconds");
+  revalidateTag("featured-competition", "minutes");
+  revalidateTag("hero-competition", "seconds");
+  revalidateTag("homepage-stats", "minutes");
+  revalidateTag("competition-detail", "minutes");
+  revalidateTag("competitions-list", "seconds");
+}
+
+async function sendPurchaseEmails({
+  userId,
+  competitionId,
+  ticketNumbers,
+  quantity,
+  amountPence,
+}: {
+  userId: string;
+  competitionId: string;
+  ticketNumbers: number[];
+  quantity: number;
+  amountPence: number;
+}) {
   if (!process.env.RESEND_API_KEY) return;
 
   try {
-    const [user, comp] = await Promise.all([
+    const [user, competition] = await Promise.all([
       prisma.user.findUnique({
         where: { id: userId },
         select: { email: true, name: true, phone: true, address: true },
@@ -256,23 +318,20 @@ async function sendPurchaseEmails(
       }),
     ]);
 
-    if (!user?.email || !comp) return;
+    if (!user?.email || !competition) return;
 
-    const totalPaid =
-      session.amount_total != null
-        ? (session.amount_total / 100).toFixed(2)
-        : "0.00";
+    const totalPaid = (amountPence / 100).toFixed(2);
 
     await resend.emails.send({
       from: FROM_AUTH,
       to: user.email,
-      subject: `🎟️ Tickets confirmed — ${comp.titleEn}`,
+      subject: `🎟️ Tickets confirmed — ${competition.titleEn}`,
       html: purchaseConfirmationHtml({
         userName: user.name || "Player",
         ticketNumbers,
-        competitionTitle: comp.titleEn,
-        competitionSlug: comp.slug,
-        drawDate: comp.drawDate.toLocaleDateString("en-GB", {
+        competitionTitle: competition.titleEn,
+        competitionSlug: competition.slug,
+        drawDate: competition.drawDate.toLocaleDateString("en-GB", {
           day: "numeric",
           month: "short",
           year: "numeric",
@@ -287,11 +346,11 @@ async function sendPurchaseEmails(
       await resend.emails.send({
         from: FROM_AUTH,
         to: ADMIN_NOTIFICATION_EMAIL,
-        subject: `💰 New purchase: ${user.name || "Someone"} bought ${quantity} ticket(s) for ${comp.titleEn}`,
+        subject: `💰 New purchase: ${user.name || "Someone"} bought ${quantity} ticket(s) for ${competition.titleEn}`,
         html: adminPurchaseNotificationHtml({
           userName: user.name || "Unknown",
           userEmail: user.email,
-          competitionTitle: comp.titleEn,
+          competitionTitle: competition.titleEn,
           ticketCount: quantity,
           ticketNumbers,
           totalPaid,
