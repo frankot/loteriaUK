@@ -30,7 +30,10 @@ export interface CashflowsApiResult<T = unknown> {
 }
 
 const CASHFLOWS_ENDPOINTS = {
-  integration: "https://gateway-int.cashflows.com",
+  // Cashflows' current Hosted Checkout / Gateway API examples use gateway-inta for
+  // integration payment-job calls. Using gateway-int with some integration
+  // Configuration IDs returns 404 "Configuration not found".
+  integration: "https://gateway-inta.cashflows.com",
   production: "https://gateway.cashflows.com",
 } as const;
 
@@ -43,8 +46,10 @@ function getCashflowsConfig() {
     throw new Error("Cashflows is not configured");
   }
 
+  const configuredBaseUrl = process.env.CASHFLOWS_BASE_URL?.replace(/\/+$/, "");
+
   return {
-    baseUrl: CASHFLOWS_ENDPOINTS[env],
+    baseUrl: configuredBaseUrl || CASHFLOWS_ENDPOINTS[env],
     configurationId,
     apiKey,
   };
@@ -87,7 +92,13 @@ async function cashflowsRequest<T>(path: string, init?: { method?: "GET" | "POST
   const body = await parseCashflowsResponse(response) as T;
 
   if (!response.ok) {
-    console.error("Cashflows API request failed", { path, method, status: response.status, body });
+    console.error("Cashflows API request failed", {
+      url: `${baseUrl}${path}`,
+      path,
+      method,
+      status: response.status,
+      body: JSON.stringify(body),
+    });
     throw new Error(`Cashflows API request failed with status ${response.status}`);
   }
 
