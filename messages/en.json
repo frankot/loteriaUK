@@ -310,7 +310,7 @@
       "email": "Your email address",
       "dateOfBirth": "Your date of birth",
       "competitionName": "The name of the competition you're entering",
-      "answer": "Your answer to the skill question (A, B, C, or D)",
+      "answer": "Your answer to the skill question, if any (A, B, C, or D)",
       "telephone": "Your telephone number"
     },
     "mailingAddress": "Mailing Address",
@@ -322,7 +322,7 @@
     "limits": "Entry Limits",
     "limitsText": "One free postal entry per person, per competition. Multiple entries from the same person for the same competition will be disqualified.",
     "questions": "Skill Question",
-    "questionsText": "Each competition has a skill-based question with four answer options (A, B, C, or D). You must answer correctly for your entry to be valid. Find the question and answer on each competition page.",
+    "questionsText": "If a competition has a skill-based question, it will have four answer options (A, B, C, or D). You must answer correctly for your entry to be valid. Find the question and answer, if any, on each competition page.",
     "cta": "Browse Competitions"
   },
   "competitionsPage": {
@@ -446,7 +446,7 @@
       {
         "number": "13.",
         "title": "FREE POSTAL ENTRY",
-        "body": "13.1 In order to ensure that Golden Dream Draw competitions remain compliant with applicable UK law, a free method of entry is available for every Competition, as follows.\n\n13.2 To submit a free entry by post, the participant must:\nWrite their full name, date of birth, home address (UK addresses only), email address, telephone number, and the name or reference number of the Competition they wish to enter, on a plain piece of paper (minimum A5 size);\nProvide a correct written answer to the Skill Question for that Competition;\nPost the completed entry in a stamped envelope to: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nEnsure the entry is received at the above address on or before the Closing Date of the relevant Competition.\n\n13.3 In order for a free postal entry to be deemed valid, ALL of the following conditions must be satisfied:\nThe entry must be handwritten. Printed, typed, or computer-generated entries will not be accepted;\nOnly one free postal entry is permitted per person, per Competition;\nThe envelope must be stamped with a valid Royal Mail postage stamp. Franked mail and freepost envelopes will not be accepted;\nThe entry must be received (not merely postmarked) by the Closing Date;\nThe correct answer to the Skill Question must be provided and must match the answer published by the Company;\nThe participant must satisfy all general eligibility requirements set out in Section 4 of these Terms.\n\n13.4 Free postal entries that fail to meet any of the above conditions will be deemed invalid and will not be entered into the Draw.\n\n13.5 Free postal entries carry the same weight and chance of winning as paid entries and will be entered into the same Draw.\n\n13.6 The Company does not accept responsibility for postal entries lost, delayed, or damaged in the mail. It is strongly recommended that participants retain proof of postage.\n\n13.7 The cost of postage for free postal entries is the sole responsibility of the participant."
+        "body": "13.1 In order to ensure that Golden Dream Draw competitions remain compliant with applicable UK law, a free method of entry is available for every Competition, as follows.\n\n13.2 To submit a free entry by post, the participant must:\nWrite their full name, date of birth, home address (UK addresses only), email address, telephone number, and the name or reference number of the Competition they wish to enter, on a plain piece of paper (minimum A5 size);\nProvide a correct written answer to the Skill Question for that Competition, if any;\nPost the completed entry in a stamped envelope to: Golden Dream Draw, PO Box 483, Green Lanes, London, N13 4FG;\nEnsure the entry is received at the above address on or before the Closing Date of the relevant Competition.\n\n13.3 In order for a free postal entry to be deemed valid, ALL of the following conditions must be satisfied:\nThe entry must be handwritten. Printed, typed, or computer-generated entries will not be accepted;\nOnly one free postal entry is permitted per person, per Competition;\nThe envelope must be stamped with a valid Royal Mail postage stamp. Franked mail and freepost envelopes will not be accepted;\nThe entry must be received (not merely postmarked) by the Closing Date;\nWhere a Skill Question applies, the correct answer must be provided and must match the answer published by the Company;\nThe participant must satisfy all general eligibility requirements set out in Section 4 of these Terms.\n\n13.4 Free postal entries that fail to meet any of the above conditions will be deemed invalid and will not be entered into the Draw.\n\n13.5 Free postal entries carry the same weight and chance of winning as paid entries and will be entered into the same Draw.\n\n13.6 The Company does not accept responsibility for postal entries lost, delayed, or damaged in the mail. It is strongly recommended that participants retain proof of postage.\n\n13.7 The cost of postage for free postal entries is the sole responsibility of the participant."
       },
       {
         "number": "14.",
