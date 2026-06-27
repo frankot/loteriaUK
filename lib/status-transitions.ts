@@ -5,7 +5,7 @@ import { revalidateTag } from "next/cache";
  * Auto-transition ACTIVE competitions past their draw date to CLOSED.
  * Also fix inconsistency: competitions with winners but not DRAWN status.
  *
- * Called from middleware on every page request (non-blocking).
+ * Called from the protected cron route.
  * Idempotent — only touches DB when there are records to fix.
  *
  * Returns count of competitions transitioned (for logging).

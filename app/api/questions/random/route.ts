@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+const ID_RE = /^[a-z0-9]{20,32}$/i;
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl;
     const competitionId = searchParams.get("competitionId");
     const excludeRaw = searchParams.get("exclude");
-    const excludeIds = excludeRaw ? excludeRaw.split(",").filter(Boolean) : [];
+
+    if (competitionId && !ID_RE.test(competitionId)) {
+      return NextResponse.json({ error: "Invalid competition id" }, { status: 400 });
+    }
+
+    const excludeIds = excludeRaw
+      ? excludeRaw.split(",").filter((id) => ID_RE.test(id)).slice(0, 20)
+      : [];
 
     // If competition has an assigned question, prefer it (unless already attempted)
     let competitionQuestionId: string | null = null;

@@ -2,11 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { processCashflowsPayment } from "@/lib/purchase-processor";
 
+const ID_RE = /^[a-z0-9]{20,32}$/i;
+
 export async function GET(request: NextRequest) {
   const paymentId = request.nextUrl.searchParams.get("payment_id");
   const attempt = parseInt(request.nextUrl.searchParams.get("attempt") || "0", 10);
 
-  if (!paymentId) {
+  if (!paymentId || !ID_RE.test(paymentId)) {
     return NextResponse.json({ tickets: [] });
   }
 

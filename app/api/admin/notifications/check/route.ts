@@ -24,10 +24,15 @@ const notifiedEndingSoon = new Set<string>();
 const notifiedSoldOut = new Set<string>();
 
 export async function GET(request: NextRequest) {
-  // Auth via shared secret or cron service IP
-  const authToken = request.nextUrl.searchParams.get("token");
+  // Auth via shared secret. Never query the DB if cron auth is missing/invalid.
   const expected = process.env.CRON_SECRET;
-  if (expected && authToken !== expected) {
+  if (!expected) {
+    return NextResponse.json({ error: "CRON_SECRET is not configured" }, { status: 503 });
+  }
+
+  const bearer = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "");
+  const authToken = request.nextUrl.searchParams.get("token") || bearer;
+  if (authToken !== expected) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

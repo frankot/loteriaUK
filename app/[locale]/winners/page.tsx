@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getWinnersPaginated } from "@/lib/queries";
@@ -5,6 +6,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import WinnerCard from "@/components/public/winner-card";
 
 const WINNERS_PER_PAGE = 20;
+const MAX_PUBLIC_PAGE = 50;
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -17,6 +19,10 @@ export default async function WinnersPage({ params, searchParams }: Props) {
   const t = await getTranslations("winners");
   const { page: pageStr } = await searchParams;
   const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
+
+  if (page > MAX_PUBLIC_PAGE) {
+    notFound();
+  }
 
   const { winners, totalCount } = await getWinnersPaginated(page, WINNERS_PER_PAGE);
   const totalPages = Math.max(1, Math.ceil(totalCount / WINNERS_PER_PAGE));

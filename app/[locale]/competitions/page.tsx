@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getCompetitionsList } from "@/lib/queries";
 import CompetitionCard from "@/components/public/competition-card";
@@ -10,13 +11,20 @@ type Props = {
 };
 
 const PAGE_SIZE = 12;
+const MAX_PUBLIC_PAGE = 50;
+const ALLOWED_CATEGORIES = new Set(["electronics", "jewellery", "fashion", "cash"]);
 
 export default async function CompetitionsPage({ params, searchParams }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("competitionsPage");
-  const { category, page: pageStr } = await searchParams;
+  const { category: rawCategory, page: pageStr } = await searchParams;
   const page = Math.max(1, parseInt(pageStr || "1", 10) || 1);
+  const category = rawCategory && ALLOWED_CATEGORIES.has(rawCategory) ? rawCategory : undefined;
+
+  if ((rawCategory && !category) || page > MAX_PUBLIC_PAGE) {
+    notFound();
+  }
 
   const { competitions, totalCount } = await getCompetitionsList(category, page, PAGE_SIZE);
 

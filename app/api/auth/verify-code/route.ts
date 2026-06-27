@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { saveSession } from "@/lib/session";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const CODE_RE = /^\d{6}$/;
+
 export async function POST(request: Request) {
   try {
     const { email, code } = await request.json();
@@ -14,12 +17,20 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    const normalizedCode = String(code).trim();
+
+    if (normalizedEmail.length > 254 || !EMAIL_RE.test(normalizedEmail) || !CODE_RE.test(normalizedCode)) {
+      return NextResponse.json(
+        { error: "Invalid or expired code" },
+        { status: 401 }
+      );
+    }
 
     // Find valid, unused code
     const loginCode = await prisma.loginCode.findFirst({
       where: {
         email: normalizedEmail,
-        code,
+        code: normalizedCode,
         used: false,
         expiresAt: { gte: new Date() },
       },

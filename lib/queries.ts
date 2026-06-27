@@ -226,31 +226,35 @@ export const getRecentWinners = cached(
 );
 
 // ── Paginated winners (for /winners subpage) ──────────────────
-// Not cached — page/offset varies per request
 
-export async function getWinnersPaginated(page: number, perPage: number) {
-  const [winners, totalCount] = await Promise.all([
-    prisma.winner.findMany({
-      orderBy: { createdAt: "desc" },
-      skip: (page - 1) * perPage,
-      take: perPage,
-      select: {
-        id: true,
-        photoUrl: true,
-        createdAt: true,
-        user: {
-          select: { name: true, email: true },
+export const getWinnersPaginated = cached(
+  ["winners-paginated"],
+  ["winners-paginated"],
+  300,
+  async (page: number, perPage: number) => {
+    const [winners, totalCount] = await Promise.all([
+      prisma.winner.findMany({
+        orderBy: { createdAt: "desc" },
+        skip: (page - 1) * perPage,
+        take: perPage,
+        select: {
+          id: true,
+          photoUrl: true,
+          createdAt: true,
+          user: {
+            select: { name: true, email: true },
+          },
+          competition: {
+            select: { titleEn: true, titlePl: true, titleRo: true, titleBg: true, slug: true },
+          },
         },
-        competition: {
-          select: { titleEn: true, titlePl: true, titleRo: true, titleBg: true, slug: true },
-        },
-      },
-    }),
-    prisma.winner.count(),
-  ]);
+      }),
+      prisma.winner.count(),
+    ]);
 
-  return { winners, totalCount };
-}
+    return { winners, totalCount };
+  }
+);
 
 // ── Competition detail (by slug, for /competitions/[slug]) ──
 
@@ -295,6 +299,22 @@ export const getCompetitionsList = cached(
         orderBy: { drawDate: "asc" },
         skip: (page - 1) * pageSize,
         take: pageSize,
+        select: {
+          id: true,
+          slug: true,
+          titleEn: true,
+          titlePl: true,
+          titleRo: true,
+          titleBg: true,
+          descEn: true,
+          pricePounds: true,
+          maxTickets: true,
+          ticketsSold: true,
+          drawDate: true,
+          prizeImageUrl: true,
+          prizeCategory: true,
+          prizeValue: true,
+        },
       }),
       prisma.competition.count({ where }),
     ]);

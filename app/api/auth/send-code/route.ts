@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma";
 import resend, { FROM_AUTH } from "@/lib/resend";
 import { loginCodeEmailHtml } from "@/lib/email-templates";
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
@@ -13,6 +15,9 @@ export async function POST(request: Request) {
     }
 
     const normalizedEmail = email.toLowerCase().trim();
+    if (normalizedEmail.length > 254 || !EMAIL_RE.test(normalizedEmail)) {
+      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    }
 
     // Rate-limit: check last code sent within 60s
     const recent = await prisma.loginCode.findFirst({
@@ -30,8 +35,8 @@ export async function POST(request: Request) {
     // Generate 6-digit code
     const code = crypto.randomInt(100_000, 1_000_000).toString();
 
-    // Store code in DB
-    await prisma.loginCode.create({
+    // Store code before sending so a delivered email is always verifiable.
+    const loginCode = await prisma.loginCode.create({
       data: {
         email: normalizedEmail,
         code,
@@ -39,11 +44,11 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send via Resend
+    // Send via Resend. In production, never pretend success if email delivery failed.
     const hasResend = !!process.env.RESEND_API_KEY;
     if (hasResend) {
       try {
-        const { error: sendError } = await resend.emails.send({
+        const { data, error: sendError } = await resend.emails.send({
           from: FROM_AUTH,
           to: normalizedEmail,
           subject: "Your login code — Golden Dream Draw",
@@ -52,15 +57,31 @@ export async function POST(request: Request) {
 
         if (sendError) {
           console.error("📧 Resend returned error:", sendError);
-        } else {
-          console.log(`📧 Login code sent to ${normalizedEmail}`);
+          await prisma.loginCode.delete({ where: { id: loginCode.id } });
+          return NextResponse.json(
+            { error: "Failed to send login email. Please try again or contact support." },
+            { status: 502 }
+          );
         }
+
+        console.log(`📧 Login code sent to ${normalizedEmail} (${data?.id ?? "no-message-id"})`);
       } catch (emailError) {
         console.error("Failed to send login email:", emailError);
-        // Still return success — code is stored, user can retry
+        await prisma.loginCode.delete({ where: { id: loginCode.id } });
+        return NextResponse.json(
+          { error: "Failed to send login email. Please try again or contact support." },
+          { status: 502 }
+        );
       }
-    } else {
+    } else if (process.env.NODE_ENV === "development") {
       console.log(`\n🔑 Login code for ${normalizedEmail}: ${code}\n`);
+    } else {
+      console.error("RESEND_API_KEY is not configured; cannot send login code");
+      await prisma.loginCode.delete({ where: { id: loginCode.id } });
+      return NextResponse.json(
+        { error: "Email service is not configured" },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({
