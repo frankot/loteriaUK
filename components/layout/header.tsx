@@ -32,7 +32,7 @@ export default function Header({ isLoggedIn, userEmail }: HeaderProps) {
 
   // Desktop nav links
   const desktopLinks = [
-    ["competitons", "/competitions"],
+    ["competitions", "/competitions"],
     ["trending", "#trending"],
     ["howItWorks", "#how-it-works"],
     ["winners", "#winners"],
